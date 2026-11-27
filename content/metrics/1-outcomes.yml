@@ -1,0 +1,185 @@
+# Dimension 1 · Business outcomes and cost. Field reference: templates/metric.yml.
+
+- id: ai-spend-per-engineer
+  label: "AI spend per engineer"
+  group: cost
+  summary: "What the organisation spends on AI tools and model usage for each engineer, per month or quarter."
+  origin: "Common practice in engineering finance; reported in DX and Larridin budget research."
+  definition: >-
+    Total spend on AI development tooling in a period, divided by the number of engineers in scope.
+    Spend covers seat licences, usage-based model and token charges, and agent platform fees. It
+    excludes general cloud costs not driven by AI use.
+  formula: "(seat licences + usage-based model charges + agent platform fees) ÷ engineers in scope"
+  unit: "currency per engineer per month or quarter"
+  direction: "Neither: read against output. Rising spend is expected while adoption grows."
+  levels: [org, portfolio]
+  inputs: ["Licence invoices", "Model usage billing", "Agent platform billing", "HR headcount"]
+  why: >-
+    It is the number finance asks for first, and it makes AI cost comparable across teams and over
+    time. It answers "how much", not "was it worth it".
+  measure: >-
+    Join billing exports from each AI vendor with headcount for the same period. Count usage-based
+    charges in the month they are incurred, not when invoiced, and tag spend by team where vendors
+    allow it so the figure can be broken down.
+  ai: >-
+    Spend shifts from fixed seats to usage-based charges as teams adopt agents, so the figure becomes
+    more variable and harder to forecast. Agent workloads can cost far more per engineer than
+    completion tools.
+  findings:
+    - {text: "Atlassian's AI SDLC Index measured AI spend per unit of output of $8.85 in April, $39.98 in September and $29.11 in October 2026, and describes these values as a floor. Spend per engineer is the simpler cousin of that measure.", source: atlassian-ai-sdlc-index}
+  pitfalls:
+    - {text: "Reading a rise as waste when it reflects healthy adoption.", balance: ai-spend-per-output}
+    - {text: "Missing spend bought on personal or team cards, which hides real cost and real tool use.", balance: shadow-ai-usage}
+  related: [ai-spend-per-output, wasted-ai-spend, ai-active-users, cost-to-serve-software]
+  sources: [atlassian-ai-sdlc-index]
+
+- id: ai-spend-per-output
+  label: "AI spend per unit of output"
+  group: cost
+  summary: "AI spend divided by delivered work, so cost can be judged against what it produced."
+  origin: "Atlassian AI SDLC Index (2026), which uses size-weighted merged pull requests as the unit of output."
+  definition: >-
+    AI spend in a period divided by a measure of delivered work in the same period. Atlassian's index
+    uses merged pull requests weighted by size; other organisations use completed work items or
+    deployments.
+  formula: "AI spend in period ÷ units of output in period (for example size-weighted merged pull requests)"
+  unit: "currency per unit of output"
+  direction: "Lower is better, at constant quality."
+  levels: [team, org]
+  inputs: ["AI billing", "Merged pull requests", "Pull request size", "Work item tracker"]
+  why: >-
+    It turns AI cost into an efficiency measure: the same spend producing more delivered work is a
+    better investment. It is the bridge between finance's question and engineering's data.
+  measure: >-
+    Choose one unit of output and keep it fixed. Weight pull requests by size so that splitting work
+    does not lower the figure. Attribute spend to the same teams and period as the output.
+  ai: >-
+    The measure exists because of AI: before usage-based AI charges, tooling cost per unit of output
+    was small and stable enough to ignore.
+  findings:
+    - {text: "Atlassian reported AI spend per unit of output of $8.85 (April), $39.98 (September) and $29.11 (October 2026) across organisations in its index, and calls the values a floor.", source: atlassian-ai-sdlc-index}
+  pitfalls:
+    - {text: "Counting output that later fails or is reworked, which flatters the figure.", balance: deployment-rework-rate}
+    - {text: "Changing the unit of output between periods, which breaks the trend.", balance: pr-size}
+  related: [ai-spend-per-engineer, cost-to-serve-software, pr-throughput, ai-code-survival]
+  sources: [atlassian-ai-sdlc-index]
+
+- id: wasted-ai-spend
+  label: "Wasted and optimisable AI spend"
+  group: cost
+  summary: "The share of AI spend on unused seats, idle licences or work that could run on a cheaper model."
+  origin: "Vendor practice; Harness offers 'wasted spend' and 'optimizable spend' views (2026)."
+  definition: >-
+    Wasted spend is paid capacity that produced no use, such as seats with no activity in the period.
+    Optimisable spend is use that could have cost less, such as tasks sent to a premium model that a
+    cheaper model handles as well.
+  formula: "(unused seat cost + avoidable premium-model cost) ÷ total AI spend"
+  unit: "% of AI spend"
+  direction: "Lower is better."
+  levels: [org]
+  inputs: ["Seat assignments", "Per-user activity", "Model usage by task", "Price list"]
+  why: >-
+    It is the most direct lever on AI cost that does not reduce what engineers can do.
+  measure: >-
+    Compare assigned seats with active users for the period. For usage-based spend, classify requests
+    by task and model tier, and estimate the cost had each task used the lowest tier that meets the
+    team's quality bar.
+  ai: >-
+    Model routing and agent workloads make optimisable spend large and visible; seat waste is the
+    older problem from completion tools.
+  findings: []
+  pitfalls:
+    - {text: "Cutting seats from occasional users who rely on the tool at key moments.", balance: ai-active-users}
+    - {text: "Routing to cheaper models that lower survival of the code produced.", balance: ai-code-survival}
+  related: [ai-spend-per-engineer, ai-active-users, ai-spend-per-output]
+  sources: [harness-aidlc-insights]
+
+- id: cost-to-serve-software
+  label: "Cost to serve software (CTS-SW)"
+  group: cost
+  summary: "The full cost of delivering and running software, per unit of delivered change, as AWS uses it to judge AI investment."
+  origin: "Amazon (cost to serve software, CTS-SW), described by AWS."
+  definition: >-
+    The total engineering and operating cost of delivering software, divided by units of delivered
+    change, such as deployments. It is a whole-system cost measure, of which AI spend is one part.
+  formula: "total cost of building and running software in period ÷ units delivered (for example deployments)"
+  unit: "currency per unit delivered"
+  direction: "Lower is better, at constant quality."
+  levels: [portfolio, org]
+  inputs: ["Engineering cost", "Infrastructure cost", "AI spend", "Deployments"]
+  why: >-
+    It answers whether AI lowers the cost of delivery as a whole, which is the claim most AI business
+    cases make.
+  measure: >-
+    Agree with finance which costs are in scope and keep them fixed. Divide by deployments or another
+    delivery unit that the organisation already counts reliably.
+  ai: >-
+    AI changes both sides of the ratio: it adds tooling cost and should raise delivered units. The
+    measure shows the net effect.
+  findings:
+    - {text: "AWS reports that Amazon reduced its cost to serve software by 15.9% year over year in 2024 and raised weekly production deployments per builder by 18.3%.", source: aws-cts-sw}
+    - {text: "AWS's worked example for a bank of 1,000 developers (a 15% CTS-SW improvement, about $20M avoided on a $2M investment, roughly 10x) is hypothetical, not a reported result.", source: aws-cts-sw}
+  pitfalls:
+    - {text: "Quoting a vendor's worked example as an outcome.", balance: ai-spend-per-output}
+    - {text: "Lowering cost by shipping more failed changes.", balance: change-failure-rate}
+  related: [ai-spend-per-output, deployment-frequency, innovation-ratio]
+  sources: [aws-cts-sw]
+
+- id: innovation-ratio
+  label: "Innovation ratio"
+  group: value
+  summary: "The share of engineering time spent on new features and capabilities rather than maintenance, support and toil."
+  origin: "Tracked in DX and Atlassian AI impact research (2026)."
+  definition: >-
+    The proportion of engineering effort that goes to new value: new features, products and
+    capabilities. The remainder goes to maintenance, defects, support, operations and unplanned work.
+  formula: "time on new capabilities ÷ total engineering time"
+  unit: "% of engineering time"
+  direction: "Higher is better, within a healthy maintenance budget."
+  levels: [team, org]
+  inputs: ["Developer survey", "Work item types", "Time allocation"]
+  why: >-
+    It is the plainest test of the promise that AI frees engineers for higher-value work.
+  measure: >-
+    Classify work items by type, or ask engineers in a regular survey how they split their time.
+    Survey and system data often disagree; record which one a figure uses.
+  ai: >-
+    If AI saves time on routine work, the ratio should rise. A flat ratio while AI share rises
+    suggests the time saved is going to review, rework or coordination.
+  findings:
+    - {text: "Atlassian's index reports innovation time of about 58%, flat across 2026, based on self-reported data.", source: atlassian-ai-sdlc-index}
+    - {text: "DX reports the innovation ratio flat through Q2 2026 while AI-authored code rose.", source: dx-q2-2026}
+  pitfalls:
+    - {text: "Counting rework on recent features as new work.", balance: deployment-rework-rate}
+    - {text: "Starving maintenance, which raises incidents later.", balance: incidents-per-pr}
+  related: [net-ai-time-savings, supervisory-burden, cost-to-serve-software]
+  sources: [atlassian-ai-sdlc-index, dx-q2-2026]
+
+- id: time-to-market
+  label: "Time to market"
+  group: value
+  summary: "How long a product change takes from approved idea to customers using it."
+  origin: "Common practice in product management; a business-level counterpart to DORA's change lead time."
+  definition: >-
+    The elapsed time from the decision to build a product change to its general availability to
+    customers. It spans discovery, specification, build, release and rollout, not only engineering.
+  formula: "median( general availability date − approval date ) for changes shipped in period"
+  unit: "days or weeks"
+  direction: "Lower is better."
+  levels: [portfolio, org]
+  inputs: ["Product roadmap", "Work item tracker", "Release records", "Feature flags"]
+  why: >-
+    It is the speed measure executives and customers feel. Faster engineering that does not shorten
+    time to market has not changed the outcome.
+  measure: >-
+    Record an approval date and a general availability date for each roadmap item. Use the median
+    and show the spread; a few large items dominate an average.
+  ai: >-
+    AI shortens build steps first. If queues before and after build stay the same, time to market
+    barely moves; the measure shows where the remaining time sits.
+  findings: []
+  pitfalls:
+    - {text: "Counting a release behind a feature flag as available.", balance: change-lead-time}
+    - {text: "Shipping faster with lower quality.", balance: change-failure-rate}
+  related: [change-lead-time, flow-efficiency, innovation-ratio]
+  sources: []

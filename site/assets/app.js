@@ -47,10 +47,7 @@
       l.addEventListener('mouseleave', function () { if (!pinned) focusBand(null); });
       l.addEventListener('focus', function () { if (!pinned) focusBand(l.dataset.band); });
       l.addEventListener('blur', function () { if (!pinned) focusBand(null); });
-      l.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); togglePin(l.dataset.band); }
-      });
-      l.addEventListener('click', function () { togglePin(l.dataset.band); });
+      /* Band labels are links to the dimension page; pinning lives on the legend chips. */
     });
   }
   var chips = d.querySelectorAll('.chip');

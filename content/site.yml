@@ -24,25 +24,25 @@ routes:
   - id: understand
     title: "Understand"
     icon: book
-    blurb: "What each dimension measures and why AI changes the picture."
-    topics: [lead-time, ai-assisted-share, dev-satisfaction, change-failure-rate]
+    blurb: "Start with the delivery basics, then see what AI changes."
+    topics: [change-lead-time, deployment-frequency, change-failure-rate, ai-authored-share, net-ai-time-savings]
   - id: choose
-    title: "Choose metrics"
+    title: "Report AI impact"
     icon: flag
-    blurb: "Pick a small, balanced set for the decision in front of you."
-    topics: [time-to-value, cost-per-change, agent-task-success, rework-rate]
+    blurb: "A balanced starter set for a leadership review of AI."
+    topics: [ai-spend-per-output, innovation-ratio, ai-code-survival, incidents-per-pr, developer-experience-index]
   - id: instrument
     title: "Instrument"
     icon: pkg
-    blurb: "Where the data comes from and how to collect it."
-    topics: [deployment-frequency, review-time, acceptance-rate, review-coverage]
-  - id: report
-    title: "Report to leaders"
+    blurb: "Metrics you can collect from version control and pipelines today."
+    topics: [pr-cycle-time, pr-size, time-to-first-review, ai-pr-acceptance, unreviewed-merges]
+  - id: agents
+    title: "Run agents"
     icon: play
-    blurb: "Turn the numbers into a story an executive can act on."
-    topics: [ai-roi, delivery-predictability, cost-per-agent-task, audit-evidence]
+    blurb: "What to watch when agents start opening pull requests."
+    topics: [agent-task-success, human-intervention-rate, agent-pr-share, supervisory-burden, context-file-coverage]
   - id: lookup
     title: "Look it up"
     icon: search
-    blurb: "Every metric, its formula and its source, in one list."
+    blurb: "Every metric, framework, term and source."
     topics: []

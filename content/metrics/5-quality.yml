@@ -1,0 +1,324 @@
+# Dimension 5 · Quality, risk and governance.
+
+- id: change-failure-rate
+  label: "Change failure rate"
+  group: stability
+  summary: "The share of deployments that cause a failure in production needing immediate fixing."
+  origin: "DORA (one of its five software delivery metrics)."
+  definition: >-
+    The ratio of deployments that require immediate intervention following a deployment, such as a
+    rollback or hotfix (DORA). DORA calls it change fail rate.
+  formula: "deployments causing a production failure ÷ all production deployments"
+  unit: "%"
+  direction: "Lower is better."
+  levels: [team, org]
+  inputs: ["Deployment pipeline", "Incident records", "Rollbacks and hotfixes"]
+  why: >-
+    It is DORA's main stability signal and the counterweight to every speed metric.
+  measure: >-
+    Link incidents and rollbacks to the deployment that caused them. Agree what counts as a failure
+    and apply it consistently.
+  ai: >-
+    If AI raises throughput, change failure rate shows whether quality kept pace.
+  findings:
+    - {text: "DORA's 2024 performance clusters, as reported by Octopus Deploy, put change failure rate at 5% for elite, 20% for high, 10% for medium and 40% for low performers; the medium and high clusters are inverted on this measure.", source: dora-2024-octopus}
+  pitfalls:
+    - {text: "Under-reporting failures that are fixed quietly.", balance: deployment-rework-rate}
+    - {text: "Avoiding deployments to keep the rate low.", balance: deployment-frequency}
+  related: [deployment-rework-rate, failed-deployment-recovery-time, deployment-frequency, incidents-per-pr]
+  sources: [dora-guide, dora-2024-octopus]
+
+- id: failed-deployment-recovery-time
+  label: "Failed deployment recovery time"
+  group: stability
+  summary: "How long it takes to restore service after a deployment fails in production."
+  origin: "DORA (one of its five software delivery metrics, which DORA groups with throughput; formerly time to restore service)."
+  definition: >-
+    The time it takes to recover from a deployment that fails and requires immediate intervention
+    (DORA), measured from detection to service being restored by rollback, fix forward or other remedy.
+  formula: "median( service restored time − failure detected time ) for failed deployments"
+  unit: "hours"
+  direction: "Lower is better."
+  levels: [team, org]
+  inputs: ["Incident records", "Deployment pipeline", "Monitoring alerts"]
+  why: >-
+    Fast recovery limits the cost of every failure and makes frequent deployment safe.
+  measure: >-
+    Take detection and restoration times from the incident record, linked to the deployment.
+  ai: >-
+    Teams that understand less of their AI-written code may take longer to diagnose failures.
+  findings: []
+  pitfalls:
+    - {text: "Closing incidents before service is truly restored.", balance: deployment-rework-rate}
+    - {text: "Counting all incidents, not only deployment failures.", balance: change-failure-rate}
+  related: [change-failure-rate, deployment-rework-rate, change-lead-time]
+  sources: [dora-guide]
+  disagreements: "Older material calls this mean time to restore (MTTR); DORA now uses failed deployment recovery time and classes it as a throughput metric. This map groups it with stability because it measures the cost of failures."
+
+- id: deployment-rework-rate
+  label: "Deployment rework rate"
+  group: stability
+  summary: "The share of deployments that are unplanned, made to fix a problem in production."
+  origin: "DORA (the fifth software delivery metric, added in 2024)."
+  definition: >-
+    The ratio of deployments that are unplanned but happen as a result of an incident in production
+    (DORA).
+  formula: "unplanned deployments to fix production issues ÷ all production deployments"
+  unit: "%"
+  direction: "Lower is better."
+  levels: [team, org]
+  inputs: ["Deployment pipeline", "Incident and defect links"]
+  why: >-
+    It catches instability that change failure rate misses, such as quiet follow-up fixes.
+  measure: >-
+    Tag deployments as planned or unplanned at release time, with a link to the incident or defect.
+  ai: >-
+    A rising rework rate with rising AI share suggests AI changes are shipping before they are ready.
+  findings: []
+  pitfalls:
+    - {text: "Fixes bundled into planned releases and never tagged.", balance: change-failure-rate}
+    - {text: "Low rework because fixes are slow.", balance: failed-deployment-recovery-time}
+  related: [change-failure-rate, failed-deployment-recovery-time, ai-code-survival]
+  sources: [dora-guide]
+
+- id: incidents-per-pr
+  label: "Incidents per pull request"
+  group: stability
+  summary: "Production incidents divided by merged pull requests, so incident counts are read against volume."
+  origin: "Engineering analytics practice; reported by Faros AI in 2026."
+  definition: >-
+    Production incidents in a period divided by pull requests merged in the same period.
+  formula: "production incidents ÷ merged pull requests"
+  unit: "incidents per pull request (or per 100)"
+  direction: "Lower is better."
+  levels: [team, org]
+  inputs: ["Incident records", "Pull request records"]
+  why: >-
+    Raw incident counts rise with volume. Normalising shows whether each change has become riskier.
+  measure: >-
+    Use the same scope for incidents and pull requests. Link incidents to causing changes where
+    possible.
+  ai: >-
+    It is one of the clearest signals of quality cost from higher AI throughput.
+  findings:
+    - {text: "Faros AI compared high and low AI adoption over two years of telemetry (22,000 developers, 4,000 teams, labelled Q2 2026): incidents per pull request were 242.7% higher, bugs per pull request 28.7% higher and monthly incidents 57.9% higher.", source: faros-whiplash}
+  pitfalls:
+    - {text: "Counting minor alerts as incidents.", balance: change-failure-rate}
+    - {text: "Raising pull request counts to lower the ratio.", balance: pr-size}
+  related: [change-failure-rate, pr-throughput, ai-authored-share]
+  sources: [faros-whiplash]
+
+- id: code-duplication
+  label: "Duplication and refactoring share"
+  group: maintainability
+  summary: "How much new code is copied or duplicated, and how much change is refactoring of existing code."
+  origin: "GitClear code-quality research (reported by Cortex, 2026)."
+  definition: >-
+    Duplication is the share of changed lines that repeat existing code blocks. Refactoring share is
+    the share of changed lines that move or restructure existing code.
+  formula: "duplicated lines ÷ changed lines; moved or restructured lines ÷ changed lines"
+  unit: "% of changed lines"
+  direction: "Lower duplication and a healthy refactoring share are better."
+  levels: [team, org]
+  inputs: ["Version control diffs", "Clone detection"]
+  why: >-
+    Duplication raises maintenance cost; a falling refactoring share means the design is not being
+    kept up.
+  measure: >-
+    Run clone detection on each merged change; classify moved code separately from new code.
+  ai: >-
+    AI tools make adding new code easier than reusing or restructuring existing code.
+  findings:
+    - {text: "GitClear, reported by Cortex, found duplicated code up 81% from 2023 to 2026 and refactoring falling from 21% to under 4% of changes.", source: cortex-roi}
+  pitfalls:
+    - {text: "Penalising intentional duplication in tests.", balance: mutation-score}
+    - {text: "Refactoring for the metric.", balance: ai-code-survival}
+  related: [cognitive-complexity, ai-code-survival, ai-authored-share]
+  sources: [cortex-roi]
+
+- id: cognitive-complexity
+  label: "Code complexity and static-analysis findings"
+  group: maintainability
+  summary: "How hard the code is to understand, and how many static-analysis issues it carries per thousand lines."
+  origin: "Cognitive complexity (SonarSource) and static-analysis practice."
+  definition: >-
+    Cognitive complexity scores how hard a function is to follow, adding weight for nesting and
+    breaks in linear flow. Static-analysis density counts issues found per thousand lines of code.
+  formula: "Σ cognitive complexity per function; static-analysis issues ÷ thousand lines"
+  unit: "score; issues per KLOC"
+  direction: "Lower is better."
+  levels: [team, org]
+  inputs: ["Static analysis", "Version control"]
+  why: >-
+    Complexity predicts review effort and defects. It shows whether AI code adds structural debt.
+  measure: >-
+    Run the same analyser and rule set on every merge and compare new code with the baseline.
+  ai: >-
+    AI can produce working but convoluted code. Measure new code separately from legacy code.
+  findings: []
+  pitfalls:
+    - {text: "Rule sets changed between periods.", balance: code-duplication}
+    - {text: "Splitting functions to lower scores without simplifying.", balance: supervisory-burden}
+  related: [code-duplication, mutation-score, ai-code-survival]
+  sources: [sonar-cognitive]
+
+- id: mutation-score
+  label: "Mutation score"
+  group: maintainability
+  summary: "The share of deliberately injected faults that the test suite catches."
+  origin: "Mutation testing practice."
+  definition: >-
+    A mutation tool makes small changes (mutants) to the code; the score is the share of mutants that
+    cause at least one test to fail ('killed').
+  formula: "killed mutants ÷ total mutants (excluding equivalent mutants)"
+  unit: "%"
+  direction: "Higher is better."
+  levels: [team]
+  inputs: ["Mutation testing tool", "Test suite"]
+  why: >-
+    Line coverage shows which code runs under test; mutation score shows whether tests would catch a
+    fault.
+  measure: >-
+    Run on changed code in continuous integration; full runs are slow.
+  ai: >-
+    AI-generated tests can reach high coverage with weak assertions. Mutation score exposes them.
+  findings: []
+  pitfalls:
+    - {text: "Long run times that lead teams to skip it.", balance: cognitive-complexity}
+    - {text: "Equivalent mutants counted as survivors.", balance: code-duplication}
+  related: [cognitive-complexity, change-failure-rate]
+  sources: []
+
+- id: ai-policy-coverage
+  label: "AI policy coverage"
+  group: governance
+  summary: "The share of teams and AI tools covered by an approved AI use policy."
+  origin: "Governance practice; survey data from Checkmarx (2025)."
+  definition: >-
+    Teams, or AI tools in use, covered by an approved policy that states permitted tools, data rules
+    and review requirements, divided by all teams or tools.
+  formula: "teams (or tools) under an approved AI policy ÷ all teams (or tools)"
+  unit: "%"
+  direction: "Higher is better."
+  levels: [org]
+  inputs: ["Policy register", "Tool inventory", "Team list"]
+  why: >-
+    Policy is the base layer of AI governance; without it, other controls have nothing to enforce.
+  measure: >-
+    Keep a register linking each approved tool and team to the policy version that covers it.
+  ai: >-
+    Specific to AI governance.
+  findings:
+    - {text: "A Checkmarx survey (August 2025), reported by Encore, found only 18% of organisations had policies for AI coding tools.", source: encore-compliance}
+    - {text: "Atlassian reported that only 6% of organisations have systems to scale and govern AI (2026).", source: atlassian-team26}
+  pitfalls:
+    - {text: "Policies on paper that nobody follows.", balance: shadow-ai-usage}
+    - {text: "Coverage counted by teams, not by tools in use.", balance: ai-active-users}
+  related: [shadow-ai-usage, oversight-readiness, unreviewed-merges]
+  sources: [encore-compliance, atlassian-team26]
+
+- id: shadow-ai-usage
+  label: "Shadow AI usage"
+  group: governance
+  summary: "The share of engineers using AI tools the organisation has not approved."
+  origin: "Security and governance practice."
+  definition: >-
+    Engineers detected or self-reporting use of unapproved AI tools in the period, divided by all
+    engineers.
+  formula: "engineers using unapproved AI tools ÷ all engineers"
+  unit: "%"
+  direction: "Lower is better."
+  levels: [org]
+  inputs: ["Network and endpoint logs", "Expense records", "Developer survey"]
+  why: >-
+    Unapproved tools can leak code and data, and they hide real adoption and cost.
+  measure: >-
+    Combine technical detection with an anonymous survey; each misses what the other finds.
+  ai: >-
+    Specific to AI governance.
+  findings: []
+  pitfalls:
+    - {text: "Punitive detection that drives use further out of sight.", balance: ai-satisfaction-trust}
+    - {text: "Counting only network data.", balance: ai-policy-coverage}
+  related: [ai-policy-coverage, ai-active-users, ai-spend-per-engineer]
+  sources: []
+
+- id: ai-vulnerabilities
+  label: "AI-introduced vulnerabilities"
+  group: governance
+  summary: "Security findings and leaked secrets traced to AI-generated changes, per change or per thousand lines."
+  origin: "Application security practice; risk categories from the OWASP Top 10 for LLM Applications."
+  definition: >-
+    Security vulnerabilities and exposed secrets found in AI-generated or AI-assisted changes, divided
+    by AI changes merged (or per thousand lines), compared with human changes.
+  formula: "security findings in AI changes ÷ AI changes merged (compare with human changes)"
+  unit: "findings per change or per KLOC"
+  direction: "Lower is better."
+  levels: [team, org]
+  inputs: ["Security scanners", "Secret scanning", "AI attribution"]
+  why: >-
+    It shows whether AI-assisted delivery moves security risk into the codebase.
+  measure: >-
+    Run the same scanners on all changes and split results by origin.
+  ai: >-
+    Specific to AI work.
+  findings: []
+  pitfalls:
+    - {text: "Origin labels missing, so findings cannot be split.", balance: ai-authored-share}
+    - {text: "Counting scanner noise.", balance: unreviewed-merges}
+  related: [unreviewed-merges, ai-policy-coverage, change-failure-rate]
+  sources: [owasp-llm]
+
+- id: unreviewed-merges
+  label: "Unreviewed merges"
+  group: governance
+  summary: "The share of pull requests merged without approval from a human reviewer."
+  origin: "Code review and change-control practice."
+  definition: >-
+    Pull requests merged with no approving review by a person other than the author, divided by all
+    merged pull requests. Agent and bot approvals do not count as human review.
+  formula: "merged pull requests without human approval ÷ all merged pull requests"
+  unit: "%"
+  direction: "Lower is better."
+  levels: [team, org]
+  inputs: ["Pull request reviews", "Branch protection settings"]
+  why: >-
+    Human review is the main control on AI-written code and a common audit requirement.
+  measure: >-
+    Read approvals from the platform's review records; separate human, bot and agent approvers.
+  ai: >-
+    Volume pressure from AI output makes skipped review more likely.
+  findings: []
+  pitfalls:
+    - {text: "Approvals given without reading.", balance: supervisory-burden}
+    - {text: "Exempt paths that bypass review.", balance: ai-vulnerabilities}
+  related: [supervisory-burden, ai-vulnerabilities, oversight-readiness]
+  sources: []
+
+- id: oversight-readiness
+  label: "Oversight and compliance readiness"
+  group: governance
+  summary: "How far the organisation meets its human-oversight and AI management obligations, such as the EU AI Act and ISO/IEC 42001."
+  origin: "Regulation and standards: EU AI Act (Regulation (EU) 2024/1689) and ISO/IEC 42001:2023."
+  definition: >-
+    The share of applicable requirements that have a control in place with evidence, assessed against
+    the regulations and standards that apply to the organisation's AI use.
+  formula: "requirements with an evidenced control ÷ applicable requirements"
+  unit: "% of requirements"
+  direction: "Higher is better."
+  levels: [org]
+  inputs: ["Control register", "Audit evidence", "Requirement mapping"]
+  why: >-
+    It turns regulatory exposure into a number leaders can track, and shows where evidence is missing.
+  measure: >-
+    Map requirements to controls once, then review evidence on a fixed cadence. Record which
+    requirements apply and why.
+  ai: >-
+    Specific to AI governance. Most development tools are not high-risk systems under the EU AI Act,
+    but products built with them may be.
+  findings: []
+  pitfalls:
+    - {text: "Counting controls without evidence.", balance: ai-policy-coverage}
+    - {text: "Applying the wrong set of requirements.", balance: unreviewed-merges}
+  related: [ai-policy-coverage, unreviewed-merges, shadow-ai-usage]
+  sources: [eu-ai-act]

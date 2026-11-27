@@ -1,0 +1,23 @@
+# Glossary (GR-2.2): every term credits its originator; terms this site introduces are marked coined.
+- {term: "AI SDLC", definition: "The software development lifecycle with AI tools and agents doing part of the work in each phase.", origin: "Industry usage"}
+- {term: "AI-DLC", definition: "AI-Driven Development Life Cycle: a development method in which AI plans and executes work under human oversight.", origin: "AWS, introduced 31 July 2025", source: aws-aidlc-intro}
+- {term: "Agent (coding agent)", definition: "An AI system that carries out a development task over several steps, such as editing files, running tests and opening a pull request, with limited human input.", origin: "Industry usage"}
+- {term: "Context file", definition: "A file in a repository, such as AGENTS.md, that gives AI agents project instructions and conventions.", origin: "Agent tooling convention (2025)"}
+- {term: "DORA metrics", definition: "Five software delivery metrics: change lead time, deployment frequency, failed deployment recovery time, change failure rate and deployment rework rate.", origin: "DORA (DevOps Research and Assessment)", source: dora-guide}
+- {term: "SPACE", definition: "A framework for developer productivity across five dimensions: satisfaction and well-being, performance, activity, communication and collaboration, efficiency and flow.", origin: "Forsgren, Storey, Maddila, Zimmermann, Houck and Butler (2021)", source: space-acm}
+- {term: "DX Core 4", definition: "A developer productivity framework with four dimensions: speed, effectiveness, quality and business impact.", origin: "DX", source: dx-core4}
+- {term: "Flow Framework", definition: "A model for measuring the flow of business value through software delivery, with flow velocity, time, efficiency, load and distribution.", origin: "Mik Kersten (2018)"}
+- {term: "Speed Score", definition: "A composite of 50% cycle time, 25% cycle time variance and 25% coding time, scored out of 100.", origin: "OrgSignals (SignalsAI)", source: orgsignals-docs}
+- {term: "Cycle time", definition: "For a pull request, the time from first commit (or opening) to merge.", origin: "Pull-request analytics practice"}
+- {term: "Lead time for changes", definition: "The time from commit to successful production deployment; DORA now calls it change lead time.", origin: "DORA", source: dora-guide}
+- {term: "Code turnover", definition: "The share of merged lines modified or deleted within a set window, often 30 days.", origin: "Code-analytics practice"}
+- {term: "Acceptance rate", definition: "For code completion, accepted suggestions divided by suggestions shown. LinearB also uses the term for pull requests merged within 30 days.", origin: "Tool telemetry; LinearB", source: linearb-8m}
+- {term: "Innovation ratio", definition: "The share of engineering time spent on new capabilities rather than maintenance and support.", origin: "DX and Atlassian AI impact research", source: dx-q2-2026}
+- {term: "CTS-SW", definition: "Cost to serve software: the cost of building and running software per unit delivered.", origin: "Amazon / AWS", source: aws-cts-sw}
+- {term: "Shadow AI", definition: "Use of AI tools the organisation has not approved.", origin: "Security practice"}
+- {term: "Human oversight", definition: "Measures that let people monitor, understand and intervene in an AI system; required for high-risk systems by Article 14 of the EU AI Act.", origin: "EU AI Act", source: eu-ai-act}
+- {term: "Mutation testing", definition: "Testing the tests by injecting small faults and checking whether any test fails.", origin: "Software testing practice"}
+- {term: "Cognitive complexity", definition: "A measure of how hard code is to understand, weighting nesting and breaks in linear flow.", origin: "G. Ann Campbell, SonarSource (2017)", source: sonar-cognitive}
+- {term: "P50, P75", definition: "The 50th percentile (median) and 75th percentile of a set of values.", origin: "Statistics"}
+- {term: "Self-reported", definition: "Data that comes from people's answers to surveys rather than from system records.", origin: "Research practice"}
+- {term: "Read-with metric", definition: "A metric shown beside another on this site because it exposes how the first can mislead or be gamed.", origin: "Coined by this site"}

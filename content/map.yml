@@ -1,155 +1,120 @@
-# The topic inventory: the single source for the overview map, the text route, navigation and pages.
+# Map structure: five dimensions (bands) and their metric groups. Metrics live in content/metrics/,
+# one file per dimension, each metric naming its `group`. Order in those files sets map order.
 #
-# status: provisional  — the whole inventory is a structural hypothesis built from well-known public
-#   metric families (DORA, SPACE, DX Core 4 and similar) so the site can be built and reviewed before
-#   the research lands. Research replaces it (project/STATUS.md). The release build refuses to run
-#   while this says provisional (GR-3.2, GR-4.1).
+# Structure source: the nine categories on which the ChatGPT and Gemini research runs converged
+# (research/ai-sdlc-metrics-research-comparison.md, 2026-11-27), folded into the design system's five
+# band colours (D-008, D-009). Stable IDs: links, pages and checks key on IDs, never labels.
 #
-# Stable IDs: every band, group and topic has an `id`. Links, pages and checks key on IDs, never on
-# visible labels, so wording can change without breaking a link (SOP, "The pattern").
-# Bands reuse the five design-system band colours in order (design system v1.0, "Band colours").
+# status: provisional blocks the release build (GR-3.2). It is cleared when every metric page
+# passes review and every cited source is verified.
 
 status: provisional
 
 bands:
   - id: outcomes
     colour: context
-    title: "Business outcomes"
-    role: "Why the organisation invests in AI"
-    notes: ["Value, cost and predictability", "as leaders see them"]
+    title: "Business outcomes and cost"
+    short: "Outcomes"
+    role: "Is the AI investment paying off?"
+    notes: ["Cost, return and the share", "of time spent on new value"]
     icon: compass
+    summary: "Whether AI-assisted delivery creates value for the business at a cost the business accepts."
+    covers: >-
+      The metrics leaders use to judge the investment itself: what AI tooling costs, what each unit of
+      delivered work costs, how much engineering time goes to new value, and how fast the organisation
+      gets a product change in front of customers.
+    who: "Executives sponsoring AI, finance partners, heads of engineering and product."
+    balance: >-
+      Cost metrics fall when spend is cut and rise when adoption grows, so read them against output.
+      Pair AI spend with spend per unit of output, and pair the innovation ratio with delivery-flow and
+      quality metrics, so a cheaper or faster organisation is not mistaken for a better one.
     groups:
-      - id: value
-        title: "VALUE"
-        topics:
-          - {id: time-to-value, label: "Time to value"}
-          - {id: ai-roi, label: "AI return on investment"}
-      - id: cost
-        title: "COST"
-        topics:
-          - {id: cost-per-change, label: "Engineering cost per change"}
-          - {id: capacity-reinvested, label: "Capacity reinvested"}
-      - id: predictability
-        title: "PREDICTABILITY"
-        topics:
-          - {id: delivery-predictability, label: "Delivery predictability"}
-          - {id: customer-impact, label: "Customer-reported quality"}
+      - {id: cost, title: "COST"}
+      - {id: value, title: "VALUE"}
 
   - id: flow
     colour: lifecycle
     title: "Delivery flow"
+    short: "Flow"
     role: "How work moves to production"
-    notes: ["Throughput at each stage", "of the lifecycle"]
+    notes: ["Throughput and speed at", "each stage of the lifecycle"]
     icon: cycle
+    summary: "How much work the delivery system finishes, and how long each change takes from first commit to production."
+    covers: >-
+      Throughput and speed metrics from DORA, flow metrics and pull-request analytics: how often the
+      organisation deploys, how long changes take, where they wait, and how much work is in progress.
+    who: "Delivery leads, engineering managers, platform teams."
+    balance: >-
+      Speed metrics are easy to improve by cutting corners. Read every flow metric with the stability
+      metrics in quality, risk and governance (change failure rate, deployment rework rate), and read
+      pull-request counts with pull-request size so smaller slices are not mistaken for more output.
     groups:
-      - id: plan
-        title: "PLAN"
-        topics:
-          - {id: planning-accuracy, label: "Planning accuracy"}
-      - id: code
-        title: "CODE"
-        topics:
-          - {id: coding-time, label: "Coding time"}
-          - {id: change-size, label: "Change size"}
-      - id: review
-        title: "REVIEW"
-        topics:
-          - {id: review-time, label: "Review time"}
-          - {id: review-load, label: "Review load"}
-      - id: test
-        title: "BUILD & TEST"
-        topics:
-          - {id: pipeline-time, label: "Pipeline duration"}
-      - id: deploy
-        title: "DEPLOY"
-        topics:
-          - {id: deployment-frequency, label: "Deployment frequency"}
-          - {id: lead-time, label: "Lead time for changes"}
-      - id: operate
-        title: "OPERATE"
-        topics:
-          - {id: recovery-time, label: "Failed deployment recovery time"}
-      - id: end-to-end
-        title: "END TO END"
-        dashed: true
-        topics:
-          - {id: cycle-time, label: "Cycle time"}
-          - {id: flow-efficiency, label: "Flow efficiency"}
+      - {id: throughput, title: "THROUGHPUT"}
+      - {id: speed, title: "SPEED"}
+      - {id: review, title: "REVIEW"}
+      - {id: flowstate, title: "FLOW", dashed: true}
 
   - id: ai
     colour: core
     title: "AI in the loop"
+    short: "AI"
     role: "How much AI does, and how well"
-    notes: ["Adoption, contribution", "and agent performance"]
+    notes: ["Adoption, net impact and", "agent performance"]
     icon: chip
+    summary: "How widely AI is used in delivery, what share of the work it produces, and whether that work holds up."
+    covers: >-
+      Adoption metrics (who uses AI and how much of the code it writes), impact metrics (whether AI work
+      survives review and saves time), and agent metrics (how often autonomous agents finish tasks and
+      how much human help they need).
+    who: "Heads of developer experience and platform, AI programme leads, engineering managers."
+    balance: >-
+      Adoption metrics measure activity, not benefit. Read each with an impact metric: AI-authored
+      share with AI code survival and turnover, acceptance rate with post-acceptance edits, and agent
+      pull-request share with agent review burden.
     groups:
-      - id: adoption
-        title: "ADOPTION"
-        topics:
-          - {id: ai-active-users, label: "Active AI users"}
-          - {id: ai-usage-depth, label: "Depth of use"}
-      - id: contribution
-        title: "CONTRIBUTION"
-        topics:
-          - {id: ai-assisted-share, label: "AI-assisted share of changes"}
-          - {id: acceptance-rate, label: "Suggestion acceptance rate"}
-      - id: agents
-        title: "AGENT PERFORMANCE"
-        topics:
-          - {id: agent-task-success, label: "Agent task success rate"}
-          - {id: human-intervention, label: "Human intervention rate"}
-      - id: economics
-        title: "ECONOMICS"
-        topics:
-          - {id: cost-per-agent-task, label: "Cost per agent task"}
-          - {id: ai-spend, label: "AI tooling and inference spend"}
+      - {id: adoption, title: "ADOPTION"}
+      - {id: impact, title: "NET IMPACT"}
+      - {id: agents, title: "AGENTS"}
 
   - id: dx
     colour: enablement
     title: "Developer experience"
+    short: "DevEx"
     role: "What it is like to build with AI"
-    notes: ["Satisfaction, focus", "and capability"]
+    notes: ["Experience, trust", "and talent"]
     icon: layers
+    summary: "How developers experience their work with AI, how much they trust it, and whether the organisation keeps and grows its people."
+    covers: >-
+      Survey-based and system-based measures of the developer's day: the friction they meet, their
+      satisfaction with and trust in AI tools, the supervisory burden of reviewing AI output, and the
+      talent measures of onboarding and retention.
+    who: "Heads of developer experience, engineering managers, HR partners."
+    balance: >-
+      Perception and system data disagree in both directions. Read survey results with system metrics
+      (for example perceived time savings with pull-request cycle time), and never use these measures
+      to rank individuals.
     groups:
-      - id: satisfaction
-        title: "SATISFACTION"
-        topics:
-          - {id: dev-satisfaction, label: "Developer satisfaction"}
-          - {id: perceived-productivity, label: "Perceived productivity"}
-      - id: focus
-        title: "FOCUS"
-        topics:
-          - {id: focus-time, label: "Focus time"}
-          - {id: cognitive-load, label: "Cognitive load"}
-      - id: capability
-        title: "CAPABILITY"
-        topics:
-          - {id: onboarding-time, label: "Onboarding time"}
-          - {id: ai-fluency, label: "AI skills and fluency"}
+      - {id: experience, title: "EXPERIENCE"}
+      - {id: talent, title: "TALENT"}
 
   - id: quality
     colour: assurance
     title: "Quality, risk and governance"
+    short: "Quality"
     role: "Whether the speed is safe"
-    notes: ["Stability, security", "and control evidence"]
+    notes: ["Stability, maintainability", "and control evidence"]
     icon: shield
+    summary: "Whether changes hold up in production, whether the codebase stays maintainable, and whether AI use stays inside policy and regulation."
+    covers: >-
+      DORA's stability metrics, code-health measures that AI assistance is known to move (churn,
+      duplication, complexity, test strength), and governance measures for AI use: policy coverage,
+      unsanctioned tools, AI-introduced vulnerabilities, unreviewed merges and oversight readiness.
+    who: "Quality and reliability leads, security, risk and compliance, architects."
+    balance: >-
+      These metrics are the counterweight to every speed and adoption metric on the map. A rise in
+      throughput or AI share with flat stability is a gain; with rising failure, rework or churn it is
+      a cost moved downstream.
     groups:
-      - id: stability
-        title: "STABILITY"
-        topics:
-          - {id: change-failure-rate, label: "Change failure rate"}
-          - {id: rework-rate, label: "Rework rate"}
-      - id: code-quality
-        title: "CODE QUALITY"
-        topics:
-          - {id: escaped-defects, label: "Escaped defects"}
-          - {id: code-churn, label: "Code churn"}
-      - id: security
-        title: "SECURITY"
-        topics:
-          - {id: ai-code-findings, label: "Security findings in AI-written code"}
-      - id: governance
-        title: "GOVERNANCE"
-        topics:
-          - {id: review-coverage, label: "Human review coverage"}
-          - {id: audit-evidence, label: "Audit evidence coverage"}
+      - {id: stability, title: "STABILITY"}
+      - {id: maintainability, title: "MAINTAINABILITY"}
+      - {id: governance, title: "GOVERNANCE"}
