@@ -10,4 +10,4 @@ What is assumed true, and what is still open. Close an item by moving it to `DEC
 | A4 | Dark-mode tokens are not designed (design system "Not decided yet"), so the site is light-only. | Open in the design system |
 | A5 | The design system's icon meanings (compass = context …) follow the colour slot, so band 1 uses the compass. A metrics-specific icon set may suit better. | Open, ask Vishal |
 | A6 | Charts will be needed on metric pages; the design system names a separate data palette but does not define it. | Open in the design system |
-| A7 | Map name, reader question, audience and public URL in `GOAL.md` are best guesses. | Open, ask Vishal |
+| A7 | Reader question, audience and public URL in `GOAL.md` are best guesses. | Open, ask Vishal |

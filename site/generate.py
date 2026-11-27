@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the AI SDLC Metrics Map site from content/ into _site/.
+"""Build the AI SDLC Metrics & KPIs Map site from content/ into _site/.
 
     python site/generate.py            # release build: refuses provisional inventory and sample pages
     python site/generate.py --preview  # review build: includes sample pages and a preview banner
@@ -134,7 +134,7 @@ def wrap(label: str, width: float) -> list[str]:
     return lines[:3]
 
 
-def build_map(mp: dict, linked: dict[str, str]) -> str:
+def build_map(mp: dict, linked: dict[str, str], title: str = "AI SDLC Metrics & KPIs Map") -> str:
     parts, y = [], 14
     for n, band in enumerate(mp["bands"], 1):
         stroke, fill, dark = BAND_COLOURS[band["colour"]]
@@ -195,7 +195,7 @@ def build_map(mp: dict, linked: dict[str, str]) -> str:
     h = y
     return (f'<svg class="overview" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {MAP_W} {h}" '
             f'role="img" aria-labelledby="map-title map-desc">'
-            f'<title id="map-title">The AI SDLC Metrics Map</title>'
+            f'<title id="map-title">{esc(title)}</title>'
             f'<desc id="map-desc">Five dimensions an enterprise measures when AI joins software delivery, '
             f'each with its metric groups. The same content is listed as text below the map.</desc>'
             + "".join(parts) + "</svg>")
@@ -312,7 +312,7 @@ def build_home(site, mp, topics, pages, svg, preview) -> str:
 <p class="muted">Start with the big picture. Point at a dimension to focus it, and select a metric to open its page.</p></div>
 <div class="legend" role="group" aria-label="Focus a dimension">{legend}</div>
 <figure class="diagram fade"><div class="diagram-frame">{svg}</div>
-<figcaption><b>Figure 1.</b> The AI SDLC Metrics Map: five dimensions, their metric groups and
+<figcaption><b>Figure 1.</b> {esc(site["title"])}: five dimensions, their metric groups and
 {n_topics} metrics. Dashed boxes span the whole lifecycle. The same content is listed as text under
 <a href="#catalogue">All metrics</a>. <a class="dl" href="ai-sdlc-metrics-map.svg" download>{icon("download", 14)} SVG</a></figcaption>
 </figure></div></section>
@@ -459,7 +459,7 @@ def main(argv=None) -> int:
     shutil.copy2(ROOT / "site" / "favicon.svg", out / "favicon.svg")
 
     linked = {tid: f"{tid}.html" for tid in topics if tid in pages}
-    svg = build_map(mp, linked)
+    svg = build_map(mp, linked, site["title"])
     (out / "ai-sdlc-metrics-map.svg").write_text(
         svg.replace('<svg class="overview" ', '<svg class="overview" style="font-family:Inter,sans-serif" ', 1),
         encoding="utf-8")

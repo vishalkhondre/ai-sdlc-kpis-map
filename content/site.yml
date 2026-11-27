@@ -1,8 +1,8 @@
 # Site identity — the single source of truth for site/generate.py.
 # Values marked (provisional) are best guesses awaiting Vishal (see project/GOAL.md, open questions).
 
-title: "The AI SDLC Metrics Map"            # (provisional) map name
-short_title: "AI SDLC Metrics"
+title: "AI SDLC Metrics & KPIs Map"            # confirmed by Vishal 2026-11-27
+short_title: "Metrics & KPIs Map"
 headline: "What to measure when AI joins software delivery"   # (provisional)
 headline_accent: "AI joins"
 tagline: "How to tell whether AI is improving software delivery, on one page."   # (provisional)

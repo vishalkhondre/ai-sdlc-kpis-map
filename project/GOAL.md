@@ -13,6 +13,7 @@ organised as one map whose every box leads to a full metric page. **(provisional
 
 | Field | Answer |
 |---|---|
+| Name | **AI SDLC Metrics & KPIs Map**, repository `ai-sdlc-kpis-map` (confirmed by Vishal, 27 Nov 2026). |
 | Topic and reader | KPIs and metrics of the AI SDLC (AI-DLC) across enterprise dimensions. Readers: engineering leaders and heads of platform or developer experience who must report on AI adoption; delivery and quality leads choosing what to track; executives sponsoring AI who need to read the numbers. They know delivery basics and DORA by name, not every metric's formula. **(provisional)** |
 | Reader question | "Which metrics show whether AI is making our software delivery better, how is each one defined and measured, and what does it not tell us?" **(provisional)** |
 | Map type | **Reference map, standalone.** It has its own subject boundary (measurement) and its own audience, so it is not a zoom inside the AI SDLC Map; it links to that map as a sister site (D-001). |

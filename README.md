@@ -1,4 +1,4 @@
-# The AI SDLC Metrics Map
+# AI SDLC Metrics & KPIs Map
 
 A vendor-neutral reference for measuring the AI SDLC: which metrics show whether AI is improving
 software delivery, how each is defined and measured, and what each cannot tell you. One overview map

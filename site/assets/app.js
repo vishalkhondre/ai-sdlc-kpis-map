@@ -1,4 +1,4 @@
-/* AI SDLC Metrics Map — interaction layer (design system v1.0, "Interaction and motion"). */
+/* AI SDLC Metrics & KPIs Map — interaction layer (design system v1.0, "Interaction and motion"). */
 (function () {
   'use strict';
   var d = document, root = d.documentElement;

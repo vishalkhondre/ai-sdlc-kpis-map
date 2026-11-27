@@ -23,5 +23,8 @@ Nothing is published: Pages is off and deploy is manual (D-005).
 
 ## Session log
 
+- **2026-11-27** Vishal confirmed the name "AI SDLC Metrics & KPIs Map"; repository name unchanged.
+
+
 - **2026-11-27** Scaffold. Read SOP v1.1 and design system v1.0; studied both reference repos at the
   SOP's pinned commits; created `main` with a README (Vishal approved); built the scaffold on a branch.

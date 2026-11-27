@@ -1,6 +1,6 @@
 # CLAUDE.md — start here
 
-This repository builds **The AI SDLC Metrics Map** (working name), a public reference on measuring the
+This repository builds **AI SDLC Metrics & KPIs Map**, a public reference on measuring the
 AI SDLC, following Vishal's SOP "How to build an interactive learning map" v1.1 and the locked
 AI SDLC design system v1.0 (both in Vishal's Notion). This file and `project/` hand one session over to the next.
 
