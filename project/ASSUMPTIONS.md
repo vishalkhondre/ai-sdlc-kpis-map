@@ -1,0 +1,13 @@
+# Assumptions
+
+What is assumed true, and what is still open. Close an item by moving it to `DECISIONS.md`.
+
+| ID | Assumption | Status |
+|---|---|---|
+| A1 | Ground research comes from a ChatGPT Deep Research run started 27 Nov 2026, seeded with Vishal's sources (OrgSignals metric definitions and comparisons, DORA, two LinkedIn posts). Its output is a lead list; every claim is traced to a primary source before use (GR-2.8). | Waiting for the research |
+| A2 | The repository is public, so any pushed branch is publicly readable. Scaffold and provisional labels are acceptable there; nothing confidential is ever pushed. | Holds |
+| A3 | No private source library exists for this map (unlike the AI SDLC Map). The confidentiality rule still applies. | Holds |
+| A4 | Dark-mode tokens are not designed (design system "Not decided yet"), so the site is light-only. | Open in the design system |
+| A5 | The design system's icon meanings (compass = context …) follow the colour slot, so band 1 uses the compass. A metrics-specific icon set may suit better. | Open, ask Vishal |
+| A6 | Charts will be needed on metric pages; the design system names a separate data palette but does not define it. | Open in the design system |
+| A7 | Map name, reader question, audience and public URL in `GOAL.md` are best guesses. | Open, ask Vishal |

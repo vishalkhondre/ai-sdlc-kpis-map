@@ -1,0 +1,155 @@
+# The topic inventory: the single source for the overview map, the text route, navigation and pages.
+#
+# status: provisional  — the whole inventory is a structural hypothesis built from well-known public
+#   metric families (DORA, SPACE, DX Core 4 and similar) so the site can be built and reviewed before
+#   the research lands. Research replaces it (project/STATUS.md). The release build refuses to run
+#   while this says provisional (GR-3.2, GR-4.1).
+#
+# Stable IDs: every band, group and topic has an `id`. Links, pages and checks key on IDs, never on
+# visible labels, so wording can change without breaking a link (SOP, "The pattern").
+# Bands reuse the five design-system band colours in order (design system v1.0, "Band colours").
+
+status: provisional
+
+bands:
+  - id: outcomes
+    colour: context
+    title: "Business outcomes"
+    role: "Why the organisation invests in AI"
+    notes: ["Value, cost and predictability", "as leaders see them"]
+    icon: compass
+    groups:
+      - id: value
+        title: "VALUE"
+        topics:
+          - {id: time-to-value, label: "Time to value"}
+          - {id: ai-roi, label: "AI return on investment"}
+      - id: cost
+        title: "COST"
+        topics:
+          - {id: cost-per-change, label: "Engineering cost per change"}
+          - {id: capacity-reinvested, label: "Capacity reinvested"}
+      - id: predictability
+        title: "PREDICTABILITY"
+        topics:
+          - {id: delivery-predictability, label: "Delivery predictability"}
+          - {id: customer-impact, label: "Customer-reported quality"}
+
+  - id: flow
+    colour: lifecycle
+    title: "Delivery flow"
+    role: "How work moves to production"
+    notes: ["Throughput at each stage", "of the lifecycle"]
+    icon: cycle
+    groups:
+      - id: plan
+        title: "PLAN"
+        topics:
+          - {id: planning-accuracy, label: "Planning accuracy"}
+      - id: code
+        title: "CODE"
+        topics:
+          - {id: coding-time, label: "Coding time"}
+          - {id: change-size, label: "Change size"}
+      - id: review
+        title: "REVIEW"
+        topics:
+          - {id: review-time, label: "Review time"}
+          - {id: review-load, label: "Review load"}
+      - id: test
+        title: "BUILD & TEST"
+        topics:
+          - {id: pipeline-time, label: "Pipeline duration"}
+      - id: deploy
+        title: "DEPLOY"
+        topics:
+          - {id: deployment-frequency, label: "Deployment frequency"}
+          - {id: lead-time, label: "Lead time for changes"}
+      - id: operate
+        title: "OPERATE"
+        topics:
+          - {id: recovery-time, label: "Failed deployment recovery time"}
+      - id: end-to-end
+        title: "END TO END"
+        dashed: true
+        topics:
+          - {id: cycle-time, label: "Cycle time"}
+          - {id: flow-efficiency, label: "Flow efficiency"}
+
+  - id: ai
+    colour: core
+    title: "AI in the loop"
+    role: "How much AI does, and how well"
+    notes: ["Adoption, contribution", "and agent performance"]
+    icon: chip
+    groups:
+      - id: adoption
+        title: "ADOPTION"
+        topics:
+          - {id: ai-active-users, label: "Active AI users"}
+          - {id: ai-usage-depth, label: "Depth of use"}
+      - id: contribution
+        title: "CONTRIBUTION"
+        topics:
+          - {id: ai-assisted-share, label: "AI-assisted share of changes"}
+          - {id: acceptance-rate, label: "Suggestion acceptance rate"}
+      - id: agents
+        title: "AGENT PERFORMANCE"
+        topics:
+          - {id: agent-task-success, label: "Agent task success rate"}
+          - {id: human-intervention, label: "Human intervention rate"}
+      - id: economics
+        title: "ECONOMICS"
+        topics:
+          - {id: cost-per-agent-task, label: "Cost per agent task"}
+          - {id: ai-spend, label: "AI tooling and inference spend"}
+
+  - id: dx
+    colour: enablement
+    title: "Developer experience"
+    role: "What it is like to build with AI"
+    notes: ["Satisfaction, focus", "and capability"]
+    icon: layers
+    groups:
+      - id: satisfaction
+        title: "SATISFACTION"
+        topics:
+          - {id: dev-satisfaction, label: "Developer satisfaction"}
+          - {id: perceived-productivity, label: "Perceived productivity"}
+      - id: focus
+        title: "FOCUS"
+        topics:
+          - {id: focus-time, label: "Focus time"}
+          - {id: cognitive-load, label: "Cognitive load"}
+      - id: capability
+        title: "CAPABILITY"
+        topics:
+          - {id: onboarding-time, label: "Onboarding time"}
+          - {id: ai-fluency, label: "AI skills and fluency"}
+
+  - id: quality
+    colour: assurance
+    title: "Quality, risk and governance"
+    role: "Whether the speed is safe"
+    notes: ["Stability, security", "and control evidence"]
+    icon: shield
+    groups:
+      - id: stability
+        title: "STABILITY"
+        topics:
+          - {id: change-failure-rate, label: "Change failure rate"}
+          - {id: rework-rate, label: "Rework rate"}
+      - id: code-quality
+        title: "CODE QUALITY"
+        topics:
+          - {id: escaped-defects, label: "Escaped defects"}
+          - {id: code-churn, label: "Code churn"}
+      - id: security
+        title: "SECURITY"
+        topics:
+          - {id: ai-code-findings, label: "Security findings in AI-written code"}
+      - id: governance
+        title: "GOVERNANCE"
+        topics:
+          - {id: review-coverage, label: "Human review coverage"}
+          - {id: audit-evidence, label: "Audit evidence coverage"}

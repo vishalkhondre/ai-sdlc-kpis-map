@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+# Publishing is a deliberate, manual act by Vishal (D-005, GR-6.1). There is no push trigger:
+# merging to main does not publish. The release build refuses provisional content (D-006).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only from main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "Deploy runs only from main." && exit 1
+
+  build:
+    needs: guard
+    uses: ./.github/workflows/validate.yml
+    with:
+      release: true
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

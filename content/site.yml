@@ -1,0 +1,48 @@
+# Site identity — the single source of truth for site/generate.py.
+# Values marked (provisional) are best guesses awaiting Vishal (see project/GOAL.md, open questions).
+
+title: "The AI SDLC Metrics Map"            # (provisional) map name
+short_title: "AI SDLC Metrics"
+headline: "What to measure when AI joins software delivery"   # (provisional)
+headline_accent: "AI joins"
+tagline: "How to tell whether AI is improving software delivery, on one page."   # (provisional)
+about: >-
+  A vendor-neutral reference for measuring the AI SDLC: the software development lifecycle with AI
+  agents doing part of the work. One map of five dimensions an enterprise watches, from business
+  outcomes to quality and governance, with every metric defined, its formula given and its source named.
+author: "Vishal Khondre"
+author_url: "https://www.linkedin.com/in/vishalkhondre/"
+repo_url: "https://github.com/vishalkhondre/ai-sdlc-kpis-map"
+site_url: "https://vishalkhondre.github.io/ai-sdlc-kpis-map"   # (provisional) intended public URL
+sister_maps:
+  - title: "The AI SDLC Map"
+    url: "https://vishalkhondre.github.io/ai-sdlc-map/"
+
+# Purpose routes under the map (SOP step 3, reference map). Each lists topic IDs from map.yml.
+# A topic without a finished page renders as a plain label (GR-3.2). (provisional)
+routes:
+  - id: understand
+    title: "Understand"
+    icon: book
+    blurb: "What each dimension measures and why AI changes the picture."
+    topics: [lead-time, ai-assisted-share, dev-satisfaction, change-failure-rate]
+  - id: choose
+    title: "Choose metrics"
+    icon: flag
+    blurb: "Pick a small, balanced set for the decision in front of you."
+    topics: [time-to-value, cost-per-change, agent-task-success, rework-rate]
+  - id: instrument
+    title: "Instrument"
+    icon: pkg
+    blurb: "Where the data comes from and how to collect it."
+    topics: [deployment-frequency, review-time, acceptance-rate, review-coverage]
+  - id: report
+    title: "Report to leaders"
+    icon: play
+    blurb: "Turn the numbers into a story an executive can act on."
+    topics: [ai-roi, delivery-predictability, cost-per-agent-task, audit-evidence]
+  - id: lookup
+    title: "Look it up"
+    icon: search
+    blurb: "Every metric, its formula and its source, in one list."
+    topics: []
