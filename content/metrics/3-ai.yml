@@ -434,7 +434,8 @@
   group: agents
   summary: The share of pull requests opened by autonomous agents rather than people.
   origin: Version-control analytics practice (2025–2026).
-  definition: Pull requests opened by agent accounts or agent tools, divided by all pull requests opened.
+  definition: Pull requests opened by an agent working on its own (from an agent account or an agent tool), divided
+    by all pull requests opened. Pull requests a person opens with AI help are not counted.
   formula: pull requests opened by agents ÷ all pull requests opened
   unit: '%'
   direction: 'Neither: read with acceptance and review burden.'

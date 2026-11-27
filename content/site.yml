@@ -29,7 +29,7 @@ routes:
   - id: choose
     title: "Report AI impact"
     icon: flag
-    blurb: "A balanced starter set for a leadership review of AI: cost, speed, quality, value and experience."
+    blurb: "Six metrics for a leadership review of AI: cost, speed, two quality checks, value and experience."
     topics: [ai-spend-per-output, change-lead-time, ai-code-survival, incidents-per-pr, innovation-ratio, developer-experience-index]
   - id: instrument
     title: "Instrument"

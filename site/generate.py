@@ -681,7 +681,7 @@ def build_home(site, mp, metrics, svg, n_refs, preview) -> str:
         items = "".join(f'<li><a href="{t}.html">{esc(metrics[t]["label"])}</a></li>' for t in r["topics"])
         if r["id"] == "lookup":
             items = ('<li><a href="#catalogue">All metrics, by dimension</a></li><li><a href="frameworks.html">'
-                     'Frameworks</a></li><li><a href="latest.html">What changed in November 2026</a></li><li><a href="glossary.html">Glossary</a></li><li><a href="sources.html">'
+                     'Frameworks</a></li><li><a href="measuring-impact.html">How to show AI impact</a></li><li><a href="latest.html">What changed in November 2026</a></li><li><a href="glossary.html">Glossary</a></li><li><a href="sources.html">'
                      'Sources</a></li>')
         routes.append(f'<div class="card fade"><div class="tile">{icon(r["icon"], 18)}</div>'
                       f'<h3>{esc(r["title"])}</h3><p>{esc(r["blurb"])}</p><ul>{items}</ul></div>')
@@ -732,7 +732,8 @@ Dashed boxes are measured across the whole flow of work. The same content is lis
 {"".join(cat)}
 <div class="principle fade"><h3>{icon("scale", 18)} Read every metric with another</h3><p>Each metric page names the
 metrics that show when it misleads. Speed is read with stability, adoption with impact, and survey results with system
-data. No metric on this map is meant for ranking individuals.</p></div>
+data. No metric on this map is meant for ranking individuals. <a href="measuring-impact.html">How to show whether AI
+is making a difference</a>.</p></div>
 </div></section>
 </main>
 {footer(site, n_refs)}
