@@ -76,6 +76,8 @@ H2_ICONS = {
     "How these metrics balance": "scale", "Metrics in this dimension": "chart",
 }
 
+LEVEL_WORDS = {"org": "organisation", "team": "team", "individual": "individual"}
+
 REQUIRED = ["label", "group", "summary", "origin", "definition", "formula", "unit", "direction",
             "inputs", "why", "measure", "ai", "pitfalls", "related"]
 
@@ -156,7 +158,11 @@ def check(site, mp, metrics, refs, glossary, pages, release: bool) -> list[str]:
                 errs.append(f"{mid}: missing required field '{k}' (GR-4.1, GR-2.6)")
         if len(m.get("pitfalls") or []) < 2:
             errs.append(f"{mid}: needs at least two pitfalls (GR-4.1)")
+        if not any(p.get("balance") for p in m.get("pitfalls") or []):
+            errs.append(f"{mid}: at least one pitfall must name a metric to read it with (GR-4.2)")
         for p in m.get("pitfalls") or []:
+            if not p.get("balance"):
+                continue
             if p.get("balance") not in metrics:
                 errs.append(f"{mid}: pitfall balance '{p.get('balance')}' is not a metric (GR-4.3)")
             elif p["balance"] == mid:
@@ -184,6 +190,8 @@ def check(site, mp, metrics, refs, glossary, pages, release: bool) -> list[str]:
                 errs.append(f"route {r['id']}: '{t}' is not a metric")
     if release and mp.get("status") == "provisional":
         errs.append("content/map.yml is provisional (GR-3.2)")
+    if release and "(provisional)" in (CONTENT / "site.yml").read_text(encoding="utf-8"):
+        errs.append("content/site.yml still has values marked (provisional) (GR-3.2)")
     return errs
 
 
@@ -287,7 +295,14 @@ def small_icon(label: str, x: float, y: float, kind: str | None = None) -> str:
 
 def panel(x, y, w, title, tag, rows, colour_key, kind=None) -> tuple[str, int]:
     _, fill, dark = BAND_COLOURS[colour_key]
-    h = 30 + max(1, len(rows)) * 34
+    laid = []
+    for label, meta in rows:
+        room = w - 48 - (len(meta) * 6.2 + 10 if meta else 0)
+        lines = wrap(label, room + 20, 7.2, 2)
+        if len(" ".join(lines)) < len(label):  # longer than two lines: clip the second
+            lines[-1] = lines[-1][: max(4, int(room / 7.2) - 1)].rstrip() + "…"
+        laid.append((label, meta, lines, 34 if len(lines) == 1 else 50))
+    h = 30 + (sum(r[3] for r in laid) if laid else 34)
     p = [f'<rect x="{x:.1f}" y="{y}" width="{w:.1f}" height="{h}" rx="4" fill="#fff" stroke="{G_LINE}"/>',
          f'<path d="M{x:.1f} {y + 4}a4 4 0 0 1 4-4h{w - 8:.1f}a4 4 0 0 1 4 4v24h-{w:.1f}z" fill="{fill}"/>',
          f'<line x1="{x:.1f}" x2="{x + w:.1f}" y1="{y + 28}" y2="{y + 28}" stroke="{HEADER_LINE[colour_key]}"/>',
@@ -295,17 +310,18 @@ def panel(x, y, w, title, tag, rows, colour_key, kind=None) -> tuple[str, int]:
          f'letter-spacing=".06em" fill="{dark}">{esc(title)}</text>',
          f'<text x="{x + w - 12:.1f}" y="{y + 18.5}" text-anchor="end" font-family="{MONO}" font-size="10" '
          f'fill="{MUTED}">{esc(tag)}</text>']
-    for i, (label, meta) in enumerate(rows):
-        ry = y + 28 + i * 34
+    ry = y + 28
+    for i, (label, meta, lines, rh) in enumerate(laid):
         if i:
             p.append(f'<line x1="{x:.1f}" x2="{x + w:.1f}" y1="{ry}" y2="{ry}" stroke="#EDEEF2"/>')
         p.append(small_icon(label, x + 12, ry + 9, kind))
-        room = w - 48 - (len(meta) * 6.2 + 10 if meta else 0)
-        text = label if len(label) * 7.2 <= room else label[: max(4, int(room / 7.2) - 1)].rstrip() + "…"
-        p.append(f'<text x="{x + 36:.1f}" y="{ry + 21}" font-family="{MONO}" font-size="12" fill="{INK}">{esc(text)}</text>')
+        tx = f"{x + 36:.1f}"
+        p.append(f'<text x="{tx}" y="{ry + 21}" font-family="{MONO}" font-size="12" fill="{INK}">{esc(lines[0])}'
+                 + "".join(f'<tspan x="{tx}" dy="15">{esc(t)}</tspan>' for t in lines[1:]) + '</text>')
         if meta:
             p.append(f'<text x="{x + w - 12:.1f}" y="{ry + 21}" text-anchor="end" font-family="{MONO}" '
                      f'font-size="10" fill="{MUTED}">{esc(meta)}</text>')
+        ry += rh
     return "".join(p), h
 
 
@@ -315,6 +331,8 @@ def metric_figure(m: dict, metrics: dict) -> tuple[str, str]:
     inputs = [(i, "") for i in m["inputs"][:4]]
     balances = []
     for p in m["pitfalls"]:
+        if not p.get("balance"):
+            continue
         b = metrics[p["balance"]]
         row = (b["label"], b["band"]["short"].lower())
         if row not in balances:
@@ -325,7 +343,10 @@ def metric_figure(m: dict, metrics: dict) -> tuple[str, str]:
     cy = 50 + 62
     lines = wrap(m["label"], 200, 7.6, 2)
     name = "".join(f'<tspan x="430" dy="{0 if i == 0 else 16}">{esc(t)}</tspan>' for i, t in enumerate(lines))
-    unit = m["unit"] if len(m["unit"]) <= 28 else m["unit"][:27].rstrip() + "…"
+    ulines = wrap(m["unit"], 200, 6.1, 2)
+    if len(" ".join(ulines)) < len(m["unit"]):
+        ulines[-1] = ulines[-1][:28].rstrip() + "…"
+    unit = "".join(f'<tspan x="430" dy="{0 if i == 0 else 12}">{esc(t)}</tspan>' for i, t in enumerate(ulines))
     ny = cy - 8 - (8 if len(lines) > 1 else 0)
     focal = (f'<rect x="330" y="{cy - 46}" width="200" height="92" rx="6" fill="#EEF1FD" stroke="#4C66E6" stroke-width="1.5"/>'
              f'<rect x="395" y="{cy - 55}" width="70" height="17" rx="3" fill="#fff" stroke="#4C66E6"/>'
@@ -333,14 +354,14 @@ def metric_figure(m: dict, metrics: dict) -> tuple[str, str]:
              f'font-weight="600" letter-spacing=".08em" fill="#4C66E6">METRIC</text>'
              f'<text x="430" y="{ny}" text-anchor="middle" font-family="{MONO}" font-size="12.5" '
              f'font-weight="600" fill="{INK}">{name}</text>'
-             f'<text x="430" y="{cy + 30}" text-anchor="middle" font-family="{MONO}" font-size="10" '
-             f'fill="{MUTED}">{esc(unit)}</text>')
+             f'<text x="430" y="{cy + (30 if len(ulines) == 1 else 24)}" text-anchor="middle" font-family="{MONO}" '
+             f'font-size="10" fill="{MUTED}">{unit}</text>')
     arrows = (f'<path d="M260 {cy}H326" stroke="{G_ARROW}" marker-end="url(#ar-{mid})"/>'
               f'<text x="293" y="{cy - 8}" text-anchor="middle" font-family="{MONO}" font-size="10" fill="{MUTED}">feeds</text>'
               f'<path d="M530 {cy}H596" stroke="#059669" stroke-width="1.25" stroke-dasharray="4 3" '
               f'marker-end="url(#ag-{mid})"/>'
               f'<text x="563" y="{cy - 8}" text-anchor="middle" font-family="{MONO}" font-size="10" fill="#059669">balances</text>')
-    levels = ", ".join(m.get("levels") or [])
+    levels = " and ".join(LEVEL_WORDS.get(lv, lv) for lv in m.get("levels") or [])
     legend = (f'<text x="20" y="{H - 16}" font-family="{MONO}" font-size="10" fill="{MUTED}">'
               f'use at {esc(levels)} level · tags on the right name each metric\'s dimension</text>')
     svg = (f'<svg viewBox="0 0 920 {H}" role="img" aria-labelledby="fig-{mid}-t" class="sysfig">'
@@ -352,8 +373,8 @@ def metric_figure(m: dict, metrics: dict) -> tuple[str, str]:
            f'<marker id="ag-{mid}" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">'
            f'<path d="M0 0L8 4L0 8z" fill="#059669"/></marker></defs>'
            f'<rect width="920" height="{H}" fill="url(#dt-{mid})"/>{left}{right}{arrows}{focal}{legend}</svg>')
-    alt = (f'{m["label"]} is computed from: {", ".join(i.lower() for i in m["inputs"][:4])}. '
-           f'Read it with {" and ".join(b[0].lower() for b in balances)}, which show when it misleads.')
+    alt = (f'{m["label"]} is computed from: {", ".join((i[0].lower() + i[1:] if i[1:2].islower() else i) for i in m["inputs"][:4])}. '
+           f'Read it with {" and ".join(b[0] for b in balances)}, which show when it misleads.')
     return svg, alt
 
 
@@ -374,7 +395,7 @@ def dimension_figure(band: dict) -> tuple[str, str]:
            f'<rect width="920" height="{H}" fill="url(#dt-{band["id"]})"/>{"".join(parts)}'
            f'<text x="30" y="{H - 22}" font-family="{MONO}" font-size="10" fill="{MUTED}">'
            f'one panel per metric group · the number is how many metrics it holds</text></svg>')
-    alt = "; ".join(f'{g["title"].title()}: ' + ", ".join(t["label"] for t in g["topics"]) for g in groups)
+    alt = "; ".join(f'{g["title"].capitalize()}: ' + ", ".join(t["label"] for t in g["topics"]) for g in groups)
     return svg, alt
 
 
@@ -454,8 +475,8 @@ def h2(text: str, hid: str) -> str:
 
 def sources_list(ids: list[str], refs: dict) -> str:
     if not ids:
-        return ('<p class="muted">No single public source defines this metric; it is defined here by common '
-                'practice. The definition above is this site\'s statement of that practice.</p>')
+        return ('<p class="muted">No verified public source is cited for this definition. It states common '
+                'practice, and the Origin line above credits who introduced the idea.</p>')
     items = []
     for s in ids:
         r = refs[s]
@@ -505,7 +526,7 @@ def render_metric(site, m, metrics, refs, n_refs, preview) -> str:
         fig = figure_html(1, svg, esc(cap) + ".", alt.group(1) if alt else None)
     else:
         svg, alt = metric_figure(m, metrics)
-        fig = figure_html(1, svg, f"Where {esc(m['label'].lower())} comes from, and the metrics that "
+        fig = figure_html(1, svg, f"Where {esc(m['label'][0].lower() + m['label'][1:] if m['label'][1:2].islower() else m['label'])} comes from, and the metrics that "
                                   f"show when it misleads.", alt)
     srcs = page_sources(m)
 
@@ -519,8 +540,9 @@ def render_metric(site, m, metrics, refs, n_refs, preview) -> str:
     if findings:
         sec.append(("What the research shows", "what-the-research-shows"))
     sec += [("Pitfalls", "pitfalls"), ("Related", "related"), ("Sources", "sources")]
-    pit = "".join(f'<li>{esc(p["text"])} <span class="balance">Read with <a href="{p["balance"]}.html">'
-                  f'{esc(metrics[p["balance"]]["label"])}</a>.</span></li>' for p in m["pitfalls"])
+    pit = "".join(f'<li>{esc(p["text"])}' + (f' <span class="balance">Read with <a href="{p["balance"]}.html">'
+                  f'{esc(metrics[p["balance"]]["label"])}</a>.</span>' if p.get("balance") else "") + '</li>'
+                  for p in m["pitfalls"])
     rel = "".join(f'<li><a href="{r}.html">{esc(metrics[r]["label"])}</a> <span class="muted">· '
                   f'{esc(metrics[r]["summary"])}</span></li>' for r in m["related"])
     fnd = "".join(f'<li>{esc(f["text"])}{cite(f["source"])}</li>' for f in findings)
@@ -529,8 +551,8 @@ def render_metric(site, m, metrics, refs, n_refs, preview) -> str:
                 'None is a target.</p>') if findings else ""
     disagree = (f'<p class="note"><b>Definitions differ.</b> {esc(m["disagreements"])}</p>'
                 if m.get("disagreements") else "")
-    levels = ", ".join(m.get("levels") or [])
-    body = f"""<div class="kicker band-k"><span class="cat-icon">{icon(band["icon"], 14)}</span>{esc(band["title"])} · {esc(group["title"].title())}</div>
+    levels = " and ".join(LEVEL_WORDS.get(lv, lv) for lv in m.get("levels") or [])
+    body = f"""<div class="kicker band-k"><span class="cat-icon">{icon(band["icon"], 14)}</span>{esc(band["title"])} · {esc(group["title"].capitalize())}</div>
 <h1>{esc(m.get("title") or m["label"])}</h1>
 <p class="lede">{esc(m["summary"])}</p>
 <dl class="facts"><div><dt>Unit</dt><dd>{esc(m["unit"])}</dd></div><div><dt>Better when</dt><dd>{esc(m["direction"])}</dd></div><div><dt>Use at</dt><dd>{esc(levels)} level</dd></div><div><dt>Origin</dt><dd>{esc(m["origin"])}</dd></div></dl>
@@ -554,7 +576,7 @@ def render_dimension(site, n, band, n_refs, preview) -> str:
     svg, alt = dimension_figure(band)
     fig = figure_html(1, svg, f"The metric groups in {esc(band['title'])}.", alt)
     groups = "".join(
-        f'<h3 class="grp-h" id="{g["id"]}">{esc(g["title"].title())}</h3><ul class="metric-list">'
+        f'<h3 class="grp-h" id="{g["id"]}">{esc(g["title"].capitalize())}</h3><ul class="metric-list">'
         + "".join(f'<li><a href="{t["id"]}.html">{esc(t["label"])}</a><span>{esc(t["summary"])}</span></li>'
                   for t in g["topics"]) + "</ul>" for g in band["groups"])
     sec = [("What it covers", "what-it-covers"), ("Metrics in this dimension", "metrics"),
@@ -631,7 +653,7 @@ def render_sources(site, refs, metrics, pages, n_refs, preview) -> str:
             continue
         cites = ", ".join(f'<a href="{h}">{esc(t)}</a>' for h, t in users)
         claims = "".join(f"<li>{esc(c)}</li>" for c in r.get("claims") or [])
-        note = f'<p class="muted small">{esc(r["note"])}</p>' if r.get("note") else ""
+        note = f'<p class="muted small">{esc(r["caveat"])}</p>' if r.get("caveat") else ""  # `note` is internal
         rows.append(f'<section class="src" id="src-{esc(rid)}"><h3><a href="{esc(r["url"])}">{esc(r["title"])}</a> '
                     f'<span class="status s-{esc(r.get("status"))}">{esc(r.get("status"))}</span></h3>'
                     f'<p class="muted small">{esc(r["org"])} · published {esc(r.get("published") or "no date shown")} · '
@@ -659,7 +681,7 @@ def build_home(site, mp, metrics, svg, n_refs, preview) -> str:
         items = "".join(f'<li><a href="{t}.html">{esc(metrics[t]["label"])}</a></li>' for t in r["topics"])
         if r["id"] == "lookup":
             items = ('<li><a href="#catalogue">All metrics, by dimension</a></li><li><a href="frameworks.html">'
-                     'Frameworks</a></li><li><a href="latest.html">What changed this month</a></li><li><a href="glossary.html">Glossary</a></li><li><a href="sources.html">'
+                     'Frameworks</a></li><li><a href="latest.html">What changed in November 2026</a></li><li><a href="glossary.html">Glossary</a></li><li><a href="sources.html">'
                      'Sources</a></li>')
         routes.append(f'<div class="card fade"><div class="tile">{icon(r["icon"], 18)}</div>'
                       f'<h3>{esc(r["title"])}</h3><p>{esc(r["blurb"])}</p><ul>{items}</ul></div>')
@@ -686,7 +708,7 @@ def build_home(site, mp, metrics, svg, n_refs, preview) -> str:
 <div class="stats">
 <div class="stat">{icon("layers", 18)}<b>{len(mp["bands"])}</b><span>dimensions</span></div>
 <div class="stat">{icon("rising", 18)}<b>{len(metrics)}</b><span>metrics, each with its own page</span></div>
-<div class="stat">{icon("search", 18)}<b>{n_refs}</b><span>sources, each checked</span></div>
+<div class="stat">{icon("search", 18)}<b>{n_refs}</b><span>sources cited, each checked</span></div>
 </div></div></section>
 
 <section class="section" id="map"><div class="wrap wide">
@@ -696,7 +718,7 @@ def build_home(site, mp, metrics, svg, n_refs, preview) -> str:
 <figure class="diagram fade"><div class="diagram-frame">{svg}</div>
 <figcaption><b>Figure 1.</b> {esc(site["title"])}: five dimensions, {n_groups} metric groups and {len(metrics)} metrics.
 Dashed boxes are measured across the whole flow of work. The same content is listed as text under
-<a href="#catalogue">All metrics</a>. <a class="dl" href="ai-sdlc-metrics-map.svg">{icon("download", 14)} SVG</a></figcaption>
+<a href="#catalogue">All metrics</a>. <a class="dl" href="ai-sdlc-metrics-map.svg">{icon("download", 14)} Download the map (SVG)</a></figcaption>
 </figure></div></section>
 
 <section class="section alt" id="routes"><div class="wrap">

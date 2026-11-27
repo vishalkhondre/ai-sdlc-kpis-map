@@ -79,7 +79,7 @@
   label: Deployment rework rate
   group: stability
   summary: The share of deployments that are unplanned, made to fix a problem in production.
-  origin: DORA (the fifth software delivery metric, added in 2024).
+  origin: DORA (one of its five software delivery metrics).
   definition: The ratio of deployments that are unplanned but happen as a result of an incident in production (DORA).
   formula: unplanned deployments to fix production issues ÷ all production deployments
   unit: '%'
@@ -122,7 +122,7 @@
   - Pull request records
   why: Raw incident counts rise with volume. Normalising shows whether each change has become riskier.
   measure: Use the same scope for incidents and pull requests. Link incidents to causing changes where possible.
-  ai: It is one of the clearest signals of quality cost from higher AI throughput.
+  ai: It shows whether higher AI throughput carries a quality cost.
   findings:
   - text: 'Faros AI compared high and low AI adoption over two years of telemetry (22,000 developers, 4,000 teams,
       labelled Q2 2026): incidents per pull request were 242.7% higher, bugs per pull request 28.7% higher and monthly
@@ -160,7 +160,8 @@
   - Clone detection
   why: Duplication raises maintenance cost; a falling refactoring share means the design is not being kept up.
   measure: Run clone detection on each merged change; classify moved code separately from new code.
-  ai: AI tools make adding new code easier than reusing or restructuring existing code.
+  ai: Watch whether duplication rises and refactoring falls as AI share rises; the GitClear figures below show that
+    pattern.
   findings:
   - text: GitClear, reported by Cortex, found duplicated code up 81% from 2023 to 2026 and refactoring falling from
       21% to under 4% of changes.
@@ -183,7 +184,7 @@
   origin: Cognitive complexity (SonarSource) and static-analysis practice.
   definition: Cognitive complexity scores how hard a function is to follow, adding weight for nesting and breaks
     in linear flow. Static-analysis density counts issues found per thousand lines of code.
-  formula: Σ cognitive complexity per function; static-analysis issues ÷ thousand lines
+  formula: median cognitive complexity per changed function; static-analysis issues ÷ KLOC
   unit: score; issues per KLOC
   direction: Lower is better.
   levels:
@@ -192,13 +193,13 @@
   inputs:
   - Static analysis
   - Version control
-  why: Complexity predicts review effort and defects. It shows whether AI code adds structural debt.
+  why: Code that is hard to follow is harder to review and change. The measure shows whether AI code adds structural
+    debt.
   measure: Run the same analyser and rule set on every merge and compare new code with the baseline.
   ai: AI can produce working but convoluted code. Measure new code separately from legacy code.
   findings: []
   pitfalls:
   - text: Rule sets changed between periods.
-    balance: code-duplication
   - text: Splitting functions to lower scores without simplifying.
     balance: supervisory-burden
   related:
@@ -228,9 +229,9 @@
   findings: []
   pitfalls:
   - text: Long run times that lead teams to skip it.
-    balance: cognitive-complexity
   - text: Equivalent mutants counted as survivors.
-    balance: code-duplication
+  - text: A high score on code that rarely changes while defects escape elsewhere.
+    balance: change-failure-rate
   related:
   - cognitive-complexity
   - change-failure-rate
@@ -253,13 +254,11 @@
   - Team list
   why: Policy is the base layer of AI governance; without it, other controls have nothing to enforce.
   measure: Keep a register linking each approved tool and team to the policy version that covers it.
-  ai: Specific to AI governance.
+  ai: Policies written for completion tools often miss agents, which act on repositories and pipelines directly.
   findings:
-  - text: A Checkmarx survey (August 2025), reported by Encore, found only 18% of organisations had policies for
-      AI coding tools.
+  - text: A Checkmarx survey (August 2025, 1,500+ respondents), reported by Encore, found that only 18% of respondents'
+      organisations had policies for AI coding tools.
     source: encore-compliance
-  - text: Atlassian reported that only 6% of organisations have systems to scale and govern AI (2026).
-    source: atlassian-team26
   pitfalls:
   - text: Policies on paper that nobody follows.
     balance: shadow-ai-usage
@@ -289,7 +288,7 @@
   - Developer survey
   why: Unapproved tools can leak code and data, and they hide real adoption and cost.
   measure: Combine technical detection with an anonymous survey; each misses what the other finds.
-  ai: Specific to AI governance.
+  ai: New AI tools appear faster than approval processes, so unapproved use tends to rise when approval is slow.
   findings: []
   pitfalls:
   - text: Punitive detection that drives use further out of sight.
@@ -320,7 +319,7 @@
   - AI attribution
   why: It shows whether AI-assisted delivery moves security risk into the codebase.
   measure: Run the same scanners on all changes and split results by origin.
-  ai: Specific to AI work.
+  ai: More AI-written code means more code to scan, and AI can repeat insecure patterns across many changes.
   findings: []
   pitfalls:
   - text: Origin labels missing, so findings cannot be split.
@@ -354,11 +353,8 @@
   ai: Volume pressure from AI output makes skipped review more likely.
   findings:
   - text: Jellyfish reported that the median company auto-merges 0.7% of pull requests with no human review, and
-      lead adopters about 10% (1,300+ companies, November 2026).
+      lead adopters about 10% (AI Engineering Trends, November 2026 edition; 1,300+ companies).
     source: jellyfish-ai-trends
-  - text: 'Treude and Baltes quote Faros AI''s April 2026 report: a 31.3% increase in pull requests merged without
-      any review, alongside a 441.5% increase in median time in review.'
-    source: arxiv-treude-baltes
   pitfalls:
   - text: Approvals given without reading.
     balance: supervisory-burden
@@ -373,9 +369,9 @@
 - id: oversight-readiness
   label: Oversight and compliance readiness
   group: governance
-  summary: How far the organisation meets its human-oversight and AI management obligations, such as the EU AI Act
-    and ISO/IEC 42001.
-  origin: 'Regulation and standards: EU AI Act (Regulation (EU) 2024/1689) and ISO/IEC 42001:2023.'
+  summary: How far the organisation meets its human-oversight and AI management obligations, such as those in the
+    EU AI Act.
+  origin: Regulation and standards, such as the EU AI Act (Regulation (EU) 2024/1689).
   definition: The share of applicable requirements that have a control in place with evidence, assessed against
     the regulations and standards that apply to the organisation's AI use.
   formula: requirements with an evidenced control ÷ applicable requirements
@@ -390,14 +386,12 @@
   why: It turns regulatory exposure into a number leaders can track, and shows where evidence is missing.
   measure: Map requirements to controls once, then review evidence on a fixed cadence. Record which requirements
     apply and why.
-  ai: Specific to AI governance. Most development tools are not high-risk systems under the EU AI Act, but products
-    built with them may be.
+  ai: Which obligations apply depends on how the organisation uses AI and what it builds with it.
   findings: []
   pitfalls:
   - text: Counting controls without evidence.
     balance: ai-policy-coverage
   - text: Applying the wrong set of requirements.
-    balance: unreviewed-merges
   related:
   - ai-policy-coverage
   - unreviewed-merges

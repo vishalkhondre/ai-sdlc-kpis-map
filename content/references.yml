@@ -1,5 +1,5 @@
-# Source register (GR-2.5), converted from the research thread's verified register
-# (/mnt/project-files/research/kpis-catalogue/sources.yml, every page opened on 2026-11-27).
+# Source register (GR-2.5), from the verified research register (every page opened on 2026-11-27).
+# `note` is internal and is not rendered; `caveat` is shown to readers on the sources page.
 # status: verified = page opened and claims confirmed; partial = page opened, only the listed claims
 # confirmed; unverified = could not open. The release build refuses a page citing an unverified source.
 # A page may cite a source only for a claim listed under `claims`.
@@ -12,6 +12,7 @@
   accessed: '2026-11-27'
   status: verified
   claims:
+  - The metrics are meant to be applied at the application or service level.
   - 'Five metrics. Throughput: change lead time, deployment frequency, failed deployment recovery time. Instability:
     change fail rate, deployment rework rate.'
   - 'Change lead time: the amount of time it takes for a change to go from committed to version control to deployed
@@ -30,6 +31,7 @@
   published: '2024-11-19'
   accessed: '2026-11-27'
   status: verified
+  caveat: DORA 2024 figures as summarised by Octopus Deploy; the DORA report itself is not cited directly.
   claims:
   - 'Elite: lead time less than a day; deploy on demand; change failure rate 5%; recover less than an hour.'
   - 'High: 1 day to 1 week; daily to weekly; 20%; less than a day.'
@@ -311,6 +313,7 @@
   accessed: '2026-11-27'
   status: verified
   claims:
+  - The unit of delivered change is deployments for microservices and pull request completions for monoliths and mobile apps; the 15.9% reduction is credited to delivery-process and developer-experience improvements.
   - CTS-SW measures the total cost of delivering a unit of software.
   - Amazon reduced costs by 15.9% YoY in 2024 and increased weekly production deployments per builder by 18.3% YoY.
   - 'A worked example (hypothetical bank, 1,000 developers): 15% CTS-SW improvement gives about $20M cost avoidance
@@ -524,6 +527,7 @@
   published: November 2026 (modified 2026-11-18)
   accessed: '2026-11-27'
   status: partial
+  caveat: Only figures stated in the page text are cited; figures shown only in charts are not.
   claims:
   - 'Dataset: 302K engineers, 113M pull requests, 1,300+ companies.'
   - Median company has 35% of merged PRs with agent involvement; leading companies 67%.
@@ -627,6 +631,7 @@
   published: takeaways post 2026-09-18
   accessed: '2026-11-27'
   status: partial
+  caveat: Figures are from Faros AI's companion takeaways post; the full report requires registration.
   claims:
   - 22,000 developers, 4,000 teams, last 12 months; average PR size +71.8%; time in QA +300.6%; incidents per PR
     +14.5% (down from +242.7% in April); monthly incidents +125.4%; correlational.

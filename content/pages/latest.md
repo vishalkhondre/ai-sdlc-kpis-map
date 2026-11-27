@@ -3,13 +3,12 @@ id: latest
 type: reference
 title: What changed this month
 title_accent: this month
-summary: Notable reports and papers on measuring AI-assisted delivery published between 28 October and 27 November 2026, each opened and checked.
-sources: [atlassian-ai-sdlc-index, larridin-dora-space, hatchworks-agent-eval, aws-verisk-aisdlc, keyhole-2026, sonar-agentic-economics, gamut-agent-eval, atlassian-measuring-ai, github-octoverse-2026, jellyfish-ai-trends, arxiv-newman-levelup, arxiv-ghagentci, arxiv-treude-baltes]
+summary: Notable reports and papers on measuring AI-assisted delivery published between 28 October and 27 November 2026.
+sources: [atlassian-ai-sdlc-index, larridin-dora-space, hatchworks-agent-eval, aws-verisk-aisdlc, keyhole-2026, sonar-agentic-economics, gamut-agent-eval, atlassian-measuring-ai, github-octoverse-2026, jellyfish-ai-trends, arxiv-newman-levelup, arxiv-ghagentci, jellyfish-ai-investment, linearb-ai-gap]
 ---
 
-This page lists what was published in the month to 27 November 2026 and what it changes on the map.
-Each item was opened and dated before it was listed. Figures are each publisher's own finding for its
-own population, not targets. The page will be replaced, not extended, at each monthly refresh.
+Published 28 October to 27 November 2026, and what each item changes on the map. Figures are each
+publisher's own finding for its own population, not targets.
 
 ## Three things that moved
 
@@ -18,12 +17,12 @@ counts pull requests started with an agent, Jellyfish counts merged pull request
 involvement, and LinearB counts pull requests written by autonomous agents. The map's
 [agent-opened pull request share](agent-pr-share.html) page shows all three.
 
-**Cost per unit of output became a reported metric.** Atlassian's AI SDLC Index, Jellyfish, LinearB and
-Sonar each published a cost-per-output measure this month, and no two divide the same costs by the
-same output. See [AI spend per unit of output](ai-spend-per-output.html).
+**Cost per unit of output became a reported metric.** Atlassian's AI SDLC Index, Jellyfish's November
+trends report and Sonar each published a cost-per-output measure this month. Earlier guides from
+Jellyfish and LinearB use other definitions, and no two divide the same costs by the same output. See [AI spend per unit of output](ai-spend-per-output.html).
 
 **Agent reliability needs repeated runs.** Agent evaluation guides from HatchWorks and Gamut both
-recommend pass^k, success on every one of k runs, over single-run success. See
+explain pass^k, success on every one of k runs, and show how fast success falls as runs are repeated. See
 [agent task success rate](agent-task-success.html).
 
 ## Reports and blogs
@@ -47,6 +46,5 @@ recommend pass^k, success on every one of k runs, over single-run success. See
 |---|---|---|
 | 13 Nov | [Newman, Bird, Butler, Murphy-Hill: Level Up!](https://arxiv.org/abs/2611.18939) | How AI-assisted authoring changes code review practice and reviewer load |
 | 11 Nov | [Ogenrwot et al.: GHAgentCI](https://arxiv.org/abs/2611.15522) | A public dataset of coding-agent invocations in CI workflow histories |
-| 27 Oct | [Treude and Baltes: What will replace pull requests?](https://arxiv.org/abs/2610.34933) | A review of 50 grey-literature documents on agents and pull requests |
 
 ## Sources

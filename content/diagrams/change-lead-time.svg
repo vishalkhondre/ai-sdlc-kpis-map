@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-labelledby="f-lt-t f-lt-d" class="sysfig">
-<title id="f-lt-t">The span that lead time for changes measures</title>
+<title id="f-lt-t">The span that change lead time measures</title>
 <desc id="f-lt-d">Three panels left to right: version control with the commit (t0), review and pipeline with pull request opened, approved and checks passed, and production with the deploy (t1). A dashed green line under the panels marks the measured span from t0 to t1.</desc>
 <defs>
 <pattern id="lt-dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#E4E6EB"/></pattern>

@@ -52,3 +52,46 @@ framework comparison, glossary) are added when the research shows a need.
 outcomes (amber), delivery flow (grey), AI in the loop (indigo), developer experience (green),
 quality, risk and governance (cyan). A sixth region needs Vishal's approval (design system rule).
 The region names are provisional with the inventory (D-006).
+
+### D-009 · Research categories folded into the five bands · 2026-11-27
+**Decision.** The nine metric categories found in the research (cost and ROI, business outcomes,
+flow, adoption, impact, agents, developer experience, stability and code quality, governance) are
+folded into the five bands of D-008, as 14 metric groups. No sixth band.
+**Why.** Every category fits one band, and the design system allows five band colours.
+
+### D-010 · YAML metric model, generated figures · 2026-11-27
+**Decision.** Each metric is one YAML record in `content/metrics/<n>-<band>.yml` with required fields
+(definition, formula, unit, direction, inputs, why, measure, ai, pitfalls, related) and optional
+`findings` (each with one source), `disagreements` and `sources`. Every metric page gets a generated
+systems-view figure (data sources → metric → the metrics to read it with); a hand-drawn
+`content/diagrams/<id>.svg` replaces it where one exists. Dimension pages are generated from the same
+data. The `lead-time` sample page and `sample: true` are retired.
+**Why.** 47 pages with one structure are reviewed and checked more reliably as data than as prose.
+
+### D-011 · A finding may say only what the register confirms · 2026-11-27
+**Decision.** `content/references.yml` lists, for each source, the claims confirmed on the page.
+A finding states only those claims, with the source's own population and date. Sources that could
+not be opened are not cited (the build refuses them); `partial` sources are cited only for their
+listed claims. The register's `note` field is internal and never rendered; `caveat` is shown.
+**Why.** GR-2.3, GR-2.4, GR-2.7, and the research review found widely repeated figures that the
+cited pages do not contain.
+
+### D-012 · Common-practice definitions without a source · 2026-11-27
+**Decision.** Where no verified public source defines a metric (for example flow efficiency, work in
+progress, time to market, mutation score), the page states the common-practice definition, credits
+the originator in Origin where one is known, and says that no verified source is cited. This is the
+recorded exception to GR-2.6. It is listed for Vishal's review.
+**Why.** Inventing a citation is worse than saying none was verified; some originators (Flow
+Framework, ISO/IEC 42001) could not be opened in this session.
+
+### D-013 · Pitfalls may be data caveats without a read-with metric · 2026-11-27
+**Decision.** A pitfall names a metric to read with only when another metric shows the misreading.
+Data-quality caveats (small samples, response rates, changed rule sets) carry no read-with link.
+Every metric keeps at least one read-with pitfall (GR-4.2).
+**Why.** The editorial review found forced pairings that read as arbitrary.
+
+### D-014 · Monthly digest page · 2026-11-27
+**Decision.** `latest.html` ("What changed in November 2026") lists dated reports and papers from the
+research digest that are in the source register, and what each changes on the map. LinkedIn posts
+(approximate dates) and unverified videos and papers are left out.
+**Why.** Vishal asked for the latest month's material; only verified, dated items meet GR-2.

@@ -15,8 +15,8 @@ measures and which metrics on the map it supplies.
 
 DORA (DevOps Research and Assessment) defines five software delivery metrics. Three measure
 throughput (change lead time, deployment frequency and failed deployment recovery time) and two
-measure instability (change fail rate and deployment rework rate). They are the most widely used delivery
-benchmarks and the base of the delivery flow and stability groups on the map.
+measure instability (change failure rate, which DORA calls change fail rate, and deployment rework rate). They are the base of the delivery
+flow and stability groups on the map.
 
 {{metrics:DORA}}
 
@@ -24,27 +24,27 @@ benchmarks and the base of the delivery flow and stability groups on the map.
 
 SPACE describes developer productivity across five dimensions: satisfaction and well-being,
 performance, activity, communication and collaboration, and efficiency and flow. It is a way of
-choosing a balanced set of measures, not a fixed list of metrics. Its central advice, to never rely on
-one dimension, is the reason every metric page here names the metrics to read with it.
+choosing a balanced set of measures across several dimensions, not a fixed list of metrics. That idea
+of balance is why every metric page here names the metrics to read with it.
 
 ## DX Core 4
 
-The DX Core 4 combines DORA, SPACE and developer-experience research into four dimensions: speed,
-effectiveness, quality and business impact. It supplies the pull-request throughput, developer
-experience and innovation measures on the map.
-
-{{metrics:DX}}
+The DX Core 4 brings together DORA, SPACE and developer-experience research in four dimensions: speed,
+effectiveness, quality and business impact. On this map it supplies
+[pull requests per engineer](pr-throughput.html) (DX's "diffs per engineer") and the
+[Developer Experience Index](developer-experience-index.html). DX's quarterly research also reports
+several AI measures used on the map, such as AI-authored code share and the innovation ratio.
 
 ## Flow Framework
 
-The Flow Framework measures how business value moves through delivery, with flow velocity, flow time,
-flow efficiency, flow load and flow distribution. It supplies the flow group on the map.
-
-{{metrics:Flow Framework}}
+The Flow Framework, introduced by Mik Kersten in *Project to Product* (2018), measures how business
+value moves through delivery, with flow velocity, flow time, flow efficiency, flow load and flow
+distribution. It supplies the flow group on the map: [flow efficiency](flow-efficiency.html) and
+[work in progress](work-in-progress.html) (its flow load).
 
 ## OrgSignals Speed Score
 
-OrgSignals combines pull-request cycle time (50%), cycle time variance (25%) and coding time (25%) into
+OrgSignals combines pull request cycle time (50%), cycle time variance (25%) and coding time (25%) into
 one Speed Score out of 100, with scores above 85 rated elite. It shows how single metrics can be
 weighted into an index, and why the weights should be stated with the score.
 
@@ -52,10 +52,11 @@ weighted into an index, and why the weights should be stated with the score.
 
 ## AWS AI-DLC
 
-AWS introduced the AI-Driven Development Life Cycle (AI-DLC) on 31 July 2025: a development method in
-which AI plans and carries out work while people approve each step. It is a way of working, not a
-metrics framework. AWS uses cost to serve software (CTS-SW) to judge the business effect of AI
-development.
+AWS introduced the AI-Driven Development Life Cycle (AI-DLC) on 31 July 2025: a development method
+organised in Inception, Construction and Operations phases, with work done in short cycles AWS calls
+bolts. It is a way of working, not a metrics framework. Separately, Amazon uses
+[cost to serve software](cost-to-serve-software.html) (CTS-SW) to measure the business value of
+developer-experience improvements.
 
 ## How they fit together
 

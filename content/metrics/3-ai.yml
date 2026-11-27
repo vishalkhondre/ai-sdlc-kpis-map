@@ -99,9 +99,10 @@
   ai: The figure has risen fast across the industry. A higher share is not a benefit on its own; it moves the question
     to review and maintenance.
   findings:
-  - text: DX reported AI-authored code rising from 34% (Q1) to 52% (Q2 2026).
+  - text: DX reported AI-generated code rising from 34% to 52% (Q1 to Q2 2026); DX does not state the base.
     source: dx-q2-2026
-  - text: Atlassian's index reported 49% (April) to 70% (October 2026) of merged code as AI-authored, self-reported.
+  - text: Atlassian's index reported 49% (April) to 70% (October 2026) of merged code as AI-authored, self-reported
+      (227 companies).
     source: atlassian-ai-sdlc-index
   - text: In Augment Code's 2026 survey, respondents reported 48% of their code as AI-generated, and 55% were concerned
       about losing shared understanding of the codebase.
@@ -123,8 +124,8 @@
   - dx-q2-2026
   - atlassian-ai-sdlc-index
   - augment-survey
-  disagreements: DX uses telemetry and survey data; Atlassian's figures are self-reported. They are not directly
-    comparable.
+  disagreements: 'Sources measure different things: DX reports AI-generated code without stating the base or method,
+    and Atlassian''s figures are self-reported shares of merged code. They are not directly comparable.'
 - id: context-file-coverage
   label: Context file coverage
   group: adoption
@@ -141,10 +142,10 @@
   inputs:
   - Repository contents
   - File history
-  why: Agents perform better with explicit project context. Coverage shows whether teams have prepared their codebases
-    for agent work.
+  why: Coding agents read these files for project conventions and commands. Coverage shows whether teams have prepared
+    their codebases for agent work.
   measure: Scan repositories for the agreed file names and check the date of the last change.
-  ai: The measure exists because of agents; it is a leading indicator for agent task success.
+  ai: The measure exists because of agents. Read it with agent task success to see whether the files help.
   findings: []
   pitfalls:
   - text: Empty or stale files that count as covered.
@@ -174,7 +175,8 @@
   why: Gross time savings overstate the benefit. The net figure is the one that can be spent on new work.
   measure: Ask both questions in the same survey, every quarter. Compare with system data such as cycle time; controlled
     studies have found people misjudge their own speed.
-  ai: The measure is specific to AI. It tends to fall as teams move to agents that need more supervision.
+  ai: The measure is specific to AI. Agents that need more supervision can lower the net figure even when gross
+    savings rise.
   findings:
   - text: Keyhole reports DX self-reported savings of 3.6 hours a week (4.1 for daily users).
     source: keyhole-2026
@@ -228,7 +230,7 @@
   ai: Comparing AI-assisted and human turnover is the most direct quality signal for AI code.
   findings:
   - text: Larridin treats 30-day turnover below 12% for AI-assisted code and below 8% for human code as healthy,
-      and above 25% as critical (vendor thresholds, 2026).
+      and above 25% for AI-assisted code as critical (vendor thresholds, 2026).
     source: larridin-benchmarks-2026
   pitfalls:
   - text: Penalising healthy refactoring.
@@ -258,7 +260,8 @@
   - Commit diffs
   why: 'It corrects acceptance rate: an accepted suggestion that is then rewritten saved little.'
   measure: Needs telemetry that links accepted text to the committed result; few tools expose it.
-  ai: Specific to AI assistance.
+  ai: As assistants generate larger blocks, edits move from a few characters to rewriting whole sections, so measure
+    edited lines, not edit events.
   findings: []
   pitfalls:
   - text: Developers who accept and edit as a habit, which is a style, not a defect.
@@ -287,7 +290,8 @@
   - AI attribution
   why: Unmerged AI pull requests are wasted review time. The gap to human pull requests shows how much.
   measure: Label pull requests by origin (human, AI-assisted, agent) and track merge within a fixed window.
-  ai: Specific to AI work.
+  ai: As agents open more pull requests, acceptance tends to separate teams that scope and brief agents well from
+    those that do not.
   findings:
   - text: LinearB reported that 32.7% of AI-generated pull requests merge within 30 days, against about 84.5% of
       unassisted ones (8.1 million pull requests across 4,800 teams, 2026). Its benchmarks page gives 84.4%.
@@ -308,7 +312,7 @@
   sources:
   - linearb-8m
 - id: review-wait-multiplier
-  label: Review wait, AI vs human
+  label: AI vs human review wait
   group: impact
   summary: How much longer AI pull requests wait for review than human ones.
   origin: LinearB 2026 benchmarks.
@@ -325,10 +329,11 @@
   - AI attribution
   why: It shows whether review capacity and trust keep up with AI output.
   measure: Compute both medians over the same teams and period; compare like-sized pull requests where possible.
-  ai: Specific to AI work.
+  ai: The multiple grows when AI output rises faster than reviewer capacity or when reviewers trust AI pull requests
+    less.
   findings:
   - text: LinearB's 2026 benchmarks report AI pull requests waiting 4.6 times longer before review (8.1 million
-      pull requests).
+      pull requests). LinearB's multiple compares averages, not medians.
     source: linearb-benchmarks
   pitfalls:
   - text: Comparing different sizes of pull request.
@@ -360,7 +365,8 @@
   - Test results
   why: It is the basic capability measure for agents in real work, as opposed to benchmark scores.
   measure: Define acceptance per task type before counting. Report by task type and repository; success varies widely.
-  ai: Specific to agents.
+  ai: Success depends on the task mix and the context agents are given, so it changes as teams hand agents harder
+    work.
   findings:
   - text: 'HatchWorks shows why repeated runs matter: an agent that succeeds 90% of the time on one run succeeds
       three runs in a row about 73% of the time, and five in a row about 59%.'
@@ -405,7 +411,8 @@
   - Pull request review events
   why: 'It measures autonomy: how much human time each agent task still costs.'
   measure: Define intervention per tool (a new instruction, a manual commit, a takeover) and log it.
-  ai: Specific to agents.
+  ai: It should fall as agents and their instructions improve; if it falls while failures rise, review has become
+    lighter.
   findings: []
   pitfalls:
   - text: Reducing intervention by lowering standards.
@@ -418,6 +425,7 @@
   sources:
   - sonar-agentic-economics
   - hatchworks-agent-eval
+  - ganglani-agent-eval
   disagreements: Sonar measures an override rate (how often reviewers reject or rewrite agent changes); HatchWorks
     measures the opposite, a containment rate (the share of requests resolved without a human); Ganglani proposes
     an escalation-required rate. One minus containment is the closest to the definition above.
@@ -438,7 +446,7 @@
   - Bot and agent accounts
   why: It shows how far delivery has moved from assisted to delegated work.
   measure: Keep a register of agent identities. Exclude dependency-update bots or report them separately.
-  ai: Specific to agents.
+  ai: It grows as teams move from assistants inside the editor to agents that work on their own and open pull requests.
   findings:
   - text: A 2026 review of 50 grey-literature documents by Treude and Baltes notes that agents now open millions
       of pull requests a month.
@@ -447,7 +455,8 @@
       up from 17% in March (GitHub platform, agent-started).
     source: github-octoverse-2026
   - text: Jellyfish reported that the median company had 35% of merged pull requests with agent involvement, and
-      leading companies 67% (1,300+ companies, 113 million pull requests, October 2026).
+      leading companies 67% (1,300+ companies, 113 million pull requests; October 2026 figures in the November 2026
+      edition).
     source: jellyfish-ai-trends
   - text: LinearB reported that 4.7% of pull requests at elite teams were written by autonomous agents (2.7 million
       pull requests, 253 organisations, February–May 2026).
@@ -462,11 +471,11 @@
   - agent-task-success
   - pr-throughput
   sources:
-  - arxiv-treude-baltes
   - github-octoverse-2026
   - jellyfish-ai-trends
   - linearb-ai-gap
+  - arxiv-treude-baltes
   disagreements: 'Three definitions are in use and their numbers differ by an order of magnitude: pull requests
     started with an agent (GitHub), merged pull requests with any agent involvement (Jellyfish), and pull requests
-    written by autonomous agents (LinearB). The definition above is the strictest; say which one a figure uses before
-    comparing.'
+    written by autonomous agents (LinearB). The definition above counts pull requests opened by agents; say which
+    definition a figure uses before comparing.'

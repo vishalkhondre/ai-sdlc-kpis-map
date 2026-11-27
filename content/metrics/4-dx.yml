@@ -7,7 +7,7 @@
   origin: DX (Developer Experience Index).
   definition: A composite score from a standard developer survey covering the drivers of developer experience, such
     as focus time, build and test speed, documentation, code review and clarity of goals.
-  formula: weighted mean of standard survey items, scaled 0–100
+  formula: composite of standard survey drivers (DX method)
   unit: index points
   direction: Higher is better.
   levels:
@@ -15,17 +15,16 @@
   - org
   inputs:
   - Developer survey
-  why: Friction is invisible in system data. The index shows where developers lose time and is a leading indicator
-    for speed and retention.
+  why: Friction is invisible in system data. The index shows where developers lose time.
   measure: Run the same survey on a fixed cadence, usually quarterly, with high participation. Report by team and
     by driver, never by individual.
   ai: 'AI changes which drivers matter: review load and trust in tools rise in importance.'
   findings: []
   pitfalls:
   - text: Low response rates that skew results.
-    balance: regretted-attrition
   - text: Using survey results to judge individuals.
-    balance: ai-satisfaction-trust
+  - text: Reading survey scores without the system data they describe.
+    balance: pr-cycle-time
   related:
   - ai-satisfaction-trust
   - supervisory-burden
@@ -48,9 +47,10 @@
   - Developer survey
   why: Tools developers dislike or distrust are used badly or not at all, whatever the licence count says.
   measure: Ask separate questions for satisfaction and for trust; they move differently.
-  ai: Specific to AI tools. Very high trust can be a risk if review becomes shallow.
+  ai: Trust changes as tools change. Very high trust can be a risk if review becomes shallow.
   findings:
-  - text: Jellyfish reported that 57% of respondents say AI increases their job satisfaction (2026).
+  - text: Jellyfish reported that 57% of respondents say AI increases their job satisfaction (survey of 600+ engineering
+      leaders, not developers, 2026).
     source: jellyfish-2026
   pitfalls:
   - text: High trust that leads to rubber-stamp review.
@@ -84,7 +84,7 @@
   why: AI moves work from writing to reviewing. If review is not counted, the gain looks larger than it is and senior
     engineers burn out.
   measure: Combine a survey question with review time from pull request events for AI-labelled changes.
-  ai: Specific to AI work; grows with agent adoption.
+  ai: It grows with agent adoption, because each agent task needs briefing, review and correction by a person.
   findings:
   - text: InfoQ reports that 49% of developers spend 4+ hours a week managing AI tools (Atlassian State of DevEx
       2026); 65% spend time correcting AI-generated work.
@@ -129,7 +129,6 @@
   - text: Confidence that does not match the failure record.
     balance: change-failure-rate
   - text: Single-quarter swings read as trends.
-    balance: developer-experience-index
   related:
   - change-failure-rate
   - ai-satisfaction-trust
@@ -162,7 +161,6 @@
   - text: Fast first pull requests without understanding.
     balance: change-confidence
   - text: Small cohorts that swing the figure.
-    balance: developer-experience-index
   related:
   - regretted-attrition
   - developer-experience-index
@@ -188,7 +186,6 @@
   findings: []
   pitfalls:
   - text: Small teams where one exit dominates.
-    balance: developer-experience-index
   - text: Ignoring who leaves, such as senior reviewers.
     balance: supervisory-burden
   related:

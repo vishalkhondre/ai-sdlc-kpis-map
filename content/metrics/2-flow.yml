@@ -22,7 +22,7 @@
   measure: Count successful production deployments from the pipeline's own records. Decide once whether to count
     per service or per repository, and state it with every figure.
   ai: More AI-written code does not mean more deployments if review and release are the constraint. Watch for a
-    rising pull-request count with flat deployment frequency.
+    rising pull request count with flat deployment frequency.
   findings:
   - text: Faros AI found deployments per week 11.7% lower at high than at low AI adoption (22,000 developers, 4,000
       teams, labelled Q2 2026).
@@ -45,9 +45,10 @@
   label: Pull requests per engineer
   group: throughput
   summary: How many pull requests (diffs) each engineer gets merged per week.
-  origin: Speed dimension of the DX Core 4 ('diffs per engineer').
-  definition: Merged pull requests in a period divided by the number of engineers who could author them. DX uses
-    it at team and organisation level only, never to rate individuals.
+  origin: DX Core 4 ('diffs per engineer').
+  definition: Merged pull requests in a period divided by the number of engineers who could author them. DX advises
+    using it with counterbalancing measures such as the Developer Experience Index, and never as a target or a basis
+    for rewards.
   formula: merged pull requests ÷ engineers ÷ weeks
   unit: pull requests per engineer per week
   direction: Higher is better, at constant size and quality.
@@ -95,12 +96,12 @@
     it with deployment frequency to judge throughput.
   measure: Join the commit timestamp from version control with the production deployment timestamp from the pipeline
     by change identifier. Report the median and the 75th percentile so a long tail shows.
-  ai: AI shortens the time spent writing a change, but review and test queues can grow. Read lead time with pull-request
+  ai: AI shortens the time spent writing a change, but review and test queues can grow. Read lead time with pull request
     cycle time and time to first review to see where the time went.
   findings: []
   pitfalls:
   - text: Excluding changes that waited for a release window.
-    balance: cycle-time-variance
+    balance: flow-efficiency
   - text: Shortening lead time by skipping review.
     balance: unreviewed-merges
   related:
@@ -133,8 +134,7 @@
   ai: AI cuts coding time; review time often rises because AI pull requests are larger and reviewers trust them
     less.
   findings:
-  - text: A study at one company (1mg) reported a 31.8% shorter pull request review cycle time with AI-assisted
-      review. It was not randomised.
+  - text: A study at one company (1mg) reported a 31.8% shorter pull request review cycle time. It was not randomised.
     source: arxiv-1mg
   pitfalls:
   - text: Merging quickly without real review.
@@ -172,9 +172,8 @@
   findings: []
   pitfalls:
   - text: Small samples, where one pull request swings the figure.
-    balance: pr-throughput
   - text: Lowering variance by refusing hard work.
-    balance: innovation-ratio
+    balance: pr-size
   related:
   - pr-cycle-time
   - coding-time
@@ -331,7 +330,7 @@
   label: Flow efficiency
   group: flowstate
   summary: The share of elapsed time a work item is actively worked on rather than waiting.
-  origin: Flow Framework (Mik Kersten) and lean flow practice.
+  origin: Lean flow practice; one of the flow metrics in the Flow Framework (Mik Kersten, Project to Product, 2018).
   definition: Active time divided by total elapsed time for a work item, from start to done. Waiting covers queues
     for review, test, approval and release.
   formula: active time ÷ (active time + waiting time)
@@ -343,8 +342,8 @@
   inputs:
   - Work item states
   - State timestamps
-  why: Most delivery time is waiting. Flow efficiency shows how much, so effort goes to queues rather than to working
-    faster.
+  why: Much delivery time can be waiting. Flow efficiency shows how much, so effort goes to queues rather than to
+    working faster.
   measure: Classify each work item state as active or waiting, then sum time in each from state-change history.
   ai: AI shrinks active time. Unless queues shrink too, flow efficiency falls, which is a sign the constraint has
     moved to review or release.
@@ -363,7 +362,7 @@
   label: Work in progress
   group: flowstate
   summary: How many work items are started but not finished at one time.
-  origin: Lean and Kanban practice; 'flow load' in the Flow Framework.
+  origin: Lean and Kanban practice; 'flow load' in the Flow Framework (Mik Kersten, Project to Product, 2018).
   definition: The count of work items in an in-progress state at a point in time, per team or per person.
   formula: count( items in progress ) at a point in time, averaged over the period
   unit: items

@@ -2,29 +2,39 @@
 
 ## Where it stands (27 Nov 2026)
 
-Scaffold built on branch `claude/project-thread-37x2w4`, pull request open against `main`.
-Nothing is published: Pages is off and deploy is manual (D-005).
+The full map is built on branch `claude/project-thread-37x2w4` (pull request #1). Nothing is
+published: Pages is off and deploy is manual (D-005). The release build still refuses, by design,
+because `content/map.yml` is `status: provisional` and `content/site.yml` has values marked
+(provisional) awaiting Vishal (GR-3.2).
 
-- Generator, design-system styles and interaction layer, overview map from the inventory, text
-  route, purpose routes, metric page with a systems-view figure.
-- Inventory is **provisional** (38 metrics in 5 dimensions); one **layout-sample** page
-  (`lead-time`). The release build refuses both.
-- Last verified build: preview build passes 8 site tests and 10 browser checks (hover tooltip,
-  band focus, Escape, skip link, no script errors, no horizontal scroll at 390 px on every page).
+- 57 pages: home (overview map, six purpose routes, text route), 47 metric pages, 5 dimension pages,
+  frameworks, "What changed in November 2026", glossary (30 terms), sources (48 cited sources with
+  status and confirmed claims).
+- Research batches 1 and 2 merged (D-009 to D-011, D-014).
+- Reviews run 27 Nov 2026, each by a fresh-context reviewer with no part in writing the content:
+  accuracy (31 findings, 8 source URLs spot-checked) and editorial plus confidentiality (23 findings).
+  Must-fix findings are fixed; see the review package in the pull request. Independent reader test:
+  Gemini (done); ChatGPT pending (its browser session was in use by another task).
+- Last verified build: preview build passes 12 site tests and the browser checks (hover tooltip,
+  band focus, Escape, skip link, no script errors, no horizontal scroll at 390 px on all 57 pages).
+
+## Open issues
+
+- Reader question, audience, headline, tagline, public URL (A7) and the site.yml route set are guesses.
+- Nine metrics rely on the common-practice exception (D-012).
+- Process notes in `project/` mention research tools and Notion (A9).
+- Suggestions not yet applied: relationship notes between overlapping metrics (review wait vs time
+  to first review; AI pull request acceptance vs agent task success), primary GitClear source for
+  duplication, populations for Larridin thresholds, OWASP framing on AI-introduced vulnerabilities.
 
 ## Next
 
-1. **Vishal:** review the scaffold PR and preview; settle the open items in `ASSUMPTIONS.md` (A5–A7).
-2. When the ChatGPT research returns: verify it into a source register (GR-2.8), save the research to
-   Notion, then replace `content/map.yml` with the researched inventory and drop `status: provisional`.
-3. Port checks from the AI SDLC Map as content arrives: page template gate (GR-4.1), citation and
-   reference fields (GR-2.5), deny-list (GR-1.2), review record binding (GR-5.2), PDF field guide.
-4. Pilot (SOP step 4): one purpose route across two related metrics, end to end.
+1. **Vishal:** review the preview and the review package; confirm or change the guesses; then clear
+   `status: provisional` and the (provisional) markers, merge, enable Pages and run the deploy.
 
 ## Session log
 
+- **2026-11-27** Full build: content model, generator rewrite, research batches 1–2, reviews and fixes.
 - **2026-11-27** Vishal confirmed the name "AI SDLC Metrics & KPIs Map"; repository name unchanged.
-
-
 - **2026-11-27** Scaffold. Read SOP v1.1 and design system v1.0; studied both reference repos at the
   SOP's pinned commits; created `main` with a README (Vishal approved); built the scaffold on a branch.

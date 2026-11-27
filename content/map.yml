@@ -1,9 +1,8 @@
 # Map structure: five dimensions (bands) and their metric groups. Metrics live in content/metrics/,
 # one file per dimension, each metric naming its `group`. Order in those files sets map order.
 #
-# Structure source: the nine categories on which the ChatGPT and Gemini research runs converged
-# (research/ai-sdlc-metrics-research-comparison.md, 2026-11-27), folded into the design system's five
-# band colours (D-008, D-009). Stable IDs: links, pages and checks key on IDs, never labels.
+# Structure source: the nine metric categories found in the 2026-11-27 research, folded into the
+# design system's five band colours (D-008, D-009). Stable IDs: links, pages and checks key on IDs, never labels.
 #
 # status: provisional blocks the release build (GR-3.2). It is cleared when every metric page
 # passes review and every cited source is verified.
@@ -41,13 +40,13 @@ bands:
     icon: cycle
     summary: "How much work the delivery system finishes, and how long each change takes from first commit to production."
     covers: >-
-      Throughput and speed metrics from DORA, flow metrics and pull-request analytics: how often the
+      Throughput and speed metrics from DORA, flow metrics and pull request analytics: how often the
       organisation deploys, how long changes take, where they wait, and how much work is in progress.
     who: "Delivery leads, engineering managers, platform teams."
     balance: >-
       Speed metrics are easy to improve by cutting corners. Read every flow metric with the stability
       metrics in quality, risk and governance (change failure rate, deployment rework rate), and read
-      pull-request counts with pull-request size so smaller slices are not mistaken for more output.
+      pull request counts with pull request size so smaller slices are not mistaken for more output.
     groups:
       - {id: throughput, title: "THROUGHPUT"}
       - {id: speed, title: "SPEED"}
@@ -69,8 +68,8 @@ bands:
     who: "Heads of developer experience and platform, AI programme leads, engineering managers."
     balance: >-
       Adoption metrics measure activity, not benefit. Read each with an impact metric: AI-authored
-      share with AI code survival and turnover, acceptance rate with post-acceptance edits, and agent
-      pull-request share with agent review burden.
+      share with AI code survival and turnover, suggestion acceptance rate with post-acceptance edit
+      rate, and agent-opened pull request share with review and supervisory burden.
     groups:
       - {id: adoption, title: "ADOPTION"}
       - {id: impact, title: "NET IMPACT"}
@@ -91,7 +90,7 @@ bands:
     who: "Heads of developer experience, engineering managers, HR partners."
     balance: >-
       Perception and system data disagree in both directions. Read survey results with system metrics
-      (for example perceived time savings with pull-request cycle time), and never use these measures
+      (for example perceived time savings with pull request cycle time), and never use these measures
       to rank individuals.
     groups:
       - {id: experience, title: "EXPERIENCE"}
@@ -106,8 +105,8 @@ bands:
     icon: shield
     summary: "Whether changes hold up in production, whether the codebase stays maintainable, and whether AI use stays inside policy and regulation."
     covers: >-
-      DORA's stability metrics, code-health measures that AI assistance is known to move (churn,
-      duplication, complexity, test strength), and governance measures for AI use: policy coverage,
+      DORA's stability metrics, code-health measures that AI assistance can move (duplication,
+      complexity, test strength), and governance measures for AI use: policy coverage,
       unsanctioned tools, AI-introduced vulnerabilities, unreviewed merges and oversight readiness.
     who: "Quality and reliability leads, security, risk and compliance, architects."
     balance: >-

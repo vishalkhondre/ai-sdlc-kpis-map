@@ -4,7 +4,7 @@
   label: AI spend per engineer
   group: cost
   summary: What the organisation spends on AI tools and model usage for each engineer, per month or quarter.
-  origin: Common practice in engineering finance; reported in DX and Larridin budget research.
+  origin: Common practice in engineering finance.
   definition: Total spend on AI development tooling in a period, divided by the number of engineers in scope. Spend
     covers seat licences, usage-based model and token charges, and agent platform fees. It excludes general cloud
     costs not driven by AI use.
@@ -47,10 +47,11 @@
   label: AI spend per unit of output
   group: cost
   summary: AI spend divided by delivered work, so cost can be judged against what it produced.
-  origin: Atlassian AI SDLC Index (2026), which uses size-weighted merged pull requests as the unit of output.
+  origin: Atlassian AI SDLC Index (2026), which weights merged pull requests by size and complexity as the unit
+    of output.
   definition: AI spend in a period divided by a measure of delivered work in the same period. Atlassian's index
-    uses merged pull requests weighted by size; other organisations use completed work items or deployments.
-  formula: AI spend in period ÷ units of output in period (for example size-weighted merged pull requests)
+    uses merged pull requests weighted by size and complexity; other organisations use completed work items or deployments.
+  formula: AI spend in period ÷ units of output in period (for example weighted merged pull requests)
   unit: currency per unit of output
   direction: Lower is better, at constant quality.
   levels:
@@ -69,7 +70,7 @@
     and stable enough to ignore.'
   findings:
   - text: Atlassian reported AI spend per unit of output of $8.85 (April), $39.98 (September) and $29.11 (October
-      2026) across organisations in its index, and calls the values a floor.
+      2026) across 488 companies in its index, and calls the values a floor.
     source: atlassian-ai-sdlc-index
   - text: Jellyfish reported cost per pull request (engineering salary plus priced AI usage, divided by human-opened
       merged pull requests) falling from $1,377 to $685 over the trailing twelve months (1,300+ companies, 2026).
@@ -88,6 +89,8 @@
   - atlassian-ai-sdlc-index
   - jellyfish-ai-investment
   - sonar-agentic-economics
+  - linearb-ai-gap
+  - jellyfish-ai-trends
   disagreements: 'Vendors divide different costs by different outputs: AI spend per weighted unit of output (Atlassian),
     AI spend per merged pull request (Jellyfish''s measurement guide), salary plus AI spend per human-opened merged
     pull request (Jellyfish''s trends report), people plus AI cost per delivered pull request (LinearB), and an
@@ -132,12 +135,14 @@
 - id: cost-to-serve-software
   label: Cost to serve software (CTS-SW)
   group: cost
-  summary: The full cost of delivering and running software, per unit of delivered change, as AWS uses it to judge
-    AI investment.
+  summary: The full cost of delivering and running software, per unit of delivered change. Amazon uses it to measure
+    the business value of developer-experience improvements.
   origin: Amazon (cost to serve software, CTS-SW), described by AWS.
-  definition: The total engineering and operating cost of delivering software, divided by units of delivered change,
-    such as deployments. It is a whole-system cost measure, of which AI spend is one part.
-  formula: total cost of building and running software in period ÷ units delivered (for example deployments)
+  definition: The total engineering and operating cost of delivering software, divided by units of delivered change.
+    Amazon counts deployments for microservices and pull request completions for monoliths and mobile apps. It is
+    a whole-system cost measure, of which AI spend is one part.
+  formula: total cost of building and running software in period ÷ units delivered (deployments, or pull request
+    completions)
   unit: currency per unit delivered
   direction: Lower is better, at constant quality.
   levels:
@@ -162,7 +167,6 @@
     source: aws-cts-sw
   pitfalls:
   - text: Quoting a vendor's worked example as an outcome.
-    balance: ai-spend-per-output
   - text: Lowering cost by shipping more failed changes.
     balance: change-failure-rate
   related:
@@ -176,7 +180,7 @@
   group: value
   summary: The share of engineering time spent on new features and capabilities rather than maintenance, support
     and toil.
-  origin: Tracked in DX and Atlassian AI impact research (2026).
+  origin: Reported by DX and Atlassian in AI impact research (2026).
   definition: 'The proportion of engineering effort that goes to new value: new features, products and capabilities.
     The remainder goes to maintenance, defects, support, operations and unplanned work.'
   formula: time on new capabilities ÷ total engineering time
@@ -195,7 +199,8 @@
   ai: If AI saves time on routine work, the ratio should rise. A flat ratio while AI share rises suggests the time
     saved is going to review, rework or coordination.
   findings:
-  - text: Atlassian's index reports innovation time of about 58%, flat across 2026, based on self-reported data.
+  - text: Atlassian's index reports innovation time of about 58%, little changed since January 2025 (214 companies,
+      self-reported).
     source: atlassian-ai-sdlc-index
   - text: DX reports the innovation ratio flat through Q2 2026 while AI-authored code rose.
     source: dx-q2-2026

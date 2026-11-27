@@ -8,23 +8,25 @@ metric groups; each group holds metrics. One inventory, `content/map.yml`, drive
 - the overview SVG, with native links keyed on topic IDs (a topic links only when its page exists);
 - legend chips and band focus;
 - the text route ("All metrics") under the map, the accessible equivalent of the figure;
-- the purpose routes (`content/site.yml`): Understand · Choose metrics · Instrument · Report to
-  leaders · Look it up;
+- the purpose routes (`content/site.yml`): Start with the basics · Report AI impact · Instrument ·
+  Prevent review overload · Run agents · Look it up;
 - related-metric links on every page.
 
 ## Page types
 
-See `templates/pages/` and D-007. Every page has front matter: `id`, `type`, `band`, `title`,
-`summary`, `formula` and `unit` (metric pages), `related`, `sources`, and optionally `title_accent`
-(gradient words, at most two) and `sample` (preview only).
+Metric and dimension pages are generated from data (D-010): each metric is a YAML record in
+`content/metrics/`, each dimension a band in `content/map.yml`. Reference pages (frameworks, latest)
+are Markdown in `content/pages/` with front matter `id`, `type`, `title`, `summary`, `sources` and
+optionally `title_accent` (gradient words, at most two). Glossary and sources pages are generated from
+`content/glossary.yml` and `content/references.yml`.
 
-Figures on topic pages are systems-view SVGs in `content/diagrams/`, inserted with
-`{{figure:<name>}}`, numbered and captioned automatically from the SVG `<title>`.
+Every metric page gets a generated systems-view figure (data sources → metric → read it with); a
+hand-drawn `content/diagrams/<metric-id>.svg` replaces it, captioned from its `<title>`.
 
 ## Pipeline (per section)
 
 ```
-research lead (ChatGPT DR) ─► source register (primary sources, dates) ─► inventory update
+research lead ─► source register (primary sources, dates) ─► inventory update
   ─► write pages to template ─► figures ─► checks ─► three reviews (accuracy ║ confidentiality ║ editorial)
   ─► fix and recheck ─► next section
 ```

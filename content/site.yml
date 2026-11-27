@@ -22,20 +22,25 @@ sister_maps:
 # A topic without a finished page renders as a plain label (GR-3.2). (provisional)
 routes:
   - id: understand
-    title: "Understand"
+    title: "Start with the basics"
     icon: book
     blurb: "Start with the delivery basics, then see what AI changes."
     topics: [change-lead-time, deployment-frequency, change-failure-rate, ai-authored-share, net-ai-time-savings]
   - id: choose
     title: "Report AI impact"
     icon: flag
-    blurb: "A balanced starter set for a leadership review of AI."
-    topics: [ai-spend-per-output, innovation-ratio, ai-code-survival, incidents-per-pr, developer-experience-index]
+    blurb: "A balanced starter set for a leadership review of AI: cost, speed, quality, value and experience."
+    topics: [ai-spend-per-output, change-lead-time, ai-code-survival, incidents-per-pr, innovation-ratio, developer-experience-index]
   - id: instrument
     title: "Instrument"
     icon: pkg
-    blurb: "Metrics you can collect from version control and pipelines today."
-    topics: [pr-cycle-time, pr-size, time-to-first-review, ai-pr-acceptance, unreviewed-merges]
+    blurb: "Metrics you can collect from version control and pipelines today, without surveys."
+    topics: [pr-cycle-time, pr-size, time-to-first-review, deployment-frequency, unreviewed-merges]
+  - id: review
+    title: "Prevent review overload"
+    icon: alert
+    blurb: "Human review is the usual bottleneck when AI writes more code. Watch these together."
+    topics: [pr-size, time-to-first-review, review-wait-multiplier, supervisory-burden, unreviewed-merges]
   - id: agents
     title: "Run agents"
     icon: play
