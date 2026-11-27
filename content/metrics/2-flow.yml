@@ -1,0 +1,383 @@
+# Dimension 2 · Delivery flow.
+
+- id: deployment-frequency
+  label: Deployment frequency
+  group: throughput
+  summary: How often the organisation successfully deploys changes to production.
+  origin: DORA (one of its five software delivery metrics).
+  definition: The number of deployments to production over a given period, or the time between deployments (DORA).
+    DORA counts it per application or service.
+  formula: successful production deployments ÷ period (optionally ÷ active repositories)
+  unit: deployments per day or week
+  direction: Higher is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Deployment pipeline
+  - Release records
+  - Repository list
+  why: Frequent deployment means small batches, faster feedback and lower risk per change. It is DORA's main throughput
+    signal.
+  measure: Count successful production deployments from the pipeline's own records. Decide once whether to count
+    per service or per repository, and state it with every figure.
+  ai: More AI-written code does not mean more deployments if review and release are the constraint. Watch for a
+    rising pull request count with flat deployment frequency.
+  findings:
+  - text: Faros AI found deployments per week 11.7% lower at high than at low AI adoption (22,000 developers, 4,000
+      teams, labelled Q2 2026).
+    source: faros-whiplash
+  pitfalls:
+  - text: Counting empty or trivial deployments.
+    balance: pr-size
+  - text: Deploying more often while more of those deployments fail.
+    balance: change-failure-rate
+  related:
+  - change-lead-time
+  - change-failure-rate
+  - pr-throughput
+  sources:
+  - dora-guide
+  - faros-whiplash
+- id: pr-throughput
+  label: Pull requests per engineer
+  group: throughput
+  summary: How many pull requests (diffs) each engineer gets merged per week.
+  origin: DX Core 4 ('diffs per engineer').
+  definition: Merged pull requests in a period divided by the number of engineers who could author them. DX advises
+    using it with counterbalancing measures such as the Developer Experience Index, and never as a target or a basis
+    for rewards.
+  formula: merged pull requests ÷ engineers ÷ weeks
+  unit: pull requests per engineer per week
+  direction: Higher is better, at constant size and quality.
+  levels:
+  - team
+  - org
+  inputs:
+  - Version control
+  - Pull request records
+  - Team rosters
+  why: It is a simple, comparable throughput measure that is available from version control on day one.
+  measure: Count merged pull requests, excluding automated dependency updates, divided by engineers on the team.
+    Report AI-authored and agent-opened pull requests separately.
+  ai: AI and agents can raise the count sharply while each pull request carries less or needs more review. Size
+    and acceptance tell the difference.
+  findings: []
+  pitfalls:
+  - text: Splitting work into many small pull requests to raise the count.
+    balance: pr-size
+  - text: Counting agent pull requests that are later abandoned.
+    balance: ai-pr-acceptance
+  related:
+  - pr-size
+  - agent-pr-share
+  - deployment-frequency
+  sources:
+  - dx-core4
+- id: change-lead-time
+  label: Change lead time
+  group: speed
+  summary: How long a committed change takes to reach production.
+  origin: DORA (one of its five software delivery metrics).
+  definition: The amount of time it takes for a change to go from committed to version control to deployed in production
+    (DORA), counted for every change that reaches production in the period.
+  formula: median( production deploy time − commit time )
+  unit: hours or days
+  direction: Lower is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Version control
+  - Deployment pipeline
+  why: It shows how quickly the delivery system turns finished work into something customers can use. Leaders read
+    it with deployment frequency to judge throughput.
+  measure: Join the commit timestamp from version control with the production deployment timestamp from the pipeline
+    by change identifier. Report the median and the 75th percentile so a long tail shows.
+  ai: AI shortens the time spent writing a change, but review and test queues can grow. Read lead time with pull
+    request cycle time and time to first review to see where the time went.
+  findings: []
+  pitfalls:
+  - text: Excluding changes that waited for a release window.
+    balance: flow-efficiency
+  - text: Shortening lead time by skipping review.
+    balance: unreviewed-merges
+  related:
+  - deployment-frequency
+  - pr-cycle-time
+  - time-to-first-review
+  - failed-deployment-recovery-time
+  sources:
+  - dora-guide
+- id: pr-cycle-time
+  label: Pull request cycle time
+  group: speed
+  summary: How long a pull request takes from first commit to merge.
+  origin: Pull request analytics practice.
+  definition: The elapsed time from the first commit on a branch, or from the pull request opening, to its merge.
+    Tools split it into coding, pickup, review and merge stages.
+  formula: median( merge time − first commit time ) for pull requests merged in period
+  unit: hours
+  direction: Lower is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Version control
+  - Pull request events
+  why: It isolates the part of lead time that engineering teams control directly, and its stages show where work
+    waits.
+  measure: State whether the clock starts at first commit or at pull request open. Report stage times alongside
+    the total.
+  ai: AI cuts coding time; review time often rises because AI pull requests are larger and reviewers trust them
+    less.
+  findings:
+  - text: A study at one company (1mg) reported a 31.8% shorter pull request review cycle time. It was not randomised.
+    source: arxiv-1mg
+  pitfalls:
+  - text: Merging quickly without real review.
+    balance: unreviewed-merges
+  - text: Ignoring the spread, so a few stuck pull requests stay hidden.
+    balance: cycle-time-variance
+  related:
+  - coding-time
+  - time-to-first-review
+  - review-wait-multiplier
+  - change-lead-time
+  sources:
+  - arxiv-1mg
+- id: cycle-time-variance
+  label: Cycle time variance
+  group: speed
+  summary: 'How predictable cycle time is: the gap between the 75th percentile and the median.'
+  origin: 'Common practice: a percentile spread of pull request cycle time.'
+  definition: The difference between the 75th percentile and the median of pull request cycle time in a period.
+    A small gap means most work moves at a similar, predictable pace.
+  formula: P75( cycle time ) − P50( cycle time )
+  unit: hours
+  direction: Lower is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Pull request cycle times
+  why: Predictability matters to planning as much as speed. A team with a fast median and a long tail still misses
+    dates.
+  measure: Compute both percentiles over the same set of merged pull requests, and report the median alongside the
+    gap.
+  ai: AI pull requests that stall in review widen the gap even when the median improves.
+  findings: []
+  pitfalls:
+  - text: Small samples, where one pull request swings the figure.
+  - text: Lowering variance by refusing hard work.
+    balance: pr-size
+  related:
+  - pr-cycle-time
+  - coding-time
+  - review-wait-multiplier
+  sources: []
+- id: coding-time
+  label: Coding time
+  group: speed
+  summary: Time from the first commit on a change to the pull request being opened.
+  origin: 'Pull request analytics practice: the first stage of cycle time.'
+  definition: 'The first stage of pull request cycle time: from the first commit on a branch until the pull request
+    is opened for review.'
+  formula: median( pull request open time − first commit time )
+  unit: hours
+  direction: Lower is better, at constant size.
+  levels:
+  - team
+  - org
+  inputs:
+  - Version control
+  - Pull request events
+  why: It is the stage AI assistance acts on most directly, so it is where early gains show.
+  measure: Take it from the same records as pull request cycle time so the stages add up.
+  ai: Coding time usually drops first with AI. If later stages grow by as much, the gain does not reach customers.
+  findings: []
+  pitfalls:
+  - text: Celebrating a drop that later stages absorb.
+    balance: pr-cycle-time
+  - text: Larger changes written faster, which slows review.
+    balance: pr-size
+  related:
+  - pr-cycle-time
+  - cycle-time-variance
+  - ai-authored-share
+  sources: []
+- id: pipeline-health
+  label: Pipeline success and duration
+  group: speed
+  summary: How often the main-branch build and test pipeline passes, and how long it takes to get back to green.
+  origin: Continuous integration practice; reported in CircleCI's State of Software Delivery.
+  definition: Pipeline success rate is the share of pipeline runs on the main branch that pass. Recovery time is
+    how long the main branch stays red after a failure before a run passes again.
+  formula: passing main-branch runs ÷ all main-branch runs; median( next green time − failure time )
+  unit: '%; minutes'
+  direction: Higher success and shorter recovery are better.
+  levels:
+  - team
+  - org
+  inputs:
+  - CI pipeline runs
+  - Branch names
+  why: A red main branch blocks everyone. Pipeline health shows whether integration keeps up with the volume of
+    change.
+  measure: Read run outcomes from the CI system, filtered to the main branch. Report feature-branch runs separately;
+    they behave differently.
+  ai: More AI-written changes mean more pipeline runs. If the main branch fails more often, the extra volume is
+    not reaching production.
+  findings:
+  - text: CircleCI's 2026 report (28.7 million workflows in September 2025) found daily workflow runs up 59% year
+      over year, feature-branch throughput up 15% but main-branch throughput down 7% for the median team, and main-branch
+      success down to 70.8% with 72 minutes to get back to green.
+    source: circleci-2026
+  pitfalls:
+  - text: Retrying flaky runs until they pass, which hides failures.
+    balance: change-failure-rate
+  - text: Counting feature-branch runs as delivery.
+    balance: deployment-frequency
+  related:
+  - deployment-frequency
+  - change-lead-time
+  - pr-throughput
+  sources:
+  - circleci-2026
+- id: time-to-first-review
+  label: Time to first review
+  group: review
+  summary: How long a pull request waits before a reviewer first responds.
+  origin: Pull request analytics practice (also called pickup time).
+  definition: The elapsed time from a pull request being opened, or marked ready, to the first review comment or
+    approval by someone other than the author.
+  formula: median( first review event time − ready-for-review time )
+  unit: hours
+  direction: Lower is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Pull request events
+  - Review comments
+  why: Waiting for review is often the largest single delay in cycle time, and the easiest to fix with team agreements.
+  measure: Exclude bot comments and the author's own comments. Count from ready-for-review, not from draft.
+  ai: 'AI pull requests tend to wait longer: they are larger and reviewers are less sure of them.'
+  findings:
+  - text: LinearB's 2026 benchmarks (8.1 million pull requests from more than 4,800 organisations) report that AI
+      pull requests wait 4.6 times longer before review. Its blog on the same data describes the pickup wait as
+      more than five times longer.
+    source: linearb-benchmarks
+  pitfalls:
+  - text: Fast, shallow first comments that do not start a real review.
+    balance: supervisory-burden
+  - text: Bots counted as reviewers.
+    balance: unreviewed-merges
+  related:
+  - pr-cycle-time
+  - review-wait-multiplier
+  - pr-size
+  sources:
+  - linearb-benchmarks
+- id: pr-size
+  label: Pull request size
+  group: review
+  summary: How many lines a pull request changes.
+  origin: Pull request analytics practice.
+  definition: Lines added plus lines deleted in a pull request, excluding generated files, lock files and vendored
+    code.
+  formula: median( lines added + lines deleted ) per merged pull request
+  unit: lines changed
+  direction: Smaller is better, within reason.
+  levels:
+  - team
+  - org
+  inputs:
+  - Version control diffs
+  - Exclusion rules
+  why: Small pull requests are reviewed faster and more carefully and fail less often. Size is the control variable
+    for most other flow metrics.
+  measure: Agree an exclusion list for generated content and apply it to every figure.
+  ai: AI produces large changes cheaply. Rising size is an early warning for review load and stability.
+  findings:
+  - text: LinearB reported AI pull requests about two and a half times larger than unassisted ones (8.1 million
+      pull requests across 4,800 teams, 2026).
+    source: linearb-8m
+  - text: Swarmia reported that median lines per pull request rose 97.5% from Q1 2025 to Q1 2026 (1,450+ organisations
+      with 1,000+ pull requests).
+    source: swarmia-ai-guide
+  - text: Atlassian, using DX data, reported median pull request size growing from about 40 to over 70 lines (2026).
+    source: atlassian-measuring-ai
+  pitfalls:
+  - text: Splitting one change into many dependent pull requests.
+    balance: pr-throughput
+  - text: Counting generated files.
+    balance: code-duplication
+  related:
+  - time-to-first-review
+  - pr-throughput
+  - supervisory-burden
+  sources:
+  - linearb-8m
+- id: flow-efficiency
+  label: Flow efficiency
+  group: flowstate
+  summary: The share of elapsed time a work item is actively worked on rather than waiting.
+  origin: Lean flow practice; one of the flow metrics in the Flow Framework (Mik Kersten, Project to Product, 2018).
+  definition: Active time divided by total elapsed time for a work item, from start to done. Waiting covers queues
+    for review, test, approval and release.
+  formula: active time ÷ (active time + waiting time)
+  unit: '%'
+  direction: Higher is better.
+  levels:
+  - team
+  - portfolio
+  inputs:
+  - Work item states
+  - State timestamps
+  why: Much delivery time can be waiting. Flow efficiency shows how much, so effort goes to queues rather than to
+    working faster.
+  measure: Classify each work item state as active or waiting, then sum time in each from state-change history.
+  ai: AI shrinks active time. Unless queues shrink too, flow efficiency falls, which is a sign the constraint has
+    moved to review or release.
+  findings: []
+  pitfalls:
+  - text: Inconsistent state hygiene, so waiting is recorded as active.
+    balance: work-in-progress
+  - text: Raising efficiency by keeping hard items out of the system.
+    balance: time-to-market
+  related:
+  - work-in-progress
+  - change-lead-time
+  - time-to-market
+  sources: []
+- id: work-in-progress
+  label: Work in progress
+  group: flowstate
+  summary: How many work items are started but not finished at one time.
+  origin: Lean and Kanban practice; 'flow load' in the Flow Framework (Mik Kersten, Project to Product, 2018).
+  definition: The count of work items in an in-progress state at a point in time, per team or per person.
+  formula: count( items in progress ) at a point in time, averaged over the period
+  unit: items
+  direction: Lower is better, within team limits.
+  levels:
+  - team
+  inputs:
+  - Work item tracker
+  - Open pull requests
+  - Agent task queue
+  why: High work in progress lengthens every item's lead time and raises context switching.
+  measure: Sample the count daily. Count open pull requests and running agent tasks as well as tracker items.
+  ai: Agents let one engineer start many tasks at once. Work in progress rises unless review capacity rises with
+    it.
+  findings: []
+  pitfalls:
+  - text: Hidden work outside the tracker, such as agent tasks.
+    balance: agent-pr-share
+  - text: Limiting work in progress while letting blocked work age.
+    balance: flow-efficiency
+  related:
+  - flow-efficiency
+  - supervisory-burden
+  - agent-pr-share
+  sources: []

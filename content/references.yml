@@ -1,0 +1,687 @@
+# Source register (GR-2.5), from the verified research register (every page opened on 2026-11-27).
+# `note` is internal and is not rendered; `caveat` is shown to readers on the sources page.
+# status: verified = page opened and claims confirmed; partial = page opened, only the listed claims
+# confirmed; unverified = could not open. The release build refuses a page citing an unverified source.
+# A page may cite a source only for a claim listed under `claims`.
+
+- id: dora-guide
+  title: DORA's software delivery performance metrics
+  org: DORA (Google Cloud); author Nathen Harvey
+  url: https://dora.dev/guides/dora-metrics/
+  published: last updated 2026-01-05
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - The metrics are meant to be applied at the application or service level.
+  - 'Five metrics. Throughput: change lead time, deployment frequency, failed deployment recovery time. Instability:
+    change fail rate, deployment rework rate.'
+  - 'Change lead time: the amount of time it takes for a change to go from committed to version control to deployed
+    in production.'
+  - 'Deployment frequency: the number of deployments over a given period or the time between deployments.'
+  - 'Failed deployment recovery time: the time it takes to recover from a deployment that fails and requires immediate
+    intervention.'
+  - 'Change fail rate: the ratio of deployments that require immediate intervention following a deployment.'
+  - 'Deployment rework rate: the ratio of deployments that are unplanned but happen as a result of an incident in
+    production.'
+
+- id: dora-2024-octopus
+  title: The 2024 DevOps performance clusters
+  org: Octopus Deploy (vendor blog interpreting the DORA 2024 report); author Steve Fenton
+  url: https://octopus.com/blog/2024-devops-performance-clusters
+  published: '2024-11-19'
+  accessed: '2026-11-27'
+  status: verified
+  caveat: DORA 2024 figures as summarised by Octopus Deploy; the DORA report itself is not cited directly.
+  claims:
+  - 'Elite: lead time less than a day; deploy on demand; change failure rate 5%; recover less than an hour.'
+  - 'High: 1 day to 1 week; daily to weekly; 20%; less than a day.'
+  - 'Medium: 1 week to 1 month; weekly to monthly; 10%; less than a day.'
+  - 'Low: 1 to 6 months; monthly to biannually; 40%; 1 week to 1 month.'
+  - The page notes medium and high clusters have inverted change failure rates.
+  note: Primary PDF (services.google.com/fh/files/misc/2024_final_dora_report.pdf) not opened; cite as 'DORA 2024,
+    via Octopus'.
+
+- id: dora-2025
+  title: State of AI-assisted Software Development 2025
+  org: DORA (Google Cloud)
+  url: https://dora.dev/research/2025/dora-report/
+  published: ''
+  accessed: '2026-11-27'
+  status: partial
+  claims:
+  - Report title confirmed. No benchmark percentages on the HTML page; the full report was not opened.
+
+- id: dx-core4
+  title: Measuring developer productivity with the DX Core 4
+  org: DX (getdx.com)
+  url: https://getdx.com/research/measuring-developer-productivity-with-the-dx-core-4/
+  published: no date; footer (c) 2026
+  accessed: '2026-11-27'
+  status: partial
+  claims:
+  - 'Four dimensions: speed, effectiveness, quality, business impact.'
+  - Diffs per FTE is 'a useful signal when utilized carefully'.
+  note: The per-dimension metric table is an image and was not read. DXI '13 min/week' is not on this page.
+
+- id: dx-q1-2026
+  title: AI impact report Q1 2026
+  org: DX
+  url: https://getdx.com/blog/ai-impact-report-q1-2026/
+  published: updated 2026-04-15
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Industry adoption rates now at 93%.
+
+- id: dx-q2-2026
+  title: 'The State of AI Impact in Engineering: Q2 2026'
+  org: DX
+  url: https://getdx.com/blog/the-state-of-ai-impact-in-engineering-q2-2026/
+  published: last updated 2026-07-22
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - AI-generated code rose from 34% in Q1 2026 to 52% in Q2 2026.
+  - Change Confidence decreased by 6.1%; developers show less trust in the code they push to production.
+  - Median quarterly organisational AI spend climbed from ~$1.5K to ~$44K over four quarters.
+  - Innovation ratio has remained flat.
+  - Industry-wide AI adoption exceeding 90%.
+
+- id: linearb-8m
+  title: 8 million pull requests reveal where engineering productivity breaks down
+  org: LinearB; author Ben Lloyd Pearson
+  url: https://linearb.io/blog/8-million-prs-engineering-productivity
+  published: '2026-05-04'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Analysed 8.1 million pull requests across 4,800 teams in 42 countries.
+  - 88.3% of developers now use AI regularly.
+  - 'Acceptance rate = percentage of pull requests merged within 30 days: about 84.5% unassisted vs 32.7% AI-generated.'
+  - 'AI PRs about two and a half times larger than unassisted PRs (chart caption: 2.6x).'
+  - 'AI PRs wait more than 16 hours on average before pickup vs about 200 minutes unassisted: more than five times
+    longer.'
+
+- id: linearb-benchmarks
+  title: 2026 Software Engineering Benchmarks Report
+  org: LinearB
+  url: https://linearb.io/resources/software-engineering-benchmarks-report
+  published: no date shown (2026)
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 8.1+ million pull requests from 4,800+ organizations.
+  - AI PRs wait 4.6x longer before review.
+  - 'Acceptance 32.7% vs 84.4% (note: the blog says 84.5%).'
+  note: Wait-time multiple differs between pages (4.6x here, 'more than five times' in the blog). Cite one with
+    its page.
+
+- id: faros-whiplash
+  title: The Acceleration Whiplash (AI Engineering Report Q2 2026)
+  org: Faros AI
+  url: https://www.faros.ai/research/ai-acceleration-whiplash
+  published: no date shown; labelled Q2 2026
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Two years of telemetry from 22K developers across 4K teams.
+  - 'High vs low AI adoption: incidents per PR +242.7%; bugs per PR +28.7%; monthly incidents +57.9%; deployments
+    per week -11.7%.'
+  note: Figures appear in chart text. '+31.3% unreviewed PRs merged' was NOT found.
+
+- id: atlassian-ai-sdlc-index
+  title: 'Introducing the Atlassian AI SDLC Index: What the data shows about AI and real work'
+  org: Atlassian
+  url: https://www.atlassian.com/blog/company-news/introducing-the-atlassian-ai-sdlc-index
+  published: '2026-11-18'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - AI-generated code went from 49% of merged code (Apr 2026) to 70% (Oct 2026); self-reported.
+  - Developers spend roughly 58% of time on new features; barely moved in nearly two years (self-reported).
+  - 'AI spend per unit of output (merged PRs weighted by size and complexity): $8.85 Apr, $39.98 Sep, $29.11 Oct
+    2026; values are a floor.'
+  - About 62% of organizations have a majority of developers rating planning and documentation favorably.
+
+- id: atlassian-team26
+  title: Atlassian brings the AI-native SDLC from playbook to production
+  org: Atlassian; author Derek Cheng
+  url: https://www.atlassian.com/blog/company-news/team26-europe-ai-sdlc
+  published: '2026-10-07'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Only 6% said they have the systems to scale and govern AI.
+
+- id: infoq-atlassian-devex
+  title: Developers Reporting Double-Digit Weekly Time Savings From AI Fell From 68% to 26%
+  org: InfoQ; author Steef-Jan Wiggers (reporting Atlassian DevEx 2026)
+  url: https://www.infoq.com/news/2026/10/atlassian-devex-2026/
+  published: '2026-10-27'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Share of developers reporting 10+ hours a week saved fell from 68% to 26%.
+  - 49% spend four or more hours a week managing AI tools; 65% spend time correcting AI-generated work.
+
+- id: larridin-benchmarks-2026
+  title: Developer Productivity Benchmarks 2026
+  org: Larridin (vendor)
+  url: https://larridin.com/developer-productivity-hub/developer-productivity-benchmarks-2026
+  published: '2026-03-19'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - '30-day code turnover: AI-assisted healthy <12%, human-only healthy <8%, AI-assisted critical >25% (vendor thresholds).'
+  - Suggestion acceptance healthy range 25-45%; above 45% may indicate uncritical acceptance.
+
+- id: larridin-dora-space
+  title: Are DORA Metrics Still Right in 2026? DORA & SPACE + AI
+  org: Larridin (no named author)
+  url: https://larridin.com/blog/dora-space-metrics-ai
+  published: '2026-11-16'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - DORA is still a useful foundation; add SPACE and AI attribution and cost layers on top.
+
+- id: cortex-roi
+  title: How to Measure the ROI of AI Coding Assistants
+  org: Cortex; author Ganesh Datta
+  url: https://www.cortex.io/post/roi-ai-coding-assistants
+  published: '2026-09-15'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Citing GitClear (600M+ commits): code duplication rose 81% between 2023 and 2026; refactored code fell from
+    21% of changes to under 4%.'
+  note: Secondary citation of GitClear; GitClear's own page not opened.
+
+- id: augment-survey
+  title: AI-native engineering survey 2026
+  org: Augment Code
+  url: https://augmentcode.com/blog/ai-native-survey-2026
+  published: '2026-05-12'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 48% of their code is now AI-generated.
+  - 55% are concerned or very concerned about losing shared understanding of the codebase.
+
+- id: circleci-2026
+  title: '5 key takeaways from the 2026 State of Software Delivery: Why AI isn''t shipping faster'
+  org: CircleCI; authors Ron Powell, Jacob Schmitt
+  url: https://circleci.com/blog/five-takeaways-2026-software-delivery-report
+  published: '2026-02-18'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Based on 28,738,317 workflows run on CircleCI during September 2025.
+  - Average daily workflow runs up 59% year over year.
+  - 'Median team: feature-branch throughput +15%, main-branch throughput -7%.'
+  - Main-branch success rate dropped to 70.8%; 72 minutes to get back to green, up 13%.
+
+- id: metr-2025
+  title: Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity
+  org: METR; authors Joel Becker, Nate Rush, Beth Barnes, David Rein
+  url: https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
+  published: '2025-07-10'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Randomised trial: 16 experienced open-source developers, 246 issues.'
+  - With AI allowed, developers took 19% longer to complete issues.
+  - Developers expected a 24% speed-up and afterwards believed AI had sped them up by 20%.
+  note: The page says results are out of date and links a 2026-02-24 update (not opened).
+
+- id: arxiv-1mg
+  title: 'Intuition to Evidence: Measuring AI''s True Impact on Developer Productivity'
+  org: arXiv 2509.19708; Anand Kumar et al. (authors at 1mg)
+  url: https://arxiv.org/abs/2509.19708
+  published: '2025-09-24'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 31.8% reduction in PR review cycle time; adoption from 4% in month 1 to 83% peak by month 6.
+  note: Single company, not randomised.
+
+- id: arxiv-newman-levelup
+  title: Level Up! AI-Driven Challenges and Adaptations to Code Review Practices
+  org: arXiv 2611.18939; Kaia Newman, Christian Bird, Jenna Butler, Emerson Murphy-Hill
+  url: https://arxiv.org/abs/2611.18939
+  published: '2026-11-13'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Interviews (n=24) and survey (n=2,590) at one large multinational: AI-assisted authoring increases reviewer
+    burden through PR volume and size.'
+
+- id: arxiv-treude-baltes
+  title: What Will Replace Pull Requests? Rethinking Software Collaboration for AI Agents
+  org: arXiv 2610.34933; Christoph Treude, Sebastian Baltes
+  url: https://arxiv.org/abs/2610.34933
+  published: '2026-10-27'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Review of 50 grey-literature documents; agents open millions of pull requests per month.
+  - "Quotes Faros AI: a 441.5% increase in median time in review and a 31.3% increase in pull requests merged without any review (April 2026)."
+
+- id: jellyfish-2026
+  title: The State of Engineering Management in 2026
+  org: Jellyfish
+  url: https://jellyfish.co/blog/the-state-of-engineering-management-in-2026/
+  published: '2026-05-12'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Survey of 600+ engineering leaders: 57% say AI increases job satisfaction.'
+
+- id: encore-compliance
+  title: The Compliance Guide to AI-Written Code
+  org: Encore (citing a Checkmarx survey, n=1,500+, Aug 2025)
+  url: https://encore.dev/guides/ai-code-compliance
+  published: no date shown
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Only 18% have policies governing the use of AI coding tools.
+
+- id: aws-cts-sw
+  title: 'Quantifying the Impact of Developer Experience: Amazon''s 15.9% Breakthrough'
+  org: AWS Enterprise Strategy blog; author Jim Haughwout
+  url: https://aws.amazon.com/blogs/enterprise-strategy/business-value-of-developer-experience-improvements-amazons-15-9-breakthrough/
+  published: '2025-07-10'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - The unit of delivered change is deployments for microservices and pull request completions for monoliths and mobile apps; the 15.9% reduction is credited to delivery-process and developer-experience improvements.
+  - CTS-SW measures the total cost of delivering a unit of software.
+  - Amazon reduced costs by 15.9% YoY in 2024 and increased weekly production deployments per builder by 18.3% YoY.
+  - 'A worked example (hypothetical bank, 1,000 developers): 15% CTS-SW improvement gives about $20M cost avoidance
+    on a $2M investment, about 10x.'
+
+- id: aws-aidlc-intro
+  title: 'AI-Driven Development Life Cycle: Reimagining Software Engineering'
+  org: AWS DevOps blog; author Raja SP
+  url: https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/
+  published: '2025-07-31'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Introduces the AI-Driven Development Lifecycle (AI-DLC).
+  - 'Phases: Inception, Construction, Operations.'
+  - Traditional sprints are replaced by 'bolts'.
+
+- id: aws-aidlc-finserv
+  title: AI-Driven Development Lifecycle for Financial Services
+  org: AWS for Industries blog
+  url: https://aws.amazon.com/blogs/industries/ai-driven-development-lifecycle-for-financial-services/
+  published: '2026-05-26'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'KPIs listed: mean time to deployment, mean time to recovery, percentage of failed deployments, events by severity,
+    technical debt levels, NPS.'
+  - Uses Inception (Mob Elaboration), Construction (Mob Construction), Operation and AI Pods.
+
+- id: harness-aidlc-insights
+  title: Introducing AI DLC Insights to Prove the ROI of Your AI Engineering Investment
+  org: Harness (vendor product announcement)
+  url: https://www.harness.io/blog/introducing-ai-dlc-insights-to-prove-the-roi-of-your-ai-engineering-investment
+  published: '2026-05-28'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Product reports 'Wasted Spend' and 'Optimizable Spend'.
+
+- id: keyhole-2026
+  title: 'Developer Productivity Metrics: 2026 Benchmarks by Team Size and Industry'
+  org: Keyhole Software
+  url: https://keyholesoftware.com/developer-productivity-metrics/
+  published: '2026-11-05'
+  accessed: '2026-11-27'
+  status: partial
+  claims:
+  - 'Cites DX: developers report 3.6 hours a week saved on average, 4.1 for daily users.'
+  - 'Cites METR early-2025 trial: 19% longer task time.'
+  note: Only the first two-thirds of the page was read verbatim.
+
+- id: sonar-acceptance-gap
+  title: 'The Acceptance Gap: Why AI-Generated Code Still Fails to Become Shipped Work'
+  org: SonarSource; author Ekaterina Okuneva
+  url: https://www.sonarsource.com/blog/the-acceptance-gap/
+  published: '2026-09-29'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Cites Faros: incidents per PR up 242.7%; bugs per developer up 54%.'
+
+- id: space-acm
+  title: The SPACE of Developer Productivity
+  org: ACM Queue vol. 19 no. 1; Nicole Forsgren, Margaret-Anne Storey, Chandra Maddila, Thomas Zimmermann, Brian
+    Houck, Jenna Butler
+  url: https://queue.acm.org/detail.cfm?id=3454124
+  published: '2021'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Five dimensions: satisfaction and well-being; performance; activity; communication and collaboration; efficiency
+    and flow.'
+
+- id: sonar-cognitive
+  title: Cognitive Complexity - a new way of measuring understandability
+  org: SonarSource; author G. Ann Campbell
+  url: https://www.sonarsource.com/docs/CognitiveComplexity.pdf
+  published: 2023-08-29 (v1.7)
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Measures the relative difficulty of understanding code.
+  - 'Rules: ignore readable shorthand structures; increment for each break in linear flow; increment when flow-breaking
+    structures are nested.'
+
+- id: owasp-llm
+  title: 2025 Top 10 Risk & Mitigations for LLMs and Gen AI Apps
+  org: OWASP Gen AI Security Project
+  url: https://genai.owasp.org/llm-top-10/
+  published: '2025'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - LLM01 Prompt Injection; LLM02 Sensitive Information Disclosure; LLM03 Supply Chain; LLM04 Data and Model Poisoning;
+    LLM05 Improper Output Handling; LLM06 Excessive Agency; LLM07 System Prompt Leakage; LLM08 Vector and Embedding
+    Weaknesses; LLM09 Misinformation; LLM10 Unbounded Consumption.
+
+- id: copilot-metrics-api
+  title: Data available in Copilot usage metrics; REST API endpoints for Copilot usage metrics
+  org: GitHub Docs
+  url: https://docs.github.com/en/copilot/reference/copilot-usage-metrics/copilot-usage-metrics
+  published: API version 2026-03-10
+  accessed: '2026-11-27'
+  status: partial
+  claims:
+  - The REST endpoints return download links to usage reports (report_day, report_start_day, report_end_day).
+  - Usage metrics include daily, weekly and monthly active users and code generation and acceptance activity counts
+    (field names read from a summary, not verbatim).
+  note: The older total_active_users, total_engaged_users, total_code_suggestions and total_code_acceptances field
+    names were NOT found.
+
+- id: flow-framework
+  title: Flow Framework
+  org: ''
+  url: https://flowframework.org/
+  published: ''
+  accessed: '2026-11-27'
+  status: unverified
+  claims: []
+  note: Page loaded with navigation only; the flow metric definitions and Mik Kersten were not found. Use as common
+    practice, credited to the Flow Framework (Kersten, Project to Product, 2018), until a primary page is confirmed.
+
+- id: eu-ai-act
+  title: Regulation (EU) 2024/1689 (Artificial Intelligence Act)
+  org: EUR-Lex
+  url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+  published: '2024-06-13'
+  accessed: '2026-11-27'
+  status: partial
+  claims:
+  - Act title and date (13 June 2024) confirmed from metadata.
+  note: Article 14 (human oversight) and Article 113 text were not retrieved. Cite only the act's existence and
+    that Article 14 covers human oversight, as common knowledge, until the text is confirmed.
+
+- id: iso-42001
+  title: ISO/IEC 42001:2023
+  org: ISO
+  url: https://www.iso.org/standard/81230.html
+  published: ''
+  accessed: '2026-11-27'
+  status: unverified
+  claims: []
+  note: The page refused automated fetch.
+
+# Research batch 2 (agent metrics, last-month sources), merged 2026-11-27.
+- id: gamut-agent-eval
+  title: 'AI Agent Evaluation: Frameworks, Metrics, and Testing for Production Agents'
+  org: Gamut; author Iddo Gino
+  url: https://www.gamut.so/blog/ai-agent-evaluation-guide
+  published: '2026-11-04'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Task success rate (TSR): did the agent finish the assigned task?'
+  - 'pass^k (Sierra tau-bench): under 50% single-run success fell to about 25% at pass^8.'
+  - Over 40% of runs on complex multi-step tasks involve 'scrappy wins' (citing Automation Anywhere research).
+
+- id: hatchworks-agent-eval
+  title: 'AI Agent Evaluation Frameworks: Metrics, Tools & Steps (2026)'
+  org: HatchWorks AI; author Melissa Malec
+  url: https://hatchworks.com/blog/ai-agents/ai-agent-evaluation-frameworks/
+  published: '2026-11-06'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'pass@k vs pass^k: an agent at 90% single-run success succeeds three runs in a row about 73% of the time, five
+    runs about 59%.'
+  - 'Containment rate: the share of requests resolved without a human.'
+
+- id: sonar-agentic-economics
+  title: 'The Economics of Agentic Development: Tokens, Retries, and Rework'
+  org: Sonar; author Manish Kapur
+  url: https://www.sonarsource.com/resources/library/economics-of-agentic-development/
+  published: '2026-11-04'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Cost per accepted change = (tokens across all attempts + CI compute + review time + rework time + cost of escaped
+    defects) / accepted changes.
+  - 'First-pass acceptance rate: share of agent changes passing the quality gate on the first CI run.'
+  - 'Override rate: how often reviewers reject or rewrite agent changes.'
+
+- id: aws-verisk-aisdlc
+  title: Reinventing software delivery with AI-SDLC on Amazon Bedrock AgentCore
+  org: AWS for Industries blog (Verisk case study); Sajin Jacob et al.
+  url: https://aws.amazon.com/blogs/industries/reinventing-software-delivery-with-ai-sdlc-on-amazon-bedrock-agentcore/
+  published: '2026-11-05'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Agent output acceptance rate exceeded 90% (accepted by human reviewers with minimal modification) against a
+    50-60% target.
+  - Cost per story point 20-30% lower overall (labour plus AWS compute).
+
+- id: github-octoverse-2026
+  title: 'Octoverse: Commits, pushes, reach new highs in 2026 as developers build with agents'
+  org: GitHub
+  url: https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/
+  published: 2026-10-28, updated 2026-11-06
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - As of September 2026 developers start more than 40% of pull requests with an agent; in March it was 17%.
+  note: 110M PRs in September and the 90% vs ~86% merge comparison were read only from a summary of the page; the
+    merge window is not confirmed.
+
+- id: jellyfish-ai-trends
+  title: AI Engineering Trends (November 2026)
+  org: Jellyfish Research
+  url: https://jellyfish.co/ai-engineering-trends/
+  published: November 2026 (modified 2026-11-18)
+  accessed: '2026-11-27'
+  status: partial
+  caveat: Only figures stated in the page text are cited; figures shown only in charts are not.
+  claims:
+  - 'Dataset: 302K engineers, 113M pull requests, 1,300+ companies.'
+  - Median company has 35% of merged PRs with agent involvement; leading companies 67%.
+  - Median company auto-merges 0.7% of PRs with no human review; lead adopters about 10%.
+  - Median developer consumed 58M tokens per week in October 2026.
+  - Cost per PR (engineering salary plus priced AI usage / human-opened merged PRs) fell from $1,377 to $685 (trailing
+    twelve months).
+  - Bug rate 14.1 bugs per 100 merged PRs (October 2026).
+  note: AI access and AI code % values are only in chart images (not verified). Share links read '[Draft]'.
+
+- id: jellyfish-ai-investment
+  title: How to Track and Measure AI Investment vs. Engineering Output for C-Level Reporting
+  org: Jellyfish; author Lauren Hamberg
+  url: https://jellyfish.co/library/ai-investment-vs-engineering-output/
+  published: '2026-08-25'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Cost per merged PR: total AI spend divided by PRs merged over the same period.'
+  - 'Seat utilization: share of paid licences in active use against total provisioned.'
+  - 'Rework rate: share of merged code modified, refactored or reverted within 30 to 90 days of release.'
+  - 'AI code footprint: share of merged production code from AI assistance.'
+
+- id: linearb-ai-gap
+  title: 'The AI engineering productivity gap: how elite teams pull ahead in 2026'
+  org: LinearB; author Yishai Beeri (CTO)
+  url: https://linearb.io/resources/ai-engineering-productivity-gap
+  published: no date shown; data Feb-May 2026
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Dataset: 2.7M PRs, 83,000 developers, 253 organisations, Feb-May 2026. Elite = top 10%, good = top 30%, fair
+    = top 60%.'
+  - 'Share of PRs written by autonomous agents: elite 4.7%.'
+  - 'PR yield (share of opened PRs merged within 30 days) for agentic PRs: elite 79%, good 58%, fair 37%; human-only
+    92%.'
+  - 'PRs with AI coding assistance: elite 54%.'
+  - Cost per delivered PR = (people cost + AI spend) / (PRs opened x effective yield).
+
+- id: linearb-adoption-guide
+  title: How to measure AI tool adoption
+  org: LinearB; author Jamie Birss
+  url: https://linearb.io/library/ai-in-software-development/how-to-measure-ai-tool-adoption
+  published: '2026-10-23'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Build a 28-day engagement histogram: engineers using the tool on one day, ten, or all 28.'
+
+- id: dx-ai-framework
+  title: 'AI measurement framework: Complete guide for engineering leaders'
+  org: DX; author Taylor Bruneaux
+  url: https://getdx.com/blog/ai-measurement-framework-guide/
+  published: last updated 2026-05-20
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Three dimensions: utilization, impact, cost.'
+  - Average developer time savings 3.9 hours per week; daily users 4.72 hours per week.
+  - 'Share of merged code that is AI-authored: 27.4% (Q1 2026).'
+  - Human-equivalent hours (HEH) of work completed by agents; agent hourly rate = human-equivalent hours / AI spend.
+
+- id: swarmia-ai-adoption
+  title: AI adoption (help centre)
+  org: Swarmia
+  url: https://help.swarmia.com/features/ai-impact/ai-adoption
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Users and licences: licences, weekly active users and idle seats, by team and person; AI-assisted PRs by tool
+    and mode.'
+
+- id: swarmia-ai-guide
+  title: 'Measuring the productivity impact of AI coding tools: A practical guide for engineering leaders'
+  org: Swarmia; author Otto Hilska
+  url: https://www.swarmia.com/blog/productivity-impact-of-ai-coding-tools/
+  published: '2026-06-16'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Median lines per PR roughly doubled Q1 2025 to Q1 2026: +97.5% for orgs with 1,000+ PRs (1,450+ orgs).'
+
+- id: atlassian-measuring-ai
+  title: Measuring and orchestrating AI across the full engineering lifecycle
+  org: Atlassian (data from DX)
+  url: https://www.atlassian.com/blog/ai-at-work/measuring-and-orchestrating-ai-across-the-full-engineering-lifecycle
+  published: '2026-11-03'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Adoption (>95%) is not the metric that matters; layers: value-stream flow, quality guardrails, capacity allocation,
+    developer experience.'
+  - Engineers regularly using AI report saving more than 6 hours a week (self-reported, DX Q2 2026, 500+ orgs).
+  - Median PR size about 40 to over 70 lines; time to a new engineer's 10th merged PR fell about 57% (about 70 to
+    30 days) since early 2024.
+
+- id: faros-speed-trap
+  title: AI Engineering Report Q3 2026 - The Speed Trap
+  org: Faros AI
+  url: https://www.faros.ai/research/speed-trap
+  published: takeaways post 2026-09-18
+  accessed: '2026-11-27'
+  status: partial
+  caveat: Figures are from Faros AI's companion takeaways post; the full report requires registration.
+  claims:
+  - 22,000 developers, 4,000 teams, last 12 months; average PR size +71.8%; time in QA +300.6%; incidents per PR
+    +14.5% (down from +242.7% in April); monthly incidents +125.4%; correlational.
+  note: Figures from the companion takeaways post (faros.ai/blog/ai-speed-trap-takeaways); full report gated.
+
+- id: metr-2026-update
+  title: We are Changing our Developer Productivity Experiment Design
+  org: METR
+  url: https://metr.org/blog/2026-02-24-uplift-update/
+  published: '2026-02-24'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - METR says its newer study (57 developers, 800+ tasks) is an unreliable signal because of selection effects;
+    it believes true speed-up is probably larger now but evidence is weak.
+
+- id: ganglani-agent-eval
+  title: 'AI Agent Evaluation Framework: 8 Metrics Beyond Task Success'
+  org: Kunal Ganglani (independent blog)
+  url: https://www.kunalganglani.com/blog/ai-agent-evaluation-framework-2026
+  published: 2026-08-08, updated 2026-10-29
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - effective_cost_per_success = total_cost_across_runs / successful_runs.
+  - Names escalation_required_rate and good_escalation_rate (no formula).
+
+- id: arxiv-ghagentci
+  title: 'GHAgentCI: A Dataset of Coding-Agent Invocations in CI Workflow Histories'
+  org: arXiv 2611.15522; Ogenrwot, Delgado Cervantes, Kim, Businge (UNLV)
+  url: https://arxiv.org/abs/2611.15522
+  published: '2026-11-11'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - A dataset of real coding-agent invocations in CI workflow histories.
+
+# Research batch 3, merged 2026-11-27.
+- id: arxiv-agarwal-tokens
+  title: The AI Era's Lines of Code? A Case Study on What an Engineer's Token Spend Measures
+  org: arXiv 2611.13396; Agarwal, Lvova, Sergeyuk, Serova, Bryksin, Zimmermann, Vasilescu
+  url: https://arxiv.org/abs/2611.13396
+  published: '2026-11-10'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Commits of 404 engineers at JetBrains: within an engineer, doubling spend was associated with about 10% more
+    commits.'
+  - Work metrics explain 38% of between-engineer and 13% of within-engineer weekly spend variation.
+  - Recommends token spend at most for resource accounting; evaluate agent work with evidence about tasks and outcomes.
+
+- id: arxiv-vella-blincoe
+  title: 'The Impact of AI Coding Assistants on Software Engineering: A Longitudinal Study'
+  org: arXiv 2605.23135; Annie Vella, Kelly Blincoe
+  url: https://arxiv.org/abs/2605.23135
+  published: 2026-05-25 (v2 2026-11-05)
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Matched longitudinal cohort of 95; 82% report spending less time writing code.
+  - Proposes 'supervisory engineering work'; identifies a productivity-experience paradox.
+
+- id: arxiv-chowdhury-cra
+  title: 'From Industry Claims to Empirical Reality: An Empirical Study of Code Review Agents in Pull Requests'
+  org: arXiv 2604.03196; Chowdhury, Banik, Ferdous, Shamim
+  url: https://arxiv.org/abs/2604.03196
+  published: '2026-04-03'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - CRA-only PRs achieve a 45.20% merge rate, 23.17 points lower than human-only PRs (68.37%).

@@ -1,0 +1,119 @@
+# Map structure: five dimensions (bands) and their metric groups. Metrics live in content/metrics/,
+# one file per dimension, each metric naming its `group`. Order in those files sets map order.
+#
+# Structure source: the nine metric categories found in the 2026-11-27 research, folded into the
+# design system's five band colours (D-008, D-009). Stable IDs: links, pages and checks key on IDs, never labels.
+#
+# status: provisional blocks the release build (GR-3.2). Set to reviewed on 2026-11-27 (D-016) after
+# the reviews and Vishal's acceptance.
+
+status: reviewed
+
+bands:
+  - id: outcomes
+    colour: context
+    title: "Business outcomes and cost"
+    short: "Outcomes"
+    role: "Is the AI investment paying off?"
+    notes: ["Cost, return and the share", "of time spent on new value"]
+    icon: compass
+    summary: "Whether AI-assisted delivery creates value for the business at a cost the business accepts."
+    covers: >-
+      The metrics leaders use to judge the investment itself: what AI tooling costs, what each unit of
+      delivered work costs, how much engineering time goes to new value, and how fast the organisation
+      gets a product change in front of customers.
+    who: "Executives sponsoring AI, finance partners, heads of engineering and product."
+    balance: >-
+      Cost metrics fall when spend is cut and rise when adoption grows, so read them against output.
+      Pair AI spend with spend per unit of output, and pair the innovation ratio with delivery-flow and
+      quality metrics, so a cheaper or faster organisation is not mistaken for a better one.
+    groups:
+      - {id: cost, title: "COST"}
+      - {id: value, title: "VALUE"}
+
+  - id: flow
+    colour: lifecycle
+    title: "Delivery flow"
+    short: "Flow"
+    role: "How work moves to production"
+    notes: ["Throughput and speed at", "each stage of the lifecycle"]
+    icon: cycle
+    summary: "How much work the delivery system finishes, and how long each change takes from first commit to production."
+    covers: >-
+      Throughput and speed metrics from DORA, flow metrics and pull request analytics: how often the
+      organisation deploys, how long changes take, where they wait, and how much work is in progress.
+    who: "Delivery leads, engineering managers, platform teams."
+    balance: >-
+      Speed metrics are easy to improve by cutting corners. Read every flow metric with the stability
+      metrics in quality, risk and governance (change failure rate, deployment rework rate), and read
+      pull request counts with pull request size so smaller slices are not mistaken for more output.
+    groups:
+      - {id: throughput, title: "THROUGHPUT"}
+      - {id: speed, title: "SPEED"}
+      - {id: review, title: "REVIEW"}
+      - {id: flowstate, title: "FLOW", dashed: true}
+
+  - id: ai
+    colour: core
+    title: "AI in the loop"
+    short: "AI"
+    role: "How much AI does, and how well"
+    notes: ["Adoption, net impact and", "agent performance"]
+    icon: chip
+    summary: "How widely AI is used in delivery, what share of the work it produces, and whether that work holds up."
+    covers: >-
+      Adoption metrics (who uses AI and how much of the code it writes), impact metrics (whether AI work
+      survives review and saves time), and agent metrics (how often autonomous agents finish tasks and
+      how much human help they need).
+    who: "Heads of developer experience and platform, AI programme leads, engineering managers."
+    balance: >-
+      Adoption metrics measure activity, not benefit. Read each with an impact metric: AI-authored
+      share with AI code survival and turnover, suggestion acceptance rate with post-acceptance edit
+      rate, and agent-opened pull request share with review and supervisory burden.
+    groups:
+      - {id: adoption, title: "ADOPTION"}
+      - {id: impact, title: "NET IMPACT"}
+      - {id: agents, title: "AGENTS"}
+
+  - id: dx
+    colour: enablement
+    title: "Developer experience"
+    short: "DevEx"
+    role: "What it is like to build with AI"
+    notes: ["Experience, trust", "and talent"]
+    icon: layers
+    summary: "How developers experience their work with AI, how much they trust it, and whether the organisation keeps and grows its people."
+    covers: >-
+      Survey-based and system-based measures of the developer's day: the friction they meet, their
+      satisfaction with and trust in AI tools, the supervisory burden of reviewing AI output, and the
+      talent measures of onboarding and retention.
+    who: "Heads of developer experience, engineering managers, HR partners."
+    balance: >-
+      Perception and system data disagree in both directions. Read survey results with system metrics
+      (for example perceived time savings with pull request cycle time), and never use these measures
+      to rank individuals.
+    groups:
+      - {id: experience, title: "EXPERIENCE"}
+      - {id: talent, title: "TALENT"}
+
+  - id: quality
+    colour: assurance
+    title: "Quality, risk and governance"
+    short: "Quality"
+    role: "Whether the speed is safe"
+    notes: ["Stability, maintainability", "and control evidence"]
+    icon: shield
+    summary: "Whether changes hold up in production, whether the codebase stays maintainable, and whether AI use stays inside policy and regulation."
+    covers: >-
+      DORA's stability metrics, code-health measures that AI assistance can move (duplication,
+      complexity, test strength), and governance measures for AI use: policy coverage,
+      unsanctioned tools, AI-introduced vulnerabilities, unreviewed merges and oversight readiness.
+    who: "Quality and reliability leads, security, risk and compliance, architects."
+    balance: >-
+      These metrics are the counterweight to every speed and adoption metric on the map. A rise in
+      throughput or AI share with flat stability is a gain; with rising failure, rework or churn it is
+      a cost moved downstream.
+    groups:
+      - {id: stability, title: "STABILITY"}
+      - {id: maintainability, title: "MAINTAINABILITY"}
+      - {id: governance, title: "GOVERNANCE"}

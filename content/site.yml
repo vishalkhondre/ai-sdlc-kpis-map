@@ -1,0 +1,53 @@
+# Site identity — the single source of truth for site/generate.py.
+# Reader, headline, tagline, URL and routes accepted by Vishal on 2026-11-27 (D-016).
+
+title: "AI SDLC Metrics & KPIs Map"            # confirmed by Vishal 2026-11-27
+short_title: "Metrics & KPIs Map"
+headline: "What to measure when AI joins software delivery"
+headline_accent: "AI joins"
+tagline: "How to tell whether AI is improving software delivery, on one page."
+about: >-
+  A vendor-neutral reference for measuring the AI SDLC: the software development lifecycle with AI
+  agents doing part of the work. One map of five dimensions an enterprise watches, from business
+  outcomes to quality and governance, with every metric defined, its formula given and its source named.
+author: "Vishal Khondre"
+author_url: "https://www.linkedin.com/in/vishalkhondre/"
+repo_url: "https://github.com/vishalkhondre/ai-sdlc-kpis-map"
+site_url: "https://vishalkhondre.github.io/ai-sdlc-kpis-map"   # intended public URL
+sister_maps:
+  - title: "The AI SDLC Map"
+    url: "https://vishalkhondre.github.io/ai-sdlc-map/"
+
+# Purpose routes under the map (SOP step 3, reference map). Each lists topic IDs from map.yml.
+# A topic without a finished page renders as a plain label (GR-3.2).
+routes:
+  - id: understand
+    title: "Start with the basics"
+    icon: book
+    blurb: "Start with the delivery basics, then see what AI changes."
+    topics: [change-lead-time, deployment-frequency, change-failure-rate, ai-authored-share, net-ai-time-savings]
+  - id: choose
+    title: "Report AI impact"
+    icon: flag
+    blurb: "Six metrics for a leadership review of AI: cost, speed, two quality checks, value and experience."
+    topics: [ai-spend-per-output, change-lead-time, ai-code-survival, incidents-per-pr, innovation-ratio, developer-experience-index]
+  - id: instrument
+    title: "Instrument"
+    icon: pkg
+    blurb: "Metrics you can collect from version control and pipelines today, without surveys."
+    topics: [pr-cycle-time, pr-size, time-to-first-review, deployment-frequency, unreviewed-merges]
+  - id: review
+    title: "Prevent review overload"
+    icon: alert
+    blurb: "Human review is the usual bottleneck when AI writes more code. Watch these together."
+    topics: [pr-size, time-to-first-review, review-wait-multiplier, supervisory-burden, unreviewed-merges]
+  - id: agents
+    title: "Run agents"
+    icon: play
+    blurb: "What to watch when agents start opening pull requests."
+    topics: [agent-task-success, human-intervention-rate, agent-pr-share, supervisory-burden, context-file-coverage]
+  - id: lookup
+    title: "Look it up"
+    icon: search
+    blurb: "Every metric, framework, term and source."
+    topics: []
