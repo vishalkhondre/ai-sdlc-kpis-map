@@ -108,3 +108,11 @@ headline, tagline, public URL and purpose routes are accepted as they stand, as 
 exception (D-012). `content/map.yml` is set to `status: reviewed` and the (provisional) markers are
 removed, so the release build passes. Merging and deploying still wait for his explicit go-ahead, as
 does the question of process notes in the public repo (A9).
+
+## D-017 Add escaped defect rate and agent cost per accepted task (27 Nov 2026)
+
+**Decision.** Both external reviews (ChatGPT and Gemini) found these two gaps. Vishal approved adding
+them ("yes add those"). Escaped defect rate goes under quality / stability, as common practice (D-012),
+with the Faros AI and Jellyfish bug figures. Agent cost per accepted task goes under AI in the loop / agents,
+defined from Sonar's cost per accepted change and Ganglani's effective cost per success. The map now has
+49 metrics.

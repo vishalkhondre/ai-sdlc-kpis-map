@@ -6,7 +6,7 @@ Published 27 Nov 2026 at https://vishalkhondre.github.io/ai-sdlc-kpis-map/ (depl
 D-005). Vishal accepted the content and guesses on
 27 Nov 2026 (D-016) and approved publishing; the release build passes.
 
-- 57 pages: home (overview map, six purpose routes, text route), 47 metric pages, 5 dimension pages,
+- 60 pages: home (overview map, six purpose routes, text route), 49 metric pages, 5 dimension pages,
   frameworks, "What changed in November 2026", glossary (30 terms), sources (51 cited sources with
   status and confirmed claims).
 - Research batches 1 to 3 merged (D-009 to D-011, D-014).

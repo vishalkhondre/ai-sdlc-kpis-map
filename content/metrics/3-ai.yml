@@ -428,6 +428,49 @@
   disagreements: Sonar measures an override rate (how often reviewers reject or rewrite agent changes); HatchWorks
     measures the opposite, a containment rate (the share of requests resolved without a human); Ganglani proposes
     an escalation-required rate. One minus containment is the closest to the definition above.
+- id: agent-cost-per-task
+  label: Agent cost per accepted task
+  group: agents
+  summary: What each accepted agent task really costs, counting the retries and failed runs behind it.
+  origin: Agent evaluation practice (2026); Sonar's cost per accepted change and Ganglani's effective cost per success.
+  definition: The total cost of agent runs in a period, including failed and retried runs, divided by the agent tasks
+    whose result was accepted. A narrow version counts tokens and compute only; a full version adds CI, review and
+    rework time.
+  formula: 'Narrow: token and compute cost across all agent runs ÷ accepted agent tasks. Full: (token and compute cost
+    + CI cost + review time + rework time, priced) ÷ accepted agent tasks'
+  unit: currency per accepted task
+  direction: Lower is better, at constant acceptance and quality.
+  levels:
+  - team
+  - org
+  inputs:
+  - Agent session logs with token and compute cost
+  - CI usage
+  - Pull request review events
+  why: Organisation-wide AI spend hides agents that burn tokens on retries and failed runs. Dividing by accepted
+    work, not attempts, shows the real price of each result.
+  measure: Tag every agent run with its task, including retries, and record which tasks were accepted. State which
+    version (narrow or full) you report; they are not comparable.
+  ai: It shows whether agent use is getting cheaper per result as models, prompts and instructions improve, or
+    whether rising acceptance is being bought with more retries.
+  findings: []
+  pitfalls:
+  - text: Dividing by tasks attempted, which hides the cost of failures.
+    balance: agent-task-success
+  - text: Lowering cost by cutting review, so defects escape.
+    balance: escaped-defects
+  - text: Counting only token cost and leaving out the human time agents consume.
+    balance: supervisory-burden
+  related:
+  - ai-spend-per-output
+  - agent-task-success
+  - human-intervention-rate
+  sources:
+  - sonar-agentic-economics
+  - ganglani-agent-eval
+  disagreements: 'Sonar''s cost per accepted change is the full version: tokens across all attempts, CI compute,
+    review time, rework time and the cost of escaped defects, divided by accepted changes. Ganglani''s effective cost
+    per success divides total cost across runs by successful runs, closer to the narrow version.'
 - id: agent-pr-share
   label: Agent-opened pull request share
   group: agents
