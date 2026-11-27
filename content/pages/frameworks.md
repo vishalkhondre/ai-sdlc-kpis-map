@@ -4,7 +4,7 @@ type: reference
 title: Frameworks behind the metrics
 title_accent: Frameworks
 summary: Where the metrics on this map come from, and how the main measurement frameworks relate.
-sources: [dora-guide, space-acm, dx-core4, orgsignals-docs, aws-aidlc-intro, aws-cts-sw]
+sources: [dora-guide, space-acm, dx-core4, aws-aidlc-intro, aws-cts-sw]
 ---
 
 Most metrics on this map come from a handful of public frameworks. Each answers a different question,
@@ -42,14 +42,6 @@ value moves through delivery, with flow velocity, flow time, flow efficiency, fl
 distribution. It supplies the flow group on the map: [flow efficiency](flow-efficiency.html) and
 [work in progress](work-in-progress.html) (its flow load).
 
-## OrgSignals Speed Score
-
-OrgSignals combines pull request cycle time (50%), cycle time variance (25%) and coding time (25%) into
-one Speed Score out of 100, with scores above 85 rated elite. It shows how single metrics can be
-weighted into an index, and why the weights should be stated with the score.
-
-{{metrics:OrgSignals}}
-
 ## AWS AI-DLC
 
 AWS introduced the AI-Driven Development Life Cycle (AI-DLC) on 31 July 2025: a development method
@@ -64,5 +56,9 @@ DORA and the Flow Framework measure the delivery system. SPACE and the DX Core 4
 experience and the business view. None of them was designed for AI-written code, so the AI in the
 loop dimension on this map draws on newer vendor and research measures, which carry more
 uncertainty. Their pages say so.
+
+Some tools also combine several metrics, such as cycle time and its variance, into one weighted speed
+or productivity score. A composite is only as useful as its stated weights: report the weights with
+the score, and keep the underlying metrics visible.
 
 ## Sources

@@ -51,24 +51,6 @@
   claims:
   - Report title confirmed. No benchmark percentages on the HTML page; the full report was not opened.
 
-- id: orgsignals-docs
-  title: Docs — SignalsAI Setup & Integrations Guide (metrics definitions)
-  org: OrgSignals / SignalsAI
-  url: https://orgsignals.com/docs?section=metrics-definitions
-  published: no date; footer (c) 2026
-  accessed: '2026-11-27'
-  status: verified
-  claims:
-  - 'Cycle Time Variance: gap between 75th and 50th percentile of cycle time.'
-  - Speed Score = 50% Cycle Time + 25% Cycle Time Variance + 25% Coding Time; Elite > 85/100, Needs Focus < 60/100.
-  - Deployment Frequency = Total Deployments / (Number of Active Repositories x Time Period).
-  - 'Composite scores: Overall, Speed, Quality, Throughput, Collaboration.'
-  - 'Individual metrics: Cycle Time, Coding Time, Cycle Time Variance, Unreviewed PRs Merged, PR Size, Time to First
-    Comment, Created PR Throughput, Merge Rate, Coding Days, PRs Reviewed, Comment Count per PR, Stale PRs.'
-  - 'DORA metrics: Deployment Frequency, Lead Time to Change, Change Failure Rate, Mean Time to Recovery.'
-  - 'Jira metrics: Internal Bugs, External Bugs, Rework, Lead Time, Missing Story Points, Missing Due Dates, Missing
-    Original Estimates, Blocked Issues, At Risk Issues, Stale Issues, Scope Creep.'
-
 - id: dx-core4
   title: Measuring developer productivity with the DX Core 4
   org: DX (getdx.com)

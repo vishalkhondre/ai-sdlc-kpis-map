@@ -4,7 +4,7 @@ What is assumed true, and what is still open. Close an item by moving it to `DEC
 
 | ID | Assumption | Status |
 |---|---|---|
-| A1 | Ground research comes from a ChatGPT Deep Research run started 27 Nov 2026, seeded with Vishal's sources (OrgSignals metric definitions and comparisons, DORA, two LinkedIn posts). Its output is a lead list; every claim is traced to a primary source before use (GR-2.8). | Research done in two batches (27 Nov 2026), verified into `content/references.yml` (D-011). |
+| A1 | Ground research comes from a ChatGPT Deep Research run started 27 Nov 2026, seeded with Vishal's sources (DORA, vendor metric documentation, two LinkedIn posts). Its output is a lead list; every claim is traced to a primary source before use (GR-2.8). | Research done in two batches (27 Nov 2026), verified into `content/references.yml` (D-011). |
 | A2 | The repository is public, so any pushed branch is publicly readable. Scaffold and provisional labels are acceptable there; nothing confidential is ever pushed. | Holds |
 | A3 | No private source library exists for this map (unlike the AI SDLC Map). The confidentiality rule still applies. | Holds |
 | A4 | Dark-mode tokens are not designed (design system "Not decided yet"), so the site is light-only. | Open in the design system |

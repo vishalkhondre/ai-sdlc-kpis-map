@@ -7,7 +7,6 @@
 - {term: "SPACE", definition: "A framework for developer productivity across five dimensions: satisfaction and well-being, performance, activity, communication and collaboration, efficiency and flow.", origin: "Forsgren, Storey, Maddila, Zimmermann, Houck and Butler (2021)", source: space-acm}
 - {term: "DX Core 4", definition: "A developer productivity framework with four dimensions: speed, effectiveness, quality and business impact.", origin: "DX", source: dx-core4}
 - {term: "Flow Framework", definition: "A model for measuring the flow of business value through software delivery, with flow velocity, time, efficiency, load and distribution.", origin: "Mik Kersten (2018)"}
-- {term: "Speed Score", definition: "A composite of 50% cycle time, 25% cycle time variance and 25% coding time, scored out of 100.", origin: "OrgSignals (SignalsAI)", source: orgsignals-docs}
 - {term: "Cycle time", definition: "For a pull request, the time from first commit (or opening) to merge.", origin: "Pull-request analytics practice"}
 - {term: "Lead time for changes", definition: "The time from commit to successful production deployment; DORA now calls it change lead time.", origin: "DORA", source: dora-guide}
 - {term: "Code turnover", definition: "The share of merged lines modified or deleted within a set window, often 30 days.", origin: "Code-analytics practice"}

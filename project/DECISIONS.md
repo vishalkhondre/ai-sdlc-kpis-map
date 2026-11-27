@@ -95,3 +95,9 @@ Every metric keeps at least one read-with pitfall (GR-4.2).
 research digest that are in the source register, and what each changes on the map. LinkedIn posts
 (approximate dates) and unverified videos and papers are left out.
 **Why.** Vishal asked for the latest month's material; only verified, dated items meet GR-2.
+
+### D-015 · OrgSignals sources removed · 2026-11-27
+**Decision.** At Vishal's request, all OrgSignals / SignalsAI references are removed and the metrics
+kept. Cycle time variance and coding time are now common-practice definitions (D-012). The branded
+Speed Score (frameworks section and glossary entry) is dropped; the frameworks page describes
+composite speed scores generically, without weights.

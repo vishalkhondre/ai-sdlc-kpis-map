@@ -6,7 +6,7 @@
   summary: How often the organisation successfully deploys changes to production.
   origin: DORA (one of its five software delivery metrics).
   definition: The number of deployments to production over a given period, or the time between deployments (DORA).
-    DORA counts it per application or service; OrgSignals divides by the number of active repositories.
+    DORA counts it per application or service.
   formula: successful production deployments ÷ period (optionally ÷ active repositories)
   unit: deployments per day or week
   direction: Higher is better.
@@ -38,9 +38,7 @@
   - pr-throughput
   sources:
   - dora-guide
-  - orgsignals-docs
   - faros-whiplash
-  disagreements: DORA measures per application or service; OrgSignals divides by active repositories.
 - id: pr-throughput
   label: Pull requests per engineer
   group: throughput
@@ -115,7 +113,7 @@
   label: Pull request cycle time
   group: speed
   summary: How long a pull request takes from first commit to merge.
-  origin: Pull-request analytics practice; part of the OrgSignals Speed Score.
+  origin: Pull request analytics practice.
   definition: The elapsed time from the first commit on a branch, or from the pull request opening, to its merge.
     Tools split it into coding, pickup, review and merge stages.
   formula: median( merge time − first commit time ) for pull requests merged in period
@@ -147,13 +145,12 @@
   - review-wait-multiplier
   - change-lead-time
   sources:
-  - orgsignals-docs
   - arxiv-1mg
 - id: cycle-time-variance
   label: Cycle time variance
   group: speed
   summary: 'How predictable cycle time is: the gap between the 75th percentile and the median.'
-  origin: OrgSignals (SignalsAI).
+  origin: 'Common practice: a percentile spread of pull request cycle time.'
   definition: The difference between the 75th percentile and the median of pull request cycle time in a period.
     A small gap means most work moves at a similar, predictable pace.
   formula: P75( cycle time ) − P50( cycle time )
@@ -166,8 +163,8 @@
   - Pull request cycle times
   why: Predictability matters to planning as much as speed. A team with a fast median and a long tail still misses
     dates.
-  measure: Compute both percentiles over the same set of merged pull requests. OrgSignals weights it at 25% of its
-    Speed Score, with cycle time at 50% and coding time at 25%.
+  measure: Compute both percentiles over the same set of merged pull requests, and report the median alongside the
+    gap.
   ai: AI pull requests that stall in review widen the gap even when the median improves.
   findings: []
   pitfalls:
@@ -178,13 +175,12 @@
   - pr-cycle-time
   - coding-time
   - review-wait-multiplier
-  sources:
-  - orgsignals-docs
+  sources: []
 - id: coding-time
   label: Coding time
   group: speed
   summary: Time from the first commit on a change to the pull request being opened.
-  origin: Pull-request analytics practice; part of the OrgSignals Speed Score.
+  origin: 'Pull request analytics practice: the first stage of cycle time.'
   definition: 'The first stage of pull request cycle time: from the first commit on a branch until the pull request
     is opened for review.'
   formula: median( pull request open time − first commit time )
@@ -209,8 +205,7 @@
   - pr-cycle-time
   - cycle-time-variance
   - ai-authored-share
-  sources:
-  - orgsignals-docs
+  sources: []
 - id: pipeline-health
   label: Pipeline success and duration
   group: speed
@@ -253,7 +248,7 @@
   label: Time to first review
   group: review
   summary: How long a pull request waits before a reviewer first responds.
-  origin: Pull-request analytics practice ('pickup time'; 'time to first comment' in OrgSignals).
+  origin: Pull request analytics practice (also called pickup time).
   definition: The elapsed time from a pull request being opened, or marked ready, to the first review comment or
     approval by someone other than the author.
   formula: median( first review event time − ready-for-review time )
@@ -283,13 +278,12 @@
   - review-wait-multiplier
   - pr-size
   sources:
-  - orgsignals-docs
   - linearb-benchmarks
 - id: pr-size
   label: Pull request size
   group: review
   summary: How many lines a pull request changes.
-  origin: Pull-request analytics practice; defined in OrgSignals.
+  origin: Pull request analytics practice.
   definition: Lines added plus lines deleted in a pull request, excluding generated files, lock files and vendored
     code.
   formula: median( lines added + lines deleted ) per merged pull request
@@ -324,7 +318,6 @@
   - pr-throughput
   - supervisory-burden
   sources:
-  - orgsignals-docs
   - linearb-8m
 - id: flow-efficiency
   label: Flow efficiency
