@@ -83,7 +83,7 @@
   - Agent session logs
   why: AI moves work from writing to reviewing. If review is not counted, the gain looks larger than it is and senior
     engineers burn out.
-  measure: Combine a survey question with review time from pull request events for AI-labelled changes.
+  measure: Ask a survey question, or estimate active review time from pull request events for AI-labelled changes. Report the two separately; adding them counts review time twice, and pull request timestamps show elapsed time, not hours worked.
   ai: It grows with agent adoption, because each agent task needs briefing, review and correction by a person.
   findings:
   - text: InfoQ reports that 49% of developers spend 4+ hours a week managing AI tools (Atlassian State of DevEx

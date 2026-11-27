@@ -43,11 +43,11 @@
   label: Pull requests per engineer
   group: throughput
   summary: How many pull requests (diffs) each engineer gets merged per week.
-  origin: DX Core 4 ('diffs per engineer').
-  definition: Merged pull requests in a period divided by the number of engineers who could author them. DX advises
+  origin: DX Core 4 ('diffs per FTE').
+  definition: Merged pull requests in a period divided by the engineering full-time equivalents (FTEs) in scope. DX advises
     using it with counterbalancing measures such as the Developer Experience Index, and never as a target or a basis
     for rewards.
-  formula: merged pull requests ÷ engineers ÷ weeks
+  formula: merged pull requests ÷ engineering FTEs in scope ÷ weeks
   unit: pull requests per engineer per week
   direction: Higher is better, at constant size and quality.
   levels:
@@ -312,7 +312,6 @@
   - text: Splitting one change into many dependent pull requests.
     balance: pr-throughput
   - text: Counting generated files.
-    balance: code-duplication
   related:
   - time-to-first-review
   - pr-throughput

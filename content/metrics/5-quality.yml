@@ -128,8 +128,7 @@
       labelled Q2 2026): incidents per pull request were 242.7% higher, bugs per pull request 28.7% higher and monthly
       incidents 57.9% higher.'
     source: faros-whiplash
-  - text: Faros AI's Q3 2026 report (22,000 developers, 4,000 teams) put the rise in incidents per pull request
-      at 14.5%, down from 242.7% in its April report; the figures are correlational.
+  - text: Faros AI's Q3 2026 report (22,000 developers, 4,000 teams) put the rise in incidents per pull request at 14.5% over the last 12 months, down from 242.7% in its April report, which compared two years of data; the figures are correlational.
     source: faros-speed-trap
   pitfalls:
   - text: Counting minor alerts as incidents.
@@ -184,7 +183,7 @@
   origin: Cognitive complexity (SonarSource) and static-analysis practice.
   definition: Cognitive complexity scores how hard a function is to follow, adding weight for nesting and breaks
     in linear flow. Static-analysis density counts issues found per thousand lines of code.
-  formula: median cognitive complexity per changed function; static-analysis issues ÷ KLOC
+  formula: median cognitive complexity per changed function; static-analysis issues ÷ thousand lines of code (KLOC)
   unit: score; issues per KLOC
   direction: Lower is better.
   levels:
@@ -215,7 +214,7 @@
   origin: Mutation testing practice.
   definition: A mutation tool makes small changes (mutants) to the code; the score is the share of mutants that
     cause at least one test to fail ('killed').
-  formula: killed mutants ÷ total mutants (excluding equivalent mutants)
+  formula: killed mutants ÷ total mutants (excluding equivalent mutants, which cannot change behaviour)
   unit: '%'
   direction: Higher is better.
   levels:
@@ -356,7 +355,7 @@
       lead adopters about 10% (AI Engineering Trends, November 2026 edition; 1,300+ companies).
     source: jellyfish-ai-trends
   - text: An empirical study of open-source pull requests found that those reviewed only by code review agents merged
-      45.20% of the time, 23.17 points below pull requests reviewed only by people (68.37%) (Chowdhury et al., 2026).
+      45.20% of the time, 23.17 points below pull requests reviewed only by people (68.37%) (Chowdhury et al., 2026). It measures merge rates, not the share of merges without human review.
     source: arxiv-chowdhury-cra
   pitfalls:
   - text: Approvals given without reading.
