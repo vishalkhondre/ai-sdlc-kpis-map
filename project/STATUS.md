@@ -2,8 +2,8 @@
 
 ## Where it stands (27 Nov 2026)
 
-The full map is built on branch `claude/project-thread-37x2w4` (pull request #1). Nothing is
-published: Pages is off and deploy is manual (D-005). Vishal accepted the content and guesses on
+Published 27 Nov 2026 at https://vishalkhondre.github.io/ai-sdlc-kpis-map/ (deploy is manual,
+D-005). Vishal accepted the content and guesses on
 27 Nov 2026 (D-016) and approved publishing; the release build passes.
 
 - 57 pages: home (overview map, six purpose routes, text route), 47 metric pages, 5 dimension pages,

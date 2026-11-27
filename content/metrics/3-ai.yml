@@ -161,9 +161,9 @@
   group: impact
   summary: Time AI saves developers each week, minus the time spent prompting, reviewing and fixing its output.
   origin: Survey practice in DX and Atlassian developer research.
-  definition: Self-reported hours saved by AI per developer per week, minus hours spent managing AI tools, reviewing
+  definition: Self-reported gross hours saved by AI per developer per week, minus hours spent managing AI tools, reviewing
     and correcting AI output.
-  formula: hours saved per week − hours managing, reviewing and correcting AI output
+  formula: gross hours saved per week − hours managing, reviewing and correcting AI output (ask for gross savings, or overhead is subtracted twice)
   unit: hours per developer per week
   direction: Higher is better.
   levels:
@@ -216,7 +216,7 @@
   origin: Code-analytics practice (code turnover, churn); thresholds published by Larridin.
   definition: Turnover is the share of lines that are modified or deleted within a window (often 30 days) after
     they merge. Survival is its complement. Computed separately for AI-assisted and human code.
-  formula: lines modified or deleted within 30 days of merge ÷ lines merged (survival = 1 − turnover)
+  formula: 'Survival: AI-attributed lines unchanged 30 days after merge ÷ AI-attributed lines merged, for a cohort merged at least 30 days ago. Turnover = 1 − survival'
   unit: '% of lines'
   direction: Lower turnover is better.
   levels:
@@ -279,7 +279,7 @@
   origin: LinearB 2026 benchmarks ('acceptance rate', merged within 30 days).
   definition: Pull requests opened by or mostly written by AI that are merged within 30 days, divided by all such
     pull requests opened. Compared with the same rate for human pull requests.
-  formula: AI pull requests merged within 30 days ÷ AI pull requests opened
+  formula: AI pull requests merged within 30 days of opening ÷ AI pull requests opened, for a cohort opened at least 30 days ago
   unit: '%'
   direction: Higher is better.
   levels:
@@ -369,10 +369,9 @@
     work.
   findings:
   - text: 'HatchWorks shows why repeated runs matter: an agent that succeeds 90% of the time on one run succeeds
-      three runs in a row about 73% of the time, and five in a row about 59%.'
+      three runs in a row about 73% of the time, and five in a row about 59%, assuming independent runs.'
     source: hatchworks-agent-eval
-  - text: Gamut reports that on Sierra's tau-bench, agents with under 50% single-run success fell to about 25% when
-      required to succeed on eight runs (pass^8).
+  - text: Gamut reports that on Sierra's tau-bench, agents with under 50% single-run success fell to about 25% when required to succeed on eight runs (pass^8). tau-bench tests customer-service tasks, not coding.
     source: gamut-agent-eval
   - text: In a single-company case study, Verisk reported over 90% of agent output accepted by human reviewers with
       minimal modification, against a 50–60% target (2026).
@@ -467,6 +466,7 @@
     balance: ai-pr-acceptance
   - text: Ignoring the review time agent pull requests consume.
     balance: supervisory-burden
+  - text: Comparing published figures that count different things. The findings above measure agent-started, agent-involved merged and autonomous pull requests; only the last matches this formula.
   related:
   - ai-pr-acceptance
   - agent-task-success

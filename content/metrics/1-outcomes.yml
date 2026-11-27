@@ -28,8 +28,7 @@
     and harder to forecast. Agent workloads can cost far more per engineer than completion tools.
   findings:
   - text: Atlassian's AI SDLC Index measured AI spend per unit of output of $8.85 in April, $39.98 in September
-      and $29.11 in October 2026, and describes these values as a floor. Spend per engineer is the simpler cousin
-      of that measure.
+      and $29.11 in October 2026, and describes these values as a floor. That figure divides by output, not engineers, so it is not comparable with spend per engineer.
     source: atlassian-ai-sdlc-index
   - text: A study of 404 engineers at JetBrains found that, for the same engineer, doubling token spend was associated
       with about 10% more commits, and work metrics explained only 38% of the differences in spend between engineers.
@@ -110,7 +109,7 @@
   definition: Wasted spend is paid capacity that produced no use, such as seats with no activity in the period.
     Optimisable spend is use that could have cost less, such as tasks sent to a premium model that a cheaper model
     handles as well.
-  formula: (unused seat cost + avoidable premium-model cost) ÷ total AI spend
+  formula: 'Wasted: unused seat cost ÷ total AI spend. Optimisable (an estimate, reported separately): avoidable premium-model cost ÷ total AI spend'
   unit: '% of AI spend'
   direction: Lower is better.
   levels:

@@ -18,7 +18,7 @@ need to know why. The [Report AI impact](index.html#routes) route is one such se
 
 | Question | Scorecard metric | Diagnostic metrics to open when it moves |
 |---|---|---|
-| Is it worth the money? | [AI spend per unit of output](ai-spend-per-output.html) | [AI spend per engineer](ai-spend-per-engineer.html), [wasted and optimisable AI spend](wasted-ai-spend.html) |
+| Is our AI spend efficient? | [AI spend per unit of output](ai-spend-per-output.html) | [AI spend per engineer](ai-spend-per-engineer.html), [wasted and optimisable AI spend](wasted-ai-spend.html) |
 | Are we faster? | [Change lead time](change-lead-time.html) | [Pull request cycle time](pr-cycle-time.html), [time to first review](time-to-first-review.html), [flow efficiency](flow-efficiency.html) |
 | Is quality holding? | [Change failure rate](change-failure-rate.html) | [Incidents per pull request](incidents-per-pr.html), [AI code survival and turnover](ai-code-survival.html) |
 | Is time going to new value? | [Innovation ratio](innovation-ratio.html) | [Time to market](time-to-market.html) |
