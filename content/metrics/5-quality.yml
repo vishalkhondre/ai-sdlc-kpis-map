@@ -141,6 +141,45 @@
   - ai-authored-share
   sources:
   - faros-whiplash
+- id: escaped-defects
+  label: Escaped defect rate
+  group: stability
+  summary: Bugs found after release, per merged pull request, so defects that pass every check are counted.
+  origin: 'Common practice: a defect-escape measure from software quality engineering.'
+  definition: Defects found in production or reported by customers in a period, divided by pull requests merged in the
+    same period. Defects caught before release are not counted.
+  formula: production or customer-reported defects ÷ merged pull requests (often shown per 100)
+  unit: defects per 100 merged pull requests
+  direction: Lower is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Issue tracker defects tagged as found in production
+  - Pull request records
+  why: Change failure rate and incidents catch outages. Many AI-introduced faults pass CI and surface later as
+    ordinary bugs, which only a defect-escape measure counts.
+  measure: Tag each bug with where it was found (review, test, staging, production, customer). Use the same scope
+    for defects and pull requests, and link defects to causing changes where possible.
+  ai: It shows whether faster, larger AI-assisted changes let more faults through to customers.
+  findings:
+  - text: 'Faros AI compared high and low AI adoption over two years of telemetry (22,000 developers, 4,000 teams,
+      labelled Q2 2026): bugs per pull request were 28.7% higher at high adoption. The figure is correlational.'
+    source: faros-whiplash
+  - text: Jellyfish reported a bug rate of 14.1 bugs per 100 merged pull requests in October 2026 (1,300+ companies).
+      It counts bugs in general, not only those found in production.
+    source: jellyfish-ai-trends
+  pitfalls:
+  - text: Not tagging where a bug was found, so escaped and caught defects are mixed.
+  - text: Discouraging bug reports to lower the rate.
+    balance: change-failure-rate
+  - text: Raising pull request counts to lower the ratio.
+    balance: pr-size
+  related:
+  - incidents-per-pr
+  - change-failure-rate
+  - mutation-score
+  sources: []
 - id: code-duplication
   label: Duplication and refactoring share
   group: maintainability

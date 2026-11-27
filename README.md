@@ -22,7 +22,7 @@ python scripts/check_browser.py
 |---|---|
 | `content/map.yml` | The topic inventory: dimensions, groups, metrics, stable IDs |
 | `content/site.yml` | Site identity and purpose routes |
-| `content/metrics/` | The 47 metrics as YAML, one file per dimension |
+| `content/metrics/` | The 49 metrics as YAML, one file per dimension |
 | `content/references.yml` | Every cited source and the claims it was checked for |
 | `content/glossary.yml` | Glossary terms |
 | `content/pages/` | Supporting pages: frameworks, measuring impact, what changed |
