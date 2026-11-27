@@ -281,6 +281,7 @@
   status: verified
   claims:
   - Review of 50 grey-literature documents; agents open millions of pull requests per month.
+  - "Quotes Faros AI: a 441.5% increase in median time in review and a 31.3% increase in pull requests merged without any review (April 2026)."
 
 - id: jellyfish-2026
   title: The State of Engineering Management in 2026
@@ -453,3 +454,212 @@
   status: unverified
   claims: []
   note: The page refused automated fetch.
+
+# Research batch 2 (agent metrics, last-month sources), merged 2026-11-27.
+- id: gamut-agent-eval
+  title: 'AI Agent Evaluation: Frameworks, Metrics, and Testing for Production Agents'
+  org: Gamut; author Iddo Gino
+  url: https://www.gamut.so/blog/ai-agent-evaluation-guide
+  published: '2026-11-04'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Task success rate (TSR): did the agent finish the assigned task?'
+  - 'pass^k (Sierra tau-bench): under 50% single-run success fell to about 25% at pass^8.'
+  - Over 40% of runs on complex multi-step tasks involve 'scrappy wins' (citing Automation Anywhere research).
+
+- id: hatchworks-agent-eval
+  title: 'AI Agent Evaluation Frameworks: Metrics, Tools & Steps (2026)'
+  org: HatchWorks AI; author Melissa Malec
+  url: https://hatchworks.com/blog/ai-agents/ai-agent-evaluation-frameworks/
+  published: '2026-11-06'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'pass@k vs pass^k: an agent at 90% single-run success succeeds three runs in a row about 73% of the time, five
+    runs about 59%.'
+  - 'Containment rate: the share of requests resolved without a human.'
+
+- id: sonar-agentic-economics
+  title: 'The Economics of Agentic Development: Tokens, Retries, and Rework'
+  org: Sonar; author Manish Kapur
+  url: https://www.sonarsource.com/resources/library/economics-of-agentic-development/
+  published: '2026-11-04'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Cost per accepted change = (tokens across all attempts + CI compute + review time + rework time + cost of escaped
+    defects) / accepted changes.
+  - 'First-pass acceptance rate: share of agent changes passing the quality gate on the first CI run.'
+  - 'Override rate: how often reviewers reject or rewrite agent changes.'
+
+- id: aws-verisk-aisdlc
+  title: Reinventing software delivery with AI-SDLC on Amazon Bedrock AgentCore
+  org: AWS for Industries blog (Verisk case study); Sajin Jacob et al.
+  url: https://aws.amazon.com/blogs/industries/reinventing-software-delivery-with-ai-sdlc-on-amazon-bedrock-agentcore/
+  published: '2026-11-05'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Agent output acceptance rate exceeded 90% (accepted by human reviewers with minimal modification) against a
+    50-60% target.
+  - Cost per story point 20-30% lower overall (labour plus AWS compute).
+
+- id: github-octoverse-2026
+  title: 'Octoverse: Commits, pushes, reach new highs in 2026 as developers build with agents'
+  org: GitHub
+  url: https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/
+  published: 2026-10-28, updated 2026-11-06
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - As of September 2026 developers start more than 40% of pull requests with an agent; in March it was 17%.
+  note: 110M PRs in September and the 90% vs ~86% merge comparison were read only from a summary of the page; the
+    merge window is not confirmed.
+
+- id: jellyfish-ai-trends
+  title: AI Engineering Trends (November 2026)
+  org: Jellyfish Research
+  url: https://jellyfish.co/ai-engineering-trends/
+  published: November 2026 (modified 2026-11-18)
+  accessed: '2026-11-27'
+  status: partial
+  claims:
+  - 'Dataset: 302K engineers, 113M pull requests, 1,300+ companies.'
+  - Median company has 35% of merged PRs with agent involvement; leading companies 67%.
+  - Median company auto-merges 0.7% of PRs with no human review; lead adopters about 10%.
+  - Median developer consumed 58M tokens per week in October 2026.
+  - Cost per PR (engineering salary plus priced AI usage / human-opened merged PRs) fell from $1,377 to $685 (trailing
+    twelve months).
+  - Bug rate 14.1 bugs per 100 merged PRs (October 2026).
+  note: AI access and AI code % values are only in chart images (not verified). Share links read '[Draft]'.
+
+- id: jellyfish-ai-investment
+  title: How to Track and Measure AI Investment vs. Engineering Output for C-Level Reporting
+  org: Jellyfish; author Lauren Hamberg
+  url: https://jellyfish.co/library/ai-investment-vs-engineering-output/
+  published: '2026-08-25'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Cost per merged PR: total AI spend divided by PRs merged over the same period.'
+  - 'Seat utilization: share of paid licences in active use against total provisioned.'
+  - 'Rework rate: share of merged code modified, refactored or reverted within 30 to 90 days of release.'
+  - 'AI code footprint: share of merged production code from AI assistance.'
+
+- id: linearb-ai-gap
+  title: 'The AI engineering productivity gap: how elite teams pull ahead in 2026'
+  org: LinearB; author Yishai Beeri (CTO)
+  url: https://linearb.io/resources/ai-engineering-productivity-gap
+  published: no date shown; data Feb-May 2026
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Dataset: 2.7M PRs, 83,000 developers, 253 organisations, Feb-May 2026. Elite = top 10%, good = top 30%, fair
+    = top 60%.'
+  - 'Share of PRs written by autonomous agents: elite 4.7%.'
+  - 'PR yield (share of opened PRs merged within 30 days) for agentic PRs: elite 79%, good 58%, fair 37%; human-only
+    92%.'
+  - 'PRs with AI coding assistance: elite 54%.'
+  - Cost per delivered PR = (people cost + AI spend) / (PRs opened x effective yield).
+
+- id: linearb-adoption-guide
+  title: How to measure AI tool adoption
+  org: LinearB; author Jamie Birss
+  url: https://linearb.io/library/ai-in-software-development/how-to-measure-ai-tool-adoption
+  published: '2026-10-23'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Build a 28-day engagement histogram: engineers using the tool on one day, ten, or all 28.'
+
+- id: dx-ai-framework
+  title: 'AI measurement framework: Complete guide for engineering leaders'
+  org: DX; author Taylor Bruneaux
+  url: https://getdx.com/blog/ai-measurement-framework-guide/
+  published: last updated 2026-05-20
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Three dimensions: utilization, impact, cost.'
+  - Average developer time savings 3.9 hours per week; daily users 4.72 hours per week.
+  - 'Share of merged code that is AI-authored: 27.4% (Q1 2026).'
+  - Human-equivalent hours (HEH) of work completed by agents; agent hourly rate = human-equivalent hours / AI spend.
+
+- id: swarmia-ai-adoption
+  title: AI adoption (help centre)
+  org: Swarmia
+  url: https://help.swarmia.com/features/ai-impact/ai-adoption
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Users and licences: licences, weekly active users and idle seats, by team and person; AI-assisted PRs by tool
+    and mode.'
+
+- id: swarmia-ai-guide
+  title: 'Measuring the productivity impact of AI coding tools: A practical guide for engineering leaders'
+  org: Swarmia; author Otto Hilska
+  url: https://www.swarmia.com/blog/productivity-impact-of-ai-coding-tools/
+  published: '2026-06-16'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Median lines per PR roughly doubled Q1 2025 to Q1 2026: +97.5% for orgs with 1,000+ PRs (1,450+ orgs).'
+
+- id: atlassian-measuring-ai
+  title: Measuring and orchestrating AI across the full engineering lifecycle
+  org: Atlassian (data from DX)
+  url: https://www.atlassian.com/blog/ai-at-work/measuring-and-orchestrating-ai-across-the-full-engineering-lifecycle
+  published: '2026-11-03'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Adoption (>95%) is not the metric that matters; layers: value-stream flow, quality guardrails, capacity allocation,
+    developer experience.'
+  - Engineers regularly using AI report saving more than 6 hours a week (self-reported, DX Q2 2026, 500+ orgs).
+  - Median PR size about 40 to over 70 lines; time to a new engineer's 10th merged PR fell about 57% (about 70 to
+    30 days) since early 2024.
+
+- id: faros-speed-trap
+  title: AI Engineering Report Q3 2026 - The Speed Trap
+  org: Faros AI
+  url: https://www.faros.ai/research/speed-trap
+  published: takeaways post 2026-09-18
+  accessed: '2026-11-27'
+  status: partial
+  claims:
+  - 22,000 developers, 4,000 teams, last 12 months; average PR size +71.8%; time in QA +300.6%; incidents per PR
+    +14.5% (down from +242.7% in April); monthly incidents +125.4%; correlational.
+  note: Figures from the companion takeaways post (faros.ai/blog/ai-speed-trap-takeaways); full report gated.
+
+- id: metr-2026-update
+  title: We are Changing our Developer Productivity Experiment Design
+  org: METR
+  url: https://metr.org/blog/2026-02-24-uplift-update/
+  published: '2026-02-24'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - METR says its newer study (57 developers, 800+ tasks) is an unreliable signal because of selection effects;
+    it believes true speed-up is probably larger now but evidence is weak.
+
+- id: ganglani-agent-eval
+  title: 'AI Agent Evaluation Framework: 8 Metrics Beyond Task Success'
+  org: Kunal Ganglani (independent blog)
+  url: https://www.kunalganglani.com/blog/ai-agent-evaluation-framework-2026
+  published: 2026-08-08, updated 2026-10-29
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - effective_cost_per_success = total_cost_across_runs / successful_runs.
+  - Names escalation_required_rate and good_escalation_rate (no formula).
+
+- id: arxiv-ghagentci
+  title: 'GHAgentCI: A Dataset of Coding-Agent Invocations in CI Workflow Histories'
+  org: arXiv 2611.15522; Ogenrwot, Delgado Cervantes, Kim, Businge (UNLV)
+  url: https://arxiv.org/abs/2611.15522
+  published: '2026-11-11'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - A dataset of real coding-agent invocations in CI workflow histories.

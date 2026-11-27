@@ -1,165 +1,198 @@
 # Dimension 4 · Developer experience.
 
 - id: developer-experience-index
-  label: "Developer Experience Index"
+  label: Developer Experience Index
   group: experience
-  summary: "A survey index of how much friction developers meet in their daily work."
-  origin: "DX (Developer Experience Index)."
-  definition: >-
-    A composite score from a standard developer survey covering the drivers of developer experience,
-    such as focus time, build and test speed, documentation, code review and clarity of goals.
-  formula: "weighted mean of standard survey items, scaled 0–100"
-  unit: "index points"
-  direction: "Higher is better."
-  levels: [team, org]
-  inputs: ["Developer survey"]
-  why: >-
-    Friction is invisible in system data. The index shows where developers lose time and is a
-    leading indicator for speed and retention.
-  measure: >-
-    Run the same survey on a fixed cadence, usually quarterly, with high participation. Report by team
-    and by driver, never by individual.
-  ai: >-
-    AI changes which drivers matter: review load and trust in tools rise in importance.
+  summary: A survey index of how much friction developers meet in their daily work.
+  origin: DX (Developer Experience Index).
+  definition: A composite score from a standard developer survey covering the drivers of developer experience, such
+    as focus time, build and test speed, documentation, code review and clarity of goals.
+  formula: weighted mean of standard survey items, scaled 0–100
+  unit: index points
+  direction: Higher is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Developer survey
+  why: Friction is invisible in system data. The index shows where developers lose time and is a leading indicator
+    for speed and retention.
+  measure: Run the same survey on a fixed cadence, usually quarterly, with high participation. Report by team and
+    by driver, never by individual.
+  ai: 'AI changes which drivers matter: review load and trust in tools rise in importance.'
   findings: []
   pitfalls:
-    - {text: "Low response rates that skew results.", balance: regretted-attrition}
-    - {text: "Using survey results to judge individuals.", balance: ai-satisfaction-trust}
-  related: [ai-satisfaction-trust, supervisory-burden, net-ai-time-savings]
+  - text: Low response rates that skew results.
+    balance: regretted-attrition
+  - text: Using survey results to judge individuals.
+    balance: ai-satisfaction-trust
+  related:
+  - ai-satisfaction-trust
+  - supervisory-burden
+  - net-ai-time-savings
   sources: []
-
 - id: ai-satisfaction-trust
-  label: "AI satisfaction and trust"
+  label: AI satisfaction and trust
   group: experience
-  summary: "How satisfied developers are with AI tools, and how far they trust what those tools produce."
-  origin: "Survey practice; the satisfaction dimension of SPACE applied to AI tools."
-  definition: >-
-    Survey measures of satisfaction with AI tools and of trust in their output, typically on a
-    five-point scale, reported as the share of positive answers.
-  formula: "positive responses ÷ all responses, per item"
-  unit: "% positive"
-  direction: "Higher is better, with trust calibrated to actual quality."
-  levels: [team, org]
-  inputs: ["Developer survey"]
-  why: >-
-    Tools developers dislike or distrust are used badly or not at all, whatever the licence count says.
-  measure: >-
-    Ask separate questions for satisfaction and for trust; they move differently.
-  ai: >-
-    Specific to AI tools. Very high trust can be a risk if review becomes shallow.
+  summary: How satisfied developers are with AI tools, and how far they trust what those tools produce.
+  origin: Survey practice; the satisfaction dimension of SPACE applied to AI tools.
+  definition: Survey measures of satisfaction with AI tools and of trust in their output, typically on a five-point
+    scale, reported as the share of positive answers.
+  formula: positive responses ÷ all responses, per item
+  unit: '% positive'
+  direction: Higher is better, with trust calibrated to actual quality.
+  levels:
+  - team
+  - org
+  inputs:
+  - Developer survey
+  why: Tools developers dislike or distrust are used badly or not at all, whatever the licence count says.
+  measure: Ask separate questions for satisfaction and for trust; they move differently.
+  ai: Specific to AI tools. Very high trust can be a risk if review becomes shallow.
   findings:
-    - {text: "Jellyfish reported that 57% of respondents say AI increases their job satisfaction (2026).", source: jellyfish-2026}
+  - text: Jellyfish reported that 57% of respondents say AI increases their job satisfaction (2026).
+    source: jellyfish-2026
   pitfalls:
-    - {text: "High trust that leads to rubber-stamp review.", balance: unreviewed-merges}
-    - {text: "Satisfaction surveys run only by the tool vendor.", balance: developer-experience-index}
-  related: [developer-experience-index, change-confidence, net-ai-time-savings]
-  sources: [space-acm, jellyfish-2026]
-
+  - text: High trust that leads to rubber-stamp review.
+    balance: unreviewed-merges
+  - text: Satisfaction surveys run only by the tool vendor.
+    balance: developer-experience-index
+  related:
+  - developer-experience-index
+  - change-confidence
+  - net-ai-time-savings
+  sources:
+  - space-acm
+  - jellyfish-2026
 - id: supervisory-burden
-  label: "Review and supervisory burden"
+  label: Review and supervisory burden
   group: experience
-  summary: "How much developer time goes to reviewing, steering and correcting AI and agent output."
-  origin: "Emerging practice in AI developer research (2026)."
-  definition: >-
-    Hours per developer per week spent reviewing AI-generated changes, steering agents and correcting
+  summary: How much developer time goes to reviewing, steering and correcting AI and agent output.
+  origin: Emerging practice in AI developer research (2026).
+  definition: Hours per developer per week spent reviewing AI-generated changes, steering agents and correcting
     their output, from survey or from review-time data.
-  formula: "hours reviewing, steering and correcting AI output ÷ developers ÷ weeks"
-  unit: "hours per developer per week"
-  direction: "Lower is better, at constant quality."
-  levels: [team, org]
-  inputs: ["Developer survey", "Review events", "Agent session logs"]
-  why: >-
-    AI moves work from writing to reviewing. If review is not counted, the gain looks larger than it is
-    and senior engineers burn out.
-  measure: >-
-    Combine a survey question with review time from pull request events for AI-labelled changes.
-  ai: >-
-    Specific to AI work; grows with agent adoption.
+  formula: hours reviewing, steering and correcting AI output ÷ developers ÷ weeks
+  unit: hours per developer per week
+  direction: Lower is better, at constant quality.
+  levels:
+  - team
+  - org
+  inputs:
+  - Developer survey
+  - Review events
+  - Agent session logs
+  why: AI moves work from writing to reviewing. If review is not counted, the gain looks larger than it is and senior
+    engineers burn out.
+  measure: Combine a survey question with review time from pull request events for AI-labelled changes.
+  ai: Specific to AI work; grows with agent adoption.
   findings:
-    - {text: "InfoQ reports that 49% of developers spend 4+ hours a week managing AI tools (Atlassian State of DevEx 2026); 65% spend time correcting AI-generated work.", source: infoq-atlassian-devex}
-    - {text: "Interviews (24) and a survey (2,590) at one large multinational found that AI-assisted authoring raises reviewer burden through more and larger pull requests.", source: arxiv-newman-levelup}
+  - text: InfoQ reports that 49% of developers spend 4+ hours a week managing AI tools (Atlassian State of DevEx
+      2026); 65% spend time correcting AI-generated work.
+    source: infoq-atlassian-devex
+  - text: Interviews (24) and a survey (2,590) at one large multinational found that AI-assisted authoring raises
+      reviewer burden through more and larger pull requests.
+    source: arxiv-newman-levelup
   pitfalls:
-    - {text: "Cutting review time by reviewing less.", balance: unreviewed-merges}
-    - {text: "Burden concentrated on a few senior reviewers.", balance: regretted-attrition}
-  related: [net-ai-time-savings, review-wait-multiplier, human-intervention-rate, pr-size]
-  sources: [infoq-atlassian-devex, arxiv-newman-levelup]
-
+  - text: Cutting review time by reviewing less.
+    balance: unreviewed-merges
+  - text: Burden concentrated on a few senior reviewers.
+    balance: regretted-attrition
+  related:
+  - net-ai-time-savings
+  - review-wait-multiplier
+  - human-intervention-rate
+  - pr-size
+  sources:
+  - infoq-atlassian-devex
+  - arxiv-newman-levelup
 - id: change-confidence
-  label: "Change confidence"
+  label: Change confidence
   group: experience
-  summary: "How confident developers are that their changes will not break production."
-  origin: "DX research (Change Confidence)."
-  definition: >-
-    A survey measure of developers' confidence that a change they ship will work as intended in
-    production.
-  formula: "positive responses ÷ all responses"
-  unit: "% positive (or change in points)"
-  direction: "Higher is better."
-  levels: [team, org]
-  inputs: ["Developer survey"]
-  why: >-
-    Falling confidence is an early warning that quality is slipping before failures show in DORA
-    metrics.
-  measure: >-
-    Ask the same question each quarter and read it with change failure rate.
-  ai: >-
-    Developers who did not write the code themselves may be less sure of it.
+  summary: How confident developers are that their changes will not break production.
+  origin: DX research (Change Confidence).
+  definition: A survey measure of developers' confidence that a change they ship will work as intended in production.
+  formula: positive responses ÷ all responses
+  unit: '% positive (or change in points)'
+  direction: Higher is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Developer survey
+  why: Falling confidence is an early warning that quality is slipping before failures show in DORA metrics.
+  measure: Ask the same question each quarter and read it with change failure rate.
+  ai: Developers who did not write the code themselves may be less sure of it.
   findings:
-    - {text: "DX reported Change Confidence down 6.1% in Q2 2026 as AI-authored code rose.", source: dx-q2-2026}
+  - text: DX reported Change Confidence down 6.1% in Q2 2026 as AI-authored code rose.
+    source: dx-q2-2026
   pitfalls:
-    - {text: "Confidence that does not match the failure record.", balance: change-failure-rate}
-    - {text: "Single-quarter swings read as trends.", balance: developer-experience-index}
-  related: [change-failure-rate, ai-satisfaction-trust, ai-authored-share]
-  sources: [dx-q2-2026]
-
+  - text: Confidence that does not match the failure record.
+    balance: change-failure-rate
+  - text: Single-quarter swings read as trends.
+    balance: developer-experience-index
+  related:
+  - change-failure-rate
+  - ai-satisfaction-trust
+  - ai-authored-share
+  sources:
+  - dx-q2-2026
 - id: onboarding-time
-  label: "Onboarding time"
+  label: Onboarding time
   group: talent
-  summary: "How long a new engineer takes to make meaningful contributions."
-  origin: "Common practice in engineering management; DX tracks time to tenth pull request."
-  definition: >-
-    The time from a new engineer's start date to an agreed milestone of productive contribution, such
+  summary: How long a new engineer takes to make meaningful contributions.
+  origin: Common practice in engineering management; DX tracks time to tenth pull request.
+  definition: The time from a new engineer's start date to an agreed milestone of productive contribution, such
     as their tenth merged pull request.
-  formula: "median( date of milestone − start date ) for engineers hired in period"
-  unit: "days"
-  direction: "Lower is better."
-  levels: [org]
-  inputs: ["HR start dates", "Version control"]
-  why: >-
-    It measures how learnable the codebase and practices are, which AI can help or hide.
-  measure: >-
-    Fix the milestone and apply it to every hire. Exclude internal transfers or report them separately.
-  ai: >-
-    AI can speed early output while slowing understanding of the system. Read with change confidence.
-  findings: []
+  formula: median( date of milestone − start date ) for engineers hired in period
+  unit: days
+  direction: Lower is better.
+  levels:
+  - org
+  inputs:
+  - HR start dates
+  - Version control
+  why: It measures how learnable the codebase and practices are, which AI can help or hide.
+  measure: Fix the milestone and apply it to every hire. Exclude internal transfers or report them separately.
+  ai: AI can speed early output while slowing understanding of the system. Read with change confidence.
+  findings:
+  - text: Atlassian, using DX data, reported that the time for a new engineer to reach their tenth merged pull request
+      fell about 57%, from about 70 to about 30 days, since early 2024.
+    source: atlassian-measuring-ai
   pitfalls:
-    - {text: "Fast first pull requests without understanding.", balance: change-confidence}
-    - {text: "Small cohorts that swing the figure.", balance: developer-experience-index}
-  related: [regretted-attrition, developer-experience-index]
-  sources: []
-
+  - text: Fast first pull requests without understanding.
+    balance: change-confidence
+  - text: Small cohorts that swing the figure.
+    balance: developer-experience-index
+  related:
+  - regretted-attrition
+  - developer-experience-index
+  sources:
+  - atlassian-measuring-ai
 - id: regretted-attrition
-  label: "Regretted attrition"
+  label: Regretted attrition
   group: talent
-  summary: "The share of engineers the organisation wanted to keep who left in the period."
-  origin: "Common practice in HR and engineering management."
-  definition: >-
-    Voluntary leavers whom the organisation classed as regretted losses, divided by average engineering
+  summary: The share of engineers the organisation wanted to keep who left in the period.
+  origin: Common practice in HR and engineering management.
+  definition: Voluntary leavers whom the organisation classed as regretted losses, divided by average engineering
     headcount in the period.
-  formula: "regretted voluntary leavers ÷ average headcount, annualised"
-  unit: "% per year"
-  direction: "Lower is better."
-  levels: [org]
-  inputs: ["HR records"]
-  why: >-
-    Losing experienced engineers erodes the shared understanding that AI-assisted work depends on.
-  measure: >-
-    Agree the regretted classification at the time of exit, not afterwards.
-  ai: >-
-    Review burden and changing roles can raise attrition among senior engineers.
+  formula: regretted voluntary leavers ÷ average headcount, annualised
+  unit: '% per year'
+  direction: Lower is better.
+  levels:
+  - org
+  inputs:
+  - HR records
+  why: Losing experienced engineers erodes the shared understanding that AI-assisted work depends on.
+  measure: Agree the regretted classification at the time of exit, not afterwards.
+  ai: Review burden and changing roles can raise attrition among senior engineers.
   findings: []
   pitfalls:
-    - {text: "Small teams where one exit dominates.", balance: developer-experience-index}
-    - {text: "Ignoring who leaves, such as senior reviewers.", balance: supervisory-burden}
-  related: [onboarding-time, supervisory-burden, developer-experience-index]
+  - text: Small teams where one exit dominates.
+    balance: developer-experience-index
+  - text: Ignoring who leaves, such as senior reviewers.
+    balance: supervisory-burden
+  related:
+  - onboarding-time
+  - supervisory-burden
+  - developer-experience-index
   sources: []

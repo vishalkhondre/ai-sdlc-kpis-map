@@ -1,336 +1,472 @@
 # Dimension 3 · AI in the loop.
 
 - id: ai-active-users
-  label: "Active AI users"
+  label: Active AI users
   group: adoption
-  summary: "The share of engineers who used AI development tools in the period."
-  origin: "Tool telemetry practice; GitHub's Copilot metrics report active and engaged users."
-  definition: >-
-    Engineers with at least one qualifying AI interaction in the period, divided by engineers with
-    access. A qualifying interaction is defined per tool, for example an accepted suggestion, a chat
-    turn or an agent task.
-  formula: "engineers with ≥1 qualifying AI interaction in period ÷ engineers with access"
-  unit: "% of engineers (daily, weekly or monthly)"
-  direction: "Higher is better up to saturation; read with impact."
-  levels: [team, org]
-  inputs: ["Tool telemetry", "Seat assignments", "Directory"]
-  why: >-
-    It is the first adoption question and the base for every per-user figure.
-  measure: >-
-    Use each tool's own activity data and deduplicate engineers across tools. State the window (daily,
-    weekly, monthly) and the interaction that counts.
-  ai: >-
-    Most organisations now report high adoption, so the measure separates leaders from laggards less
-    than it did. Depth of use matters more.
+  summary: The share of engineers who used AI development tools in the period.
+  origin: Tool telemetry practice; GitHub's Copilot metrics report active and engaged users.
+  definition: Engineers with at least one qualifying AI interaction in the period, divided by engineers with access.
+    A qualifying interaction is defined per tool, for example an accepted suggestion, a chat turn or an agent task.
+  formula: engineers with ≥1 qualifying AI interaction in period ÷ engineers with access
+  unit: '% of engineers (daily, weekly or monthly)'
+  direction: Higher is better up to saturation; read with impact.
+  levels:
+  - team
+  - org
+  inputs:
+  - Tool telemetry
+  - Seat assignments
+  - Directory
+  why: It is the first adoption question and the base for every per-user figure.
+  measure: Use each tool's own activity data and deduplicate engineers across tools. State the window (daily, weekly,
+    monthly) and the interaction that counts.
+  ai: Most organisations now report high adoption, so the measure separates leaders from laggards less than it did.
+    Depth of use matters more.
   findings:
-    - {text: "LinearB reported that 88.3% of developers use AI regularly (8.1 million pull requests across 4,800 teams, 2026).", source: linearb-8m}
-    - {text: "DX reported industry adoption of 93% (Q1 2026).", source: dx-q1-2026}
+  - text: LinearB reported that 88.3% of developers use AI regularly (8.1 million pull requests across 4,800 teams,
+      2026).
+    source: linearb-8m
+  - text: DX reported industry adoption of 93% (Q1 2026).
+    source: dx-q1-2026
   pitfalls:
-    - {text: "Counting one accidental interaction as adoption.", balance: ai-authored-share}
-    - {text: "Missing use of unsanctioned tools.", balance: shadow-ai-usage}
-  related: [ai-authored-share, acceptance-rate, ai-spend-per-engineer]
-  sources: [copilot-metrics-api, linearb-8m, dx-q1-2026]
-
+  - text: Counting one accidental interaction as adoption.
+    balance: ai-authored-share
+  - text: Missing use of unsanctioned tools.
+    balance: shadow-ai-usage
+  related:
+  - ai-authored-share
+  - acceptance-rate
+  - ai-spend-per-engineer
+  sources:
+  - copilot-metrics-api
+  - linearb-8m
+  - dx-q1-2026
+  - linearb-adoption-guide
 - id: acceptance-rate
-  label: "Suggestion acceptance rate"
+  label: Suggestion acceptance rate
   group: adoption
-  summary: "The share of AI code suggestions that developers accept."
-  origin: "Tool telemetry for code completion; reported in GitHub Copilot metrics."
-  definition: >-
-    Accepted suggestions divided by suggestions shown, for inline completion tools. It can also be
-    counted in lines of code accepted over lines suggested.
-  formula: "suggestions accepted ÷ suggestions shown"
-  unit: "%"
-  direction: "Neither: a healthy range, not a maximum."
-  levels: [team, org]
-  inputs: ["Editor telemetry", "Tool metrics API"]
-  why: >-
-    It shows whether suggestions are relevant enough to use. It says nothing about whether accepted
-    code survives.
-  measure: >-
-    Take counts from the tool's metrics API. Break down by language and editor; rates differ widely.
-  ai: >-
-    As work shifts from completion to chat and agents, acceptance rate covers a shrinking share of AI
-    output.
+  summary: The share of AI code suggestions that developers accept.
+  origin: Tool telemetry for code completion; reported in GitHub Copilot metrics.
+  definition: Accepted suggestions divided by suggestions shown, for inline completion tools. It can also be counted
+    in lines of code accepted over lines suggested.
+  formula: suggestions accepted ÷ suggestions shown
+  unit: '%'
+  direction: 'Neither: a healthy range, not a maximum.'
+  levels:
+  - team
+  - org
+  inputs:
+  - Editor telemetry
+  - Tool metrics API
+  why: It shows whether suggestions are relevant enough to use. It says nothing about whether accepted code survives.
+  measure: Take counts from the tool's metrics API. Break down by language and editor; rates differ widely.
+  ai: As work shifts from completion to chat and agents, acceptance rate covers a shrinking share of AI output.
   findings:
-    - {text: "Larridin treats 25–45% as a healthy acceptance rate (vendor threshold, 2026).", source: larridin-benchmarks-2026}
+  - text: Larridin treats 25–45% as a healthy acceptance rate (vendor threshold, 2026).
+    source: larridin-benchmarks-2026
   pitfalls:
-    - {text: "Accepting and then rewriting, which inflates the rate.", balance: post-acceptance-edits}
-    - {text: "Pushing for a higher rate, which rewards accepting weak code.", balance: ai-code-survival}
-  related: [post-acceptance-edits, ai-code-survival, ai-active-users]
-  sources: [copilot-metrics-api, larridin-benchmarks-2026]
-
+  - text: Accepting and then rewriting, which inflates the rate.
+    balance: post-acceptance-edits
+  - text: Pushing for a higher rate, which rewards accepting weak code.
+    balance: ai-code-survival
+  related:
+  - post-acceptance-edits
+  - ai-code-survival
+  - ai-active-users
+  sources:
+  - copilot-metrics-api
+  - larridin-benchmarks-2026
 - id: ai-authored-share
-  label: "AI-authored code share"
+  label: AI-authored code share
   group: adoption
-  summary: "The share of merged code written by AI tools or agents."
-  origin: "Reported by DX and Atlassian in 2026 AI impact research."
-  definition: >-
-    Lines of merged code attributed to AI, divided by all merged lines in the period. Attribution comes
+  summary: The share of merged code written by AI tools or agents.
+  origin: Reported by DX and Atlassian in 2026 AI impact research.
+  definition: Lines of merged code attributed to AI, divided by all merged lines in the period. Attribution comes
     from tool telemetry, commit metadata or developer self-report.
-  formula: "AI-attributed merged lines ÷ all merged lines"
-  unit: "% of merged code"
-  direction: "Neither: read with quality and survival."
-  levels: [team, org]
-  inputs: ["Tool telemetry", "Commit metadata", "Developer survey"]
-  why: >-
-    It is the headline figure for how much of the delivery work AI now does.
-  measure: >-
-    Prefer telemetry over self-report and say which you use. Count merged code only, so abandoned
-    drafts do not count.
-  ai: >-
-    The figure has risen fast across the industry. A higher share is not a benefit on its own; it moves
-    the question to review and maintenance.
+  formula: AI-attributed merged lines ÷ all merged lines
+  unit: '% of merged code'
+  direction: 'Neither: read with quality and survival.'
+  levels:
+  - team
+  - org
+  inputs:
+  - Tool telemetry
+  - Commit metadata
+  - Developer survey
+  why: It is the headline figure for how much of the delivery work AI now does.
+  measure: Prefer telemetry over self-report and say which you use. Count merged code only, so abandoned drafts
+    do not count.
+  ai: The figure has risen fast across the industry. A higher share is not a benefit on its own; it moves the question
+    to review and maintenance.
   findings:
-    - {text: "DX reported AI-authored code rising from 34% (Q1) to 52% (Q2 2026).", source: dx-q2-2026}
-    - {text: "Atlassian's index reported 49% (April) to 70% (October 2026) of merged code as AI-authored, self-reported.", source: atlassian-ai-sdlc-index}
-    - {text: "In Augment Code's 2026 survey, respondents reported 48% of their code as AI-generated, and 55% were concerned about losing shared understanding of the codebase.", source: augment-survey}
+  - text: DX reported AI-authored code rising from 34% (Q1) to 52% (Q2 2026).
+    source: dx-q2-2026
+  - text: Atlassian's index reported 49% (April) to 70% (October 2026) of merged code as AI-authored, self-reported.
+    source: atlassian-ai-sdlc-index
+  - text: In Augment Code's 2026 survey, respondents reported 48% of their code as AI-generated, and 55% were concerned
+      about losing shared understanding of the codebase.
+    source: augment-survey
+  - text: DX's AI measurement framework gives 27.4% of merged code as AI-authored (Q1 2026). DX's own quarterly
+      reports give other figures for other samples, so compare like with like.
+    source: dx-ai-framework
   pitfalls:
-    - {text: "Treating a rising share as productivity.", balance: ai-code-survival}
-    - {text: "Self-reported shares that differ from telemetry.", balance: ai-active-users}
-  related: [ai-code-survival, code-duplication, agent-pr-share, ai-active-users]
-  sources: [dx-q2-2026, atlassian-ai-sdlc-index, augment-survey]
-  disagreements: "DX uses telemetry and survey data; Atlassian's figures are self-reported. They are not directly comparable."
-
+  - text: Treating a rising share as productivity.
+    balance: ai-code-survival
+  - text: Self-reported shares that differ from telemetry.
+    balance: ai-active-users
+  related:
+  - ai-code-survival
+  - code-duplication
+  - agent-pr-share
+  - ai-active-users
+  sources:
+  - dx-q2-2026
+  - atlassian-ai-sdlc-index
+  - augment-survey
+  disagreements: DX uses telemetry and survey data; Atlassian's figures are self-reported. They are not directly
+    comparable.
 - id: context-file-coverage
-  label: "Context file coverage"
+  label: Context file coverage
   group: adoption
-  summary: "The share of active repositories with maintained instructions for AI agents, such as an AGENTS.md file."
-  origin: "Emerging practice with coding agents (2025–2026)."
-  definition: >-
-    Active repositories that contain an agent instruction or context file reviewed within a set
-    period, divided by all active repositories.
-  formula: "active repositories with a current agent context file ÷ active repositories"
-  unit: "% of repositories"
-  direction: "Higher is better."
-  levels: [team, org]
-  inputs: ["Repository contents", "File history"]
-  why: >-
-    Agents perform better with explicit project context. Coverage shows whether teams have prepared
-    their codebases for agent work.
-  measure: >-
-    Scan repositories for the agreed file names and check the date of the last change.
-  ai: >-
-    The measure exists because of agents; it is a leading indicator for agent task success.
+  summary: The share of active repositories with maintained instructions for AI agents, such as an AGENTS.md file.
+  origin: Emerging practice with coding agents (2025–2026).
+  definition: Active repositories that contain an agent instruction or context file reviewed within a set period,
+    divided by all active repositories.
+  formula: active repositories with a current agent context file ÷ active repositories
+  unit: '% of repositories'
+  direction: Higher is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Repository contents
+  - File history
+  why: Agents perform better with explicit project context. Coverage shows whether teams have prepared their codebases
+    for agent work.
+  measure: Scan repositories for the agreed file names and check the date of the last change.
+  ai: The measure exists because of agents; it is a leading indicator for agent task success.
   findings: []
   pitfalls:
-    - {text: "Empty or stale files that count as covered.", balance: agent-task-success}
-    - {text: "Coverage targets that produce boilerplate.", balance: human-intervention-rate}
-  related: [agent-task-success, human-intervention-rate]
+  - text: Empty or stale files that count as covered.
+    balance: agent-task-success
+  - text: Coverage targets that produce boilerplate.
+    balance: human-intervention-rate
+  related:
+  - agent-task-success
+  - human-intervention-rate
   sources: []
-
 - id: net-ai-time-savings
-  label: "Net AI time savings"
+  label: Net AI time savings
   group: impact
-  summary: "Time AI saves developers each week, minus the time spent prompting, reviewing and fixing its output."
-  origin: "Survey practice in DX and Atlassian developer research."
-  definition: >-
-    Self-reported hours saved by AI per developer per week, minus hours spent managing AI tools,
-    reviewing and correcting AI output.
-  formula: "hours saved per week − hours managing, reviewing and correcting AI output"
-  unit: "hours per developer per week"
-  direction: "Higher is better."
-  levels: [team, org]
-  inputs: ["Developer survey", "Review time data"]
-  why: >-
-    Gross time savings overstate the benefit. The net figure is the one that can be spent on new work.
-  measure: >-
-    Ask both questions in the same survey, every quarter. Compare with system data such as cycle time;
-    controlled studies have found people misjudge their own speed.
-  ai: >-
-    The measure is specific to AI. It tends to fall as teams move to agents that need more supervision.
+  summary: Time AI saves developers each week, minus the time spent prompting, reviewing and fixing its output.
+  origin: Survey practice in DX and Atlassian developer research.
+  definition: Self-reported hours saved by AI per developer per week, minus hours spent managing AI tools, reviewing
+    and correcting AI output.
+  formula: hours saved per week − hours managing, reviewing and correcting AI output
+  unit: hours per developer per week
+  direction: Higher is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Developer survey
+  - Review time data
+  why: Gross time savings overstate the benefit. The net figure is the one that can be spent on new work.
+  measure: Ask both questions in the same survey, every quarter. Compare with system data such as cycle time; controlled
+    studies have found people misjudge their own speed.
+  ai: The measure is specific to AI. It tends to fall as teams move to agents that need more supervision.
   findings:
-    - {text: "Keyhole reports DX self-reported savings of 3.6 hours a week (4.1 for daily users).", source: keyhole-2026}
-    - {text: "InfoQ reports that the share of developers saving 10+ hours a week fell from 68% to 26%, and 49% spend four or more hours a week managing AI tools (Atlassian State of DevEx 2026).", source: infoq-atlassian-devex}
-    - {text: "In METR's 2025 randomised trial (16 experienced open-source developers, 246 issues), developers took 19% longer when AI was allowed, though they had expected a 24% speed-up and afterwards believed AI had sped them up by 20%. METR notes the results are now dated.", source: metr-2025}
+  - text: Keyhole reports DX self-reported savings of 3.6 hours a week (4.1 for daily users).
+    source: keyhole-2026
+  - text: InfoQ reports that the share of developers saving 10+ hours a week fell from 68% to 26%, and 49% spend
+      four or more hours a week managing AI tools (Atlassian State of DevEx 2026).
+    source: infoq-atlassian-devex
+  - text: In METR's 2025 randomised trial (16 experienced open-source developers, 246 issues), developers took 19%
+      longer when AI was allowed, though they had expected a 24% speed-up and afterwards believed AI had sped them
+      up by 20%. METR notes the results are now dated.
+    source: metr-2025
+  - text: DX reported average self-reported savings of 3.9 hours a week, and 4.72 hours for daily users (DX AI measurement
+      framework, updated May 2026).
+    source: dx-ai-framework
+  - text: Atlassian, using DX data, reported that engineers who use AI regularly say they save more than 6 hours
+      a week (self-reported, 500+ organisations, Q2 2026).
+    source: atlassian-measuring-ai
+  - text: METR said in February 2026 that its newer study (57 developers, 800+ tasks) is an unreliable signal because
+      of selection effects; it believes the speed-up is probably larger now but the evidence is weak.
+    source: metr-2026-update
   pitfalls:
-    - {text: "Relying on self-report alone.", balance: pr-cycle-time}
-    - {text: "Counting time saved that goes to more review.", balance: supervisory-burden}
-  related: [supervisory-burden, innovation-ratio, ai-satisfaction-trust]
-  sources: [keyhole-2026, infoq-atlassian-devex, metr-2025]
-
+  - text: Relying on self-report alone.
+    balance: pr-cycle-time
+  - text: Counting time saved that goes to more review.
+    balance: supervisory-burden
+  related:
+  - supervisory-burden
+  - innovation-ratio
+  - ai-satisfaction-trust
+  sources:
+  - keyhole-2026
+  - infoq-atlassian-devex
+  - metr-2025
 - id: ai-code-survival
-  label: "AI code survival and turnover"
+  label: AI code survival and turnover
   group: impact
-  summary: "How much AI-written code is still in place after 30 days, and how much was rewritten or deleted."
-  origin: "Code-analytics practice (code turnover, churn); thresholds published by Larridin."
-  definition: >-
-    Turnover is the share of lines that are modified or deleted within a window (often 30 days) after
+  summary: How much AI-written code is still in place after 30 days, and how much was rewritten or deleted.
+  origin: Code-analytics practice (code turnover, churn); thresholds published by Larridin.
+  definition: Turnover is the share of lines that are modified or deleted within a window (often 30 days) after
     they merge. Survival is its complement. Computed separately for AI-assisted and human code.
-  formula: "lines modified or deleted within 30 days of merge ÷ lines merged (survival = 1 − turnover)"
-  unit: "% of lines"
-  direction: "Lower turnover is better."
-  levels: [team, org]
-  inputs: ["Version control history", "AI attribution"]
-  why: >-
-    It tests whether AI output holds up, which acceptance and share metrics cannot.
-  measure: >-
-    Track each merged line through later commits. Exclude planned refactors where they are labelled.
-  ai: >-
-    Comparing AI-assisted and human turnover is the most direct quality signal for AI code.
+  formula: lines modified or deleted within 30 days of merge ÷ lines merged (survival = 1 − turnover)
+  unit: '% of lines'
+  direction: Lower turnover is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Version control history
+  - AI attribution
+  why: It tests whether AI output holds up, which acceptance and share metrics cannot.
+  measure: Track each merged line through later commits. Exclude planned refactors where they are labelled.
+  ai: Comparing AI-assisted and human turnover is the most direct quality signal for AI code.
   findings:
-    - {text: "Larridin treats 30-day turnover below 12% for AI-assisted code and below 8% for human code as healthy, and above 25% as critical (vendor thresholds, 2026).", source: larridin-benchmarks-2026}
+  - text: Larridin treats 30-day turnover below 12% for AI-assisted code and below 8% for human code as healthy,
+      and above 25% as critical (vendor thresholds, 2026).
+    source: larridin-benchmarks-2026
   pitfalls:
-    - {text: "Penalising healthy refactoring.", balance: code-duplication}
-    - {text: "Short windows that miss later rewrites.", balance: deployment-rework-rate}
-  related: [code-duplication, acceptance-rate, ai-authored-share, post-acceptance-edits]
-  sources: [larridin-benchmarks-2026]
-
+  - text: Penalising healthy refactoring.
+    balance: code-duplication
+  - text: Short windows that miss later rewrites.
+    balance: deployment-rework-rate
+  related:
+  - code-duplication
+  - acceptance-rate
+  - ai-authored-share
+  - post-acceptance-edits
+  sources:
+  - larridin-benchmarks-2026
 - id: post-acceptance-edits
-  label: "Post-acceptance edit rate"
+  label: Post-acceptance edit rate
   group: impact
-  summary: "How much accepted AI code developers change before it is committed or merged."
-  origin: "Emerging practice in AI coding analytics (2026)."
-  definition: >-
-    The share of accepted AI-suggested lines that the developer edits before commit or merge.
-  formula: "accepted AI lines edited before merge ÷ accepted AI lines"
-  unit: "%"
-  direction: "Lower is better, at constant quality."
-  levels: [team]
-  inputs: ["Editor telemetry", "Commit diffs"]
-  why: >-
-    It corrects acceptance rate: an accepted suggestion that is then rewritten saved little.
-  measure: >-
-    Needs telemetry that links accepted text to the committed result; few tools expose it.
-  ai: >-
-    Specific to AI assistance.
+  summary: How much accepted AI code developers change before it is committed or merged.
+  origin: Emerging practice in AI coding analytics (2026).
+  definition: The share of accepted AI-suggested lines that the developer edits before commit or merge.
+  formula: accepted AI lines edited before merge ÷ accepted AI lines
+  unit: '%'
+  direction: Lower is better, at constant quality.
+  levels:
+  - team
+  inputs:
+  - Editor telemetry
+  - Commit diffs
+  why: 'It corrects acceptance rate: an accepted suggestion that is then rewritten saved little.'
+  measure: Needs telemetry that links accepted text to the committed result; few tools expose it.
+  ai: Specific to AI assistance.
   findings: []
   pitfalls:
-    - {text: "Developers who accept and edit as a habit, which is a style, not a defect.", balance: acceptance-rate}
-    - {text: "Low edit rates from rubber-stamping.", balance: ai-code-survival}
-  related: [acceptance-rate, ai-code-survival]
+  - text: Developers who accept and edit as a habit, which is a style, not a defect.
+    balance: acceptance-rate
+  - text: Low edit rates from rubber-stamping.
+    balance: ai-code-survival
+  related:
+  - acceptance-rate
+  - ai-code-survival
   sources: []
-
 - id: ai-pr-acceptance
-  label: "AI pull request acceptance"
+  label: AI pull request acceptance
   group: impact
-  summary: "The share of AI-generated pull requests that are merged, compared with human ones."
-  origin: "LinearB 2026 benchmarks ('acceptance rate', merged within 30 days)."
-  definition: >-
-    Pull requests opened by or mostly written by AI that are merged within 30 days, divided by all such
+  summary: The share of AI-generated pull requests that are merged, compared with human ones.
+  origin: LinearB 2026 benchmarks ('acceptance rate', merged within 30 days).
+  definition: Pull requests opened by or mostly written by AI that are merged within 30 days, divided by all such
     pull requests opened. Compared with the same rate for human pull requests.
-  formula: "AI pull requests merged within 30 days ÷ AI pull requests opened"
-  unit: "%"
-  direction: "Higher is better."
-  levels: [team, org]
-  inputs: ["Pull request records", "AI attribution"]
-  why: >-
-    Unmerged AI pull requests are wasted review time. The gap to human pull requests shows how much.
-  measure: >-
-    Label pull requests by origin (human, AI-assisted, agent) and track merge within a fixed window.
-  ai: >-
-    Specific to AI work.
+  formula: AI pull requests merged within 30 days ÷ AI pull requests opened
+  unit: '%'
+  direction: Higher is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Pull request records
+  - AI attribution
+  why: Unmerged AI pull requests are wasted review time. The gap to human pull requests shows how much.
+  measure: Label pull requests by origin (human, AI-assisted, agent) and track merge within a fixed window.
+  ai: Specific to AI work.
   findings:
-    - {text: "LinearB reported that 32.7% of AI-generated pull requests merge within 30 days, against about 84.5% of unassisted ones (8.1 million pull requests across 4,800 teams, 2026). Its benchmarks page gives 84.4%.", source: linearb-8m}
+  - text: LinearB reported that 32.7% of AI-generated pull requests merge within 30 days, against about 84.5% of
+      unassisted ones (8.1 million pull requests across 4,800 teams, 2026). Its benchmarks page gives 84.4%.
+    source: linearb-8m
+  - text: LinearB reported a 30-day yield (opened pull requests merged within 30 days) for agentic pull requests
+      of 79% at elite teams, 58% at good and 37% at fair teams, against 92% for human-only pull requests (2.7 million
+      pull requests, February–May 2026).
+    source: linearb-ai-gap
   pitfalls:
-    - {text: "Merging weak AI pull requests to raise the rate.", balance: change-failure-rate}
-    - {text: "Mislabelled origin.", balance: agent-pr-share}
-  related: [agent-pr-share, review-wait-multiplier, pr-throughput]
-  sources: [linearb-8m]
-
+  - text: Merging weak AI pull requests to raise the rate.
+    balance: change-failure-rate
+  - text: Mislabelled origin.
+    balance: agent-pr-share
+  related:
+  - agent-pr-share
+  - review-wait-multiplier
+  - pr-throughput
+  sources:
+  - linearb-8m
 - id: review-wait-multiplier
-  label: "Review wait, AI vs human"
+  label: Review wait, AI vs human
   group: impact
-  summary: "How much longer AI pull requests wait for review than human ones."
-  origin: "LinearB 2026 benchmarks."
-  definition: >-
-    Median time to first review for AI pull requests divided by the same median for human pull
-    requests in the same teams and period.
-  formula: "median time to first review (AI) ÷ median time to first review (human)"
-  unit: "ratio"
-  direction: "Closer to 1 is better."
-  levels: [team, org]
-  inputs: ["Pull request events", "AI attribution"]
-  why: >-
-    It shows whether review capacity and trust keep up with AI output.
-  measure: >-
-    Compute both medians over the same teams and period; compare like-sized pull requests where
-    possible.
-  ai: >-
-    Specific to AI work.
+  summary: How much longer AI pull requests wait for review than human ones.
+  origin: LinearB 2026 benchmarks.
+  definition: Median time to first review for AI pull requests divided by the same median for human pull requests
+    in the same teams and period.
+  formula: median time to first review (AI) ÷ median time to first review (human)
+  unit: ratio
+  direction: Closer to 1 is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Pull request events
+  - AI attribution
+  why: It shows whether review capacity and trust keep up with AI output.
+  measure: Compute both medians over the same teams and period; compare like-sized pull requests where possible.
+  ai: Specific to AI work.
   findings:
-    - {text: "LinearB's 2026 benchmarks report AI pull requests waiting 4.6 times longer before review (8.1 million pull requests).", source: linearb-benchmarks}
+  - text: LinearB's 2026 benchmarks report AI pull requests waiting 4.6 times longer before review (8.1 million
+      pull requests).
+    source: linearb-benchmarks
   pitfalls:
-    - {text: "Comparing different sizes of pull request.", balance: pr-size}
-    - {text: "Closing the gap by reviewing AI work less carefully.", balance: unreviewed-merges}
-  related: [time-to-first-review, ai-pr-acceptance, supervisory-burden]
-  sources: [linearb-benchmarks]
-
+  - text: Comparing different sizes of pull request.
+    balance: pr-size
+  - text: Closing the gap by reviewing AI work less carefully.
+    balance: unreviewed-merges
+  related:
+  - time-to-first-review
+  - ai-pr-acceptance
+  - supervisory-burden
+  sources:
+  - linearb-benchmarks
 - id: agent-task-success
-  label: "Agent task success rate"
+  label: Agent task success rate
   group: agents
-  summary: "The share of tasks given to an AI agent that it completes to an accepted standard."
-  origin: "Agent evaluation practice (2025–2026)."
-  definition: >-
-    Tasks an agent completes such that the result is accepted (for example its pull request merges or
+  summary: The share of tasks given to an AI agent that it completes to an accepted standard.
+  origin: Agent evaluation practice (2025–2026); no standard definition yet.
+  definition: Tasks an agent completes such that the result is accepted (for example its pull request merges or
     its tests pass) divided by tasks assigned. Partial success is counted separately.
-  formula: "tasks completed and accepted ÷ tasks assigned (full and partial reported separately)"
-  unit: "%"
-  direction: "Higher is better."
-  levels: [team, org]
-  inputs: ["Agent task log", "Pull request outcomes", "Test results"]
-  why: >-
-    It is the basic capability measure for agents in real work, as opposed to benchmark scores.
-  measure: >-
-    Define acceptance per task type before counting. Report by task type and repository; success
-    varies widely.
-  ai: >-
-    Specific to agents.
-  findings: []
-  pitfalls:
-    - {text: "Easy tasks only, which flatters the rate.", balance: human-intervention-rate}
-    - {text: "Accepted work that later fails.", balance: change-failure-rate}
-  related: [human-intervention-rate, agent-pr-share, context-file-coverage]
-  sources: []
-
-- id: human-intervention-rate
-  label: "Human intervention rate"
-  group: agents
-  summary: "How often a person has to step in to correct, redirect or finish an agent's task."
-  origin: "Agent evaluation practice (2025–2026)."
-  definition: >-
-    Agent tasks that needed at least one human correction, redirection or takeover before acceptance,
-    divided by agent tasks attempted.
-  formula: "agent tasks with ≥1 human intervention ÷ agent tasks attempted"
-  unit: "%"
-  direction: "Lower is better, at constant success."
-  levels: [team, org]
-  inputs: ["Agent session logs", "Pull request review events"]
-  why: >-
-    It measures autonomy: how much human time each agent task still costs.
-  measure: >-
-    Define intervention per tool (a new instruction, a manual commit, a takeover) and log it.
-  ai: >-
-    Specific to agents.
-  findings: []
-  pitfalls:
-    - {text: "Reducing intervention by lowering standards.", balance: change-failure-rate}
-    - {text: "Interventions outside the tool that go unlogged.", balance: supervisory-burden}
-  related: [agent-task-success, supervisory-burden]
-  sources: []
-
-- id: agent-pr-share
-  label: "Agent-opened pull request share"
-  group: agents
-  summary: "The share of pull requests opened by autonomous agents rather than people."
-  origin: "Version-control analytics practice (2025–2026)."
-  definition: >-
-    Pull requests opened by agent accounts or agent tools, divided by all pull requests opened.
-  formula: "pull requests opened by agents ÷ all pull requests opened"
-  unit: "%"
-  direction: "Neither: read with acceptance and review burden."
-  levels: [team, org]
-  inputs: ["Pull request author", "Bot and agent accounts"]
-  why: >-
-    It shows how far delivery has moved from assisted to delegated work.
-  measure: >-
-    Keep a register of agent identities. Exclude dependency-update bots or report them separately.
-  ai: >-
-    Specific to agents.
+  formula: tasks completed and accepted ÷ tasks assigned (full and partial reported separately)
+  unit: '%'
+  direction: Higher is better.
+  levels:
+  - team
+  - org
+  inputs:
+  - Agent task log
+  - Pull request outcomes
+  - Test results
+  why: It is the basic capability measure for agents in real work, as opposed to benchmark scores.
+  measure: Define acceptance per task type before counting. Report by task type and repository; success varies widely.
+  ai: Specific to agents.
   findings:
-    - {text: "A 2026 review of 50 grey-literature documents by Treude and Baltes notes that agents now open millions of pull requests a month.", source: arxiv-treude-baltes}
+  - text: 'HatchWorks shows why repeated runs matter: an agent that succeeds 90% of the time on one run succeeds
+      three runs in a row about 73% of the time, and five in a row about 59%.'
+    source: hatchworks-agent-eval
+  - text: Gamut reports that on Sierra's tau-bench, agents with under 50% single-run success fell to about 25% when
+      required to succeed on eight runs (pass^8).
+    source: gamut-agent-eval
+  - text: In a single-company case study, Verisk reported over 90% of agent output accepted by human reviewers with
+      minimal modification, against a 50–60% target (2026).
+    source: aws-verisk-aisdlc
   pitfalls:
-    - {text: "Counting volume, not merged value.", balance: ai-pr-acceptance}
-    - {text: "Ignoring the review time agent pull requests consume.", balance: supervisory-burden}
-  related: [ai-pr-acceptance, agent-task-success, pr-throughput]
-  sources: [arxiv-treude-baltes]
+  - text: Easy tasks only, which flatters the rate.
+    balance: human-intervention-rate
+  - text: Accepted work that later fails.
+    balance: change-failure-rate
+  related:
+  - human-intervention-rate
+  - agent-pr-share
+  - context-file-coverage
+  sources:
+  - gamut-agent-eval
+  - sonar-agentic-economics
+  disagreements: 'Sources count success differently: the agent finished the task (Gamut''s task success rate), the
+    change passed the quality gate on its first CI run (Sonar''s first-pass acceptance), reviewers accepted it with
+    minimal modification (the Verisk case study on AWS), or it succeeded on every one of k repeated runs (pass^k).
+    State which one you use.'
+- id: human-intervention-rate
+  label: Human intervention rate
+  group: agents
+  summary: How often a person has to step in to correct, redirect or finish an agent's task.
+  origin: Agent evaluation practice (2025–2026); no standard definition yet.
+  definition: Agent tasks that needed at least one human correction, redirection or takeover before acceptance,
+    divided by agent tasks attempted.
+  formula: agent tasks with ≥1 human intervention ÷ agent tasks attempted
+  unit: '%'
+  direction: Lower is better, at constant success.
+  levels:
+  - team
+  - org
+  inputs:
+  - Agent session logs
+  - Pull request review events
+  why: 'It measures autonomy: how much human time each agent task still costs.'
+  measure: Define intervention per tool (a new instruction, a manual commit, a takeover) and log it.
+  ai: Specific to agents.
+  findings: []
+  pitfalls:
+  - text: Reducing intervention by lowering standards.
+    balance: change-failure-rate
+  - text: Interventions outside the tool that go unlogged.
+    balance: supervisory-burden
+  related:
+  - agent-task-success
+  - supervisory-burden
+  sources:
+  - sonar-agentic-economics
+  - hatchworks-agent-eval
+  disagreements: Sonar measures an override rate (how often reviewers reject or rewrite agent changes); HatchWorks
+    measures the opposite, a containment rate (the share of requests resolved without a human); Ganglani proposes
+    an escalation-required rate. One minus containment is the closest to the definition above.
+- id: agent-pr-share
+  label: Agent-opened pull request share
+  group: agents
+  summary: The share of pull requests opened by autonomous agents rather than people.
+  origin: Version-control analytics practice (2025–2026).
+  definition: Pull requests opened by agent accounts or agent tools, divided by all pull requests opened.
+  formula: pull requests opened by agents ÷ all pull requests opened
+  unit: '%'
+  direction: 'Neither: read with acceptance and review burden.'
+  levels:
+  - team
+  - org
+  inputs:
+  - Pull request author
+  - Bot and agent accounts
+  why: It shows how far delivery has moved from assisted to delegated work.
+  measure: Keep a register of agent identities. Exclude dependency-update bots or report them separately.
+  ai: Specific to agents.
+  findings:
+  - text: A 2026 review of 50 grey-literature documents by Treude and Baltes notes that agents now open millions
+      of pull requests a month.
+    source: arxiv-treude-baltes
+  - text: GitHub reported that by September 2026 developers started more than 40% of pull requests with an agent,
+      up from 17% in March (GitHub platform, agent-started).
+    source: github-octoverse-2026
+  - text: Jellyfish reported that the median company had 35% of merged pull requests with agent involvement, and
+      leading companies 67% (1,300+ companies, 113 million pull requests, October 2026).
+    source: jellyfish-ai-trends
+  - text: LinearB reported that 4.7% of pull requests at elite teams were written by autonomous agents (2.7 million
+      pull requests, 253 organisations, February–May 2026).
+    source: linearb-ai-gap
+  pitfalls:
+  - text: Counting volume, not merged value.
+    balance: ai-pr-acceptance
+  - text: Ignoring the review time agent pull requests consume.
+    balance: supervisory-burden
+  related:
+  - ai-pr-acceptance
+  - agent-task-success
+  - pr-throughput
+  sources:
+  - arxiv-treude-baltes
+  - github-octoverse-2026
+  - jellyfish-ai-trends
+  - linearb-ai-gap
+  disagreements: 'Three definitions are in use and their numbers differ by an order of magnitude: pull requests
+    started with an agent (GitHub), merged pull requests with any agent involvement (Jellyfish), and pull requests
+    written by autonomous agents (LinearB). The definition above is the strictest; say which one a figure uses before
+    comparing.'

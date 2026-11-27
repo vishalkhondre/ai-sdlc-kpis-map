@@ -591,7 +591,8 @@ def render_markdown_page(site, page, metrics, refs, n_refs, preview) -> str:
            f'<h1>{gradient_title(page["title"], page.get("title_accent"))}</h1>'
            f'<p class="lede">{esc(page["summary"])}</p>')
     crumbs = f'<span>/</span><span aria-current="page">{esc(page["title"])}</span>'
-    return page_shell(site, page["title"], page["summary"], "Frameworks", None, hdr + out, toc, n_refs, preview, crumbs)
+    return page_shell(site, page["title"], page["summary"], "Frameworks" if page["id"] == "frameworks" else "",
+                      None, hdr + out, toc, n_refs, preview, crumbs)
 
 
 def slug(s: str) -> str:
@@ -658,7 +659,7 @@ def build_home(site, mp, metrics, svg, n_refs, preview) -> str:
         items = "".join(f'<li><a href="{t}.html">{esc(metrics[t]["label"])}</a></li>' for t in r["topics"])
         if r["id"] == "lookup":
             items = ('<li><a href="#catalogue">All metrics, by dimension</a></li><li><a href="frameworks.html">'
-                     'Frameworks</a></li><li><a href="glossary.html">Glossary</a></li><li><a href="sources.html">'
+                     'Frameworks</a></li><li><a href="latest.html">What changed this month</a></li><li><a href="glossary.html">Glossary</a></li><li><a href="sources.html">'
                      'Sources</a></li>')
         routes.append(f'<div class="card fade"><div class="tile">{icon(r["icon"], 18)}</div>'
                       f'<h3>{esc(r["title"])}</h3><p>{esc(r["blurb"])}</p><ul>{items}</ul></div>')
