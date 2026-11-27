@@ -27,9 +27,12 @@ published: Pages is off and deploy is manual (D-005). Vishal accepted the conten
 
 ## Next
 
-1. Merge PR #1 and run **Deploy to GitHub Pages** (approved by Vishal 27 Nov 2026).
+1. Published 27 Nov 2026 at https://vishalkhondre.github.io/ai-sdlc-kpis-map/. Next: a human reader test
+   and a second full accuracy pass.
 
 ## Session log
+
+- **2026-11-27** Published: PR #1 merged, Deploy to GitHub Pages run on `main`, live site checked.
 
 - **2026-11-27** Full build: content model, generator rewrite, research batches 1–2, reviews and fixes.
 - **2026-11-27** Vishal confirmed the name "AI SDLC Metrics & KPIs Map"; repository name unchanged.
