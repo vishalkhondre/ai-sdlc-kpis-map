@@ -101,3 +101,10 @@ research digest that are in the source register, and what each changes on the ma
 kept. Cycle time variance and coding time are now common-practice definitions (D-012). The branded
 Speed Score (frameworks section and glossary entry) is dropped; the frameworks page describes
 composite speed scores generically, without weights.
+
+### D-016 · Content and guesses accepted · 2026-11-27
+**Decision.** Vishal reviewed the preview and said it looks good. The reader, reader question,
+headline, tagline, public URL and purpose routes are accepted as they stand, as is the common-practice
+exception (D-012). `content/map.yml` is set to `status: reviewed` and the (provisional) markers are
+removed, so the release build passes. Merging and deploying still wait for his explicit go-ahead, as
+does the question of process notes in the public repo (A9).

@@ -4,10 +4,10 @@
 # Structure source: the nine metric categories found in the 2026-11-27 research, folded into the
 # design system's five band colours (D-008, D-009). Stable IDs: links, pages and checks key on IDs, never labels.
 #
-# status: provisional blocks the release build (GR-3.2). It is cleared when every metric page
-# passes review and every cited source is verified.
+# status: provisional blocks the release build (GR-3.2). Set to reviewed on 2026-11-27 (D-016) after
+# the reviews and Vishal's acceptance.
 
-status: provisional
+status: reviewed
 
 bands:
   - id: outcomes

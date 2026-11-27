@@ -3,9 +3,8 @@
 ## Where it stands (27 Nov 2026)
 
 The full map is built on branch `claude/project-thread-37x2w4` (pull request #1). Nothing is
-published: Pages is off and deploy is manual (D-005). The release build still refuses, by design,
-because `content/map.yml` is `status: provisional` and `content/site.yml` has values marked
-(provisional) awaiting Vishal (GR-3.2).
+published: Pages is off and deploy is manual (D-005). Vishal accepted the content and guesses on
+27 Nov 2026 (D-016) and approved publishing; the release build passes.
 
 - 57 pages: home (overview map, six purpose routes, text route), 47 metric pages, 5 dimension pages,
   frameworks, "What changed in November 2026", glossary (30 terms), sources (51 cited sources with
@@ -20,7 +19,6 @@ because `content/map.yml` is `status: provisional` and `content/site.yml` has va
 
 ## Open issues
 
-- Reader question, audience, headline, tagline, public URL (A7) and the site.yml route set are guesses.
 - Nine metrics rely on the common-practice exception (D-012).
 - Process notes in `project/` mention research tools and Notion (A9).
 - Suggestions not yet applied: relationship notes between overlapping metrics (review wait vs time
@@ -29,8 +27,7 @@ because `content/map.yml` is `status: provisional` and `content/site.yml` has va
 
 ## Next
 
-1. **Vishal:** review the preview and the review package; confirm or change the guesses; then clear
-   `status: provisional` and the (provisional) markers, merge, enable Pages and run the deploy.
+1. Merge PR #1 and run **Deploy to GitHub Pages** (approved by Vishal 27 Nov 2026).
 
 ## Session log
 

@@ -10,6 +10,6 @@ What is assumed true, and what is still open. Close an item by moving it to `DEC
 | A4 | Dark-mode tokens are not designed (design system "Not decided yet"), so the site is light-only. | Open in the design system |
 | A5 | The design system's icon meanings (compass = context …) follow the colour slot, so band 1 uses the compass. A metrics-specific icon set may suit better. | Open, ask Vishal |
 | A6 | Charts will be needed on metric pages; the design system names a separate data palette but does not define it. | Open in the design system |
-| A7 | Reader question, audience and public URL in `GOAL.md` are best guesses. | Open, ask Vishal |
+| A7 | Reader question, audience and public URL in `GOAL.md`. | Accepted by Vishal 2026-11-27 (D-016) |
 | A8 | Agent metrics (task success, intervention, agent pull request share) have no standard definition yet; pages state one definition and list the variants. | Holds; revisit as standards appear |
 | A9 | Process notes in `project/` mention the research tools and Notion. The repository is public; Vishal to decide whether that is acceptable. | Open, ask Vishal |

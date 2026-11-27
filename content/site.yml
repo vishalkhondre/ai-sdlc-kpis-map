@@ -1,11 +1,11 @@
 # Site identity — the single source of truth for site/generate.py.
-# Values marked (provisional) are best guesses awaiting Vishal (see project/GOAL.md, open questions).
+# Reader, headline, tagline, URL and routes accepted by Vishal on 2026-11-27 (D-016).
 
 title: "AI SDLC Metrics & KPIs Map"            # confirmed by Vishal 2026-11-27
 short_title: "Metrics & KPIs Map"
-headline: "What to measure when AI joins software delivery"   # (provisional)
+headline: "What to measure when AI joins software delivery"
 headline_accent: "AI joins"
-tagline: "How to tell whether AI is improving software delivery, on one page."   # (provisional)
+tagline: "How to tell whether AI is improving software delivery, on one page."
 about: >-
   A vendor-neutral reference for measuring the AI SDLC: the software development lifecycle with AI
   agents doing part of the work. One map of five dimensions an enterprise watches, from business
@@ -13,13 +13,13 @@ about: >-
 author: "Vishal Khondre"
 author_url: "https://www.linkedin.com/in/vishalkhondre/"
 repo_url: "https://github.com/vishalkhondre/ai-sdlc-kpis-map"
-site_url: "https://vishalkhondre.github.io/ai-sdlc-kpis-map"   # (provisional) intended public URL
+site_url: "https://vishalkhondre.github.io/ai-sdlc-kpis-map"   # intended public URL
 sister_maps:
   - title: "The AI SDLC Map"
     url: "https://vishalkhondre.github.io/ai-sdlc-map/"
 
 # Purpose routes under the map (SOP step 3, reference map). Each lists topic IDs from map.yml.
-# A topic without a finished page renders as a plain label (GR-3.2). (provisional)
+# A topic without a finished page renders as a plain label (GR-3.2).
 routes:
   - id: understand
     title: "Start with the basics"

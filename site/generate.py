@@ -441,8 +441,8 @@ def topbar(site: dict, current: str) -> str:
 def preview_banner(preview: bool) -> str:
     if not preview:
         return ""
-    return ('<div class="preview-banner" role="note">Review build. Not published. The reader question and '
-            'audience are still marked guesses in the review package.</div>')
+    return ('<div class="preview-banner" role="note">Review build. Not published.'
+            '</div>')
 
 
 def footer(site: dict, n_refs: int) -> str:
