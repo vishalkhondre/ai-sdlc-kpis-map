@@ -487,7 +487,37 @@ def sources_list(ids: list[str], refs: dict) -> str:
     return f'<ol class="sources">{"".join(items)}</ol>'
 
 
-def page_shell(site, title, desc, current, band, body, toc, n_refs, preview, crumbs) -> str:
+REF_PAGES = [("measuring-impact", "How to show AI impact"), ("frameworks", "Frameworks"),
+             ("latest", "What changed in November 2026"), ("glossary", "Glossary"), ("sources", "Sources")]
+ALL_BANDS: list = []
+
+
+def sidenav_band(band, cur: str) -> str:
+    """Left menu for a dimension: its overview, its groups and metrics, then the other dimensions."""
+    def item(href, label, on):
+        return (f'<li><a href="{href}"{" aria-current=\"page\"" if on else ""}>{esc(label)}</a></li>')
+    parts = [f'<div class="side-title">{esc(band["title"])}</div><ul>',
+             item(f'{band["id"]}.html', "Dimension overview", cur == band["id"]), "</ul>"]
+    for g in band["groups"]:
+        parts.append(f'<div class="side-grp">{esc(g["title"].capitalize())}</div><ul>'
+                     + "".join(item(f'{t["id"]}.html', t["label"], cur == t["id"]) for t in g["topics"]) + "</ul>")
+    others = [b for b in ALL_BANDS if b is not band]
+    if others:
+        parts.append('<div class="side-title side-other">Other dimensions</div><ul>'
+                     + "".join(item(f'{b["id"]}.html', b["title"], False) for b in others) + "</ul>")
+    return "".join(parts)
+
+
+def sidenav_ref(cur: str) -> str:
+    return ('<div class="side-title">Reference</div><ul>'
+            + "".join(f'<li><a href="{i}.html"{" aria-current=\"page\"" if i == cur else ""}>{esc(t)}</a></li>'
+                      for i, t in REF_PAGES)
+            + '</ul><div class="side-title side-other">Dimensions</div><ul>'
+            + "".join(f'<li><a href="{b["id"]}.html">{esc(b["title"])}</a></li>' for b in ALL_BANDS) + "</ul>")
+
+
+def page_shell(site, title, desc, current, band, body, toc, n_refs, preview, crumbs, side="") -> str:
+    nav = (f'<nav class="sidenav" aria-label="Section"><div class="sidenav-inner">{side}</div></nav>' if side else "")
     style = f' style="{band_style(band)}"' if band else ""
     aside = (f'<aside class="onpage" aria-label="On this page"><div class="onpage-inner"><div class="onpage-title">'
              f'On this page</div><ul>{toc}</ul></div></aside>') if toc else ""
@@ -495,7 +525,8 @@ def page_shell(site, title, desc, current, band, body, toc, n_refs, preview, cru
 <div class="progress" aria-hidden="true"><span></span></div>
 {topbar(site, current)}{preview_banner(preview)}
 <main id="content" class="topic-main"{style}>
-<div class="wrap topic-grid">
+<div class="wrap topic-grid{' has-side' if side else ''}">
+{nav}
 <article class="prose">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">{icon("map", 15)}{esc(site["short_title"])}</a>{crumbs}</nav>
 {body}
@@ -567,7 +598,8 @@ def render_metric(site, m, metrics, refs, n_refs, preview) -> str:
 {h2("Sources", "sources")}{sources_list(srcs, refs)}"""
     crumbs = (f'<span>/</span><a href="{band["id"]}.html">{esc(band["title"])}</a>'
               f'<span>/</span><span aria-current="page">{esc(m["label"])}</span>')
-    return page_shell(site, m["label"], m["summary"], "Metrics", band, body, toc_of(sec), n_refs, preview, crumbs)
+    return page_shell(site, m["label"], m["summary"], "Metrics", band, body, toc_of(sec), n_refs, preview, crumbs,
+                      sidenav_band(band, m["id"]))
 
 
 # --------------------------------------------------------------------------- dimension pages
@@ -589,7 +621,8 @@ def render_dimension(site, n, band, n_refs, preview) -> str:
 {h2("How these metrics balance", "balance")}<p>{esc(band["balance"])}</p>
 {h2("Who uses it", "who")}<p>{esc(band["who"])}</p>"""
     crumbs = f'<span>/</span><span aria-current="page">{esc(band["title"])}</span>'
-    return page_shell(site, band["title"], band["summary"], "Metrics", band, body, toc_of(sec), n_refs, preview, crumbs)
+    return page_shell(site, band["title"], band["summary"], "Metrics", band, body, toc_of(sec), n_refs, preview, crumbs,
+                      sidenav_band(band, band["id"]))
 
 
 # --------------------------------------------------------------------------- reference pages
@@ -614,7 +647,7 @@ def render_markdown_page(site, page, metrics, refs, n_refs, preview) -> str:
            f'<p class="lede">{esc(page["summary"])}</p>')
     crumbs = f'<span>/</span><span aria-current="page">{esc(page["title"])}</span>'
     return page_shell(site, page["title"], page["summary"], "Frameworks" if page["id"] == "frameworks" else "",
-                      None, hdr + out, toc, n_refs, preview, crumbs)
+                      None, hdr + out, toc, n_refs, preview, crumbs, sidenav_ref(page["id"]))
 
 
 def slug(s: str) -> str:
@@ -635,7 +668,7 @@ def render_glossary(site, glossary, refs, n_refs, preview) -> str:
             f'introduces are marked coined.</p><dl class="glossary">{"".join(items)}</dl>')
     crumbs = '<span>/</span><span aria-current="page">Glossary</span>'
     return page_shell(site, "Glossary", "Terms used on the AI SDLC Metrics & KPIs Map, with their originators.",
-                      "Glossary", None, body, "", n_refs, preview, crumbs)
+                      "Glossary", None, body, "", n_refs, preview, crumbs, sidenav_ref("glossary"))
 
 
 def render_sources(site, refs, metrics, pages, n_refs, preview) -> str:
@@ -667,7 +700,7 @@ def render_sources(site, refs, metrics, pages, n_refs, preview) -> str:
             f'for those claims only. Sources that could not be opened are not cited.</p>' + "".join(rows))
     crumbs = '<span>/</span><span aria-current="page">Sources</span>'
     return page_shell(site, "Sources", "The source register for the AI SDLC Metrics & KPIs Map.", "Sources", None,
-                      body, "", n_refs, preview, crumbs)
+                      body, "", n_refs, preview, crumbs, sidenav_ref("sources"))
 
 
 # --------------------------------------------------------------------------- home page
@@ -752,6 +785,7 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
 
     site, mp, metrics, refs, glossary, pages, errs = load_content()
+    ALL_BANDS[:] = mp["bands"]
     errs += check(site, mp, metrics, refs, glossary, pages, release=not a.preview)
     if errs:
         print(("Preview" if a.preview else "Release") + " build refused:\n  - " + "\n  - ".join(errs),
