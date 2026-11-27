@@ -110,7 +110,7 @@
   definition: Wasted spend is paid capacity that produced no use, such as seats with no activity in the period.
     Optimisable spend is use that could have cost less, such as tasks sent to a premium model that a cheaper model
     handles as well.
-  formula: (unused seat cost + avoidable premium-model cost) ÷ total AI spend
+  formula: 'Wasted: unused seat cost ÷ total AI spend. Optimisable (an estimate, reported separately): avoidable premium-model cost ÷ total AI spend'
   unit: '% of AI spend'
   direction: Lower is better.
   levels:

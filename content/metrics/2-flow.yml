@@ -7,8 +7,8 @@
   origin: DORA (one of its five software delivery metrics).
   definition: The number of deployments to production over a given period, or the time between deployments (DORA).
     DORA counts it per application or service.
-  formula: successful production deployments ÷ period (optionally ÷ active repositories)
-  unit: deployments per day or week
+  formula: successful production deployments of a service ÷ period
+  unit: deployments per service per day or week
   direction: Higher is better.
   levels:
   - team
@@ -114,7 +114,7 @@
   group: speed
   summary: How long a pull request takes from first commit to merge.
   origin: Pull request analytics practice.
-  definition: The elapsed time from the first commit on a branch, or from the pull request opening, to its merge.
+  definition: The elapsed time from the first commit on a branch to the merge of its pull request. Some tools start the clock when the pull request opens instead; report that variant under its own name.
     Tools split it into coding, pickup, review and merge stages.
   formula: median( merge time − first commit time ) for pull requests merged in period
   unit: hours
@@ -147,12 +147,12 @@
   sources:
   - arxiv-1mg
 - id: cycle-time-variance
-  label: Cycle time variance
+  label: Cycle time spread
   group: speed
   summary: 'How predictable cycle time is: the gap between the 75th percentile and the median.'
   origin: 'Common practice: a percentile spread of pull request cycle time.'
   definition: The difference between the 75th percentile and the median of pull request cycle time in a period.
-    A small gap means most work moves at a similar, predictable pace.
+    A small gap means most work moves at a similar, predictable pace. It is a percentile spread, not statistical variance.
   formula: P75( cycle time ) − P50( cycle time )
   unit: hours
   direction: Lower is better.

@@ -145,7 +145,7 @@
   origin: Common practice in engineering management; DX tracks time to tenth pull request.
   definition: The time from a new engineer's start date to an agreed milestone of productive contribution, such
     as their tenth merged pull request.
-  formula: median( date of milestone − start date ) for engineers hired in period
+  formula: median( date of milestone − start date ) for a hiring cohort old enough to reach it, reported with the share who have reached it
   unit: days
   direction: Lower is better.
   levels:

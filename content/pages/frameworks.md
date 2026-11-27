@@ -39,8 +39,10 @@ several AI measures used on the map, such as AI-authored code share and the inno
 
 The Flow Framework, introduced by Mik Kersten in *Project to Product* (2018), measures how business
 value moves through delivery, with flow velocity, flow time, flow efficiency, flow load and flow
-distribution. It supplies the flow group on the map: [flow efficiency](flow-efficiency.html) and
-[work in progress](work-in-progress.html) (its flow load).
+distribution. The map uses two of them directly: [flow efficiency](flow-efficiency.html) and
+[work in progress](work-in-progress.html) (its flow load). Flow velocity and flow time count business work
+items end to end; the map's pull request and deployment metrics cover only part of that path, so add
+them if coding gets faster but delivery does not.
 
 ## AWS AI-DLC
 

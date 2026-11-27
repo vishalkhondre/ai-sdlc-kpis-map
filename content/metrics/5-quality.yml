@@ -7,7 +7,7 @@
   origin: DORA (one of its five software delivery metrics).
   definition: The ratio of deployments that require immediate intervention following a deployment, such as a rollback
     or hotfix (DORA). DORA calls it change fail rate.
-  formula: deployments causing a production failure ÷ all production deployments
+  formula: production deployments that required immediate intervention (rollback, hotfix or fix forward) ÷ all production deployments
   unit: '%'
   direction: Lower is better.
   levels:
@@ -46,8 +46,8 @@
   origin: DORA (one of its five software delivery metrics, which DORA groups with throughput; formerly time to restore
     service).
   definition: The time it takes to recover from a deployment that fails and requires immediate intervention (DORA),
-    measured from detection to service being restored by rollback, fix forward or other remedy.
-  formula: median( service restored time − failure detected time ) for failed deployments
+    measured from the failed deployment to service being restored by rollback, fix forward or other remedy.
+  formula: median( service restored time − failed deployment time ) for failed deployments (label a detection-based clock as such)
   unit: hours
   direction: Lower is better.
   levels:
@@ -307,8 +307,8 @@
   origin: Application security practice; risk categories from the OWASP Top 10 for LLM Applications.
   definition: Security vulnerabilities and exposed secrets found in AI-generated or AI-assisted changes, divided
     by AI changes merged (or per thousand lines), compared with human changes.
-  formula: security findings in AI changes ÷ AI changes merged (compare with human changes)
-  unit: findings per change or per KLOC
+  formula: security findings in merged AI changes ÷ AI changes merged (compare with human changes; a per-KLOC variant divides by thousands of lines merged)
+  unit: findings per merged change
   direction: Lower is better.
   levels:
   - team
