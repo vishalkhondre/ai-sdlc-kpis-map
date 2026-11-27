@@ -355,6 +355,9 @@
   - text: Jellyfish reported that the median company auto-merges 0.7% of pull requests with no human review, and
       lead adopters about 10% (AI Engineering Trends, November 2026 edition; 1,300+ companies).
     source: jellyfish-ai-trends
+  - text: An empirical study of open-source pull requests found that those reviewed only by code review agents merged
+      45.20% of the time, 23.17 points below pull requests reviewed only by people (68.37%) (Chowdhury et al., 2026).
+    source: arxiv-chowdhury-cra
   pitfalls:
   - text: Approvals given without reading.
     balance: supervisory-burden

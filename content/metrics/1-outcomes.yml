@@ -31,11 +31,17 @@
       and $29.11 in October 2026, and describes these values as a floor. Spend per engineer is the simpler cousin
       of that measure.
     source: atlassian-ai-sdlc-index
+  - text: A study of 404 engineers at JetBrains found that, for the same engineer, doubling token spend was associated
+      with about 10% more commits, and work metrics explained only 38% of the differences in spend between engineers.
+      The authors recommend token spend at most for resource accounting (2026).
+    source: arxiv-agarwal-tokens
   pitfalls:
   - text: Reading a rise as waste when it reflects healthy adoption.
     balance: ai-spend-per-output
   - text: Missing spend bought on personal or team cards, which hides real cost and real tool use.
     balance: shadow-ai-usage
+  - text: Treating spend, or token use, as a measure of productivity.
+    balance: ai-spend-per-output
   related:
   - ai-spend-per-output
   - wasted-ai-spend

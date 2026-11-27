@@ -668,3 +668,38 @@
   status: verified
   claims:
   - A dataset of real coding-agent invocations in CI workflow histories.
+
+# Research batch 3, merged 2026-11-27.
+- id: arxiv-agarwal-tokens
+  title: The AI Era's Lines of Code? A Case Study on What an Engineer's Token Spend Measures
+  org: arXiv 2611.13396; Agarwal, Lvova, Sergeyuk, Serova, Bryksin, Zimmermann, Vasilescu
+  url: https://arxiv.org/abs/2611.13396
+  published: '2026-11-10'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - 'Commits of 404 engineers at JetBrains: within an engineer, doubling spend was associated with about 10% more
+    commits.'
+  - Work metrics explain 38% of between-engineer and 13% of within-engineer weekly spend variation.
+  - Recommends token spend at most for resource accounting; evaluate agent work with evidence about tasks and outcomes.
+
+- id: arxiv-vella-blincoe
+  title: 'The Impact of AI Coding Assistants on Software Engineering: A Longitudinal Study'
+  org: arXiv 2605.23135; Annie Vella, Kelly Blincoe
+  url: https://arxiv.org/abs/2605.23135
+  published: 2026-05-25 (v2 2026-11-05)
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - Matched longitudinal cohort of 95; 82% report spending less time writing code.
+  - Proposes 'supervisory engineering work'; identifies a productivity-experience paradox.
+
+- id: arxiv-chowdhury-cra
+  title: 'From Industry Claims to Empirical Reality: An Empirical Study of Code Review Agents in Pull Requests'
+  org: arXiv 2604.03196; Chowdhury, Banik, Ferdous, Shamim
+  url: https://arxiv.org/abs/2604.03196
+  published: '2026-04-03'
+  accessed: '2026-11-27'
+  status: verified
+  claims:
+  - CRA-only PRs achieve a 45.20% merge rate, 23.17 points lower than human-only PRs (68.37%).

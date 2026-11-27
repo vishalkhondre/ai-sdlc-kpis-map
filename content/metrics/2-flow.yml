@@ -96,8 +96,8 @@
     it with deployment frequency to judge throughput.
   measure: Join the commit timestamp from version control with the production deployment timestamp from the pipeline
     by change identifier. Report the median and the 75th percentile so a long tail shows.
-  ai: AI shortens the time spent writing a change, but review and test queues can grow. Read lead time with pull request
-    cycle time and time to first review to see where the time went.
+  ai: AI shortens the time spent writing a change, but review and test queues can grow. Read lead time with pull
+    request cycle time and time to first review to see where the time went.
   findings: []
   pitfalls:
   - text: Excluding changes that waited for a release window.

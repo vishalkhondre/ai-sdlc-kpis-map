@@ -8,9 +8,9 @@ because `content/map.yml` is `status: provisional` and `content/site.yml` has va
 (provisional) awaiting Vishal (GR-3.2).
 
 - 57 pages: home (overview map, six purpose routes, text route), 47 metric pages, 5 dimension pages,
-  frameworks, "What changed in November 2026", glossary (30 terms), sources (48 cited sources with
+  frameworks, "What changed in November 2026", glossary (30 terms), sources (51 cited sources with
   status and confirmed claims).
-- Research batches 1 and 2 merged (D-009 to D-011, D-014).
+- Research batches 1 to 3 merged (D-009 to D-011, D-014).
 - Reviews run 27 Nov 2026, each by a fresh-context reviewer with no part in writing the content:
   accuracy (31 findings, 8 source URLs spot-checked) and editorial plus confidentiality (23 findings).
   Must-fix findings are fixed; see the review package in the pull request. Independent reader test:

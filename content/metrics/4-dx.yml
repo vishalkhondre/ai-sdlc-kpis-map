@@ -92,6 +92,9 @@
   - text: Interviews (24) and a survey (2,590) at one large multinational found that AI-assisted authoring raises
       reviewer burden through more and larger pull requests.
     source: arxiv-newman-levelup
+  - text: In a matched longitudinal cohort of 95 engineers, 82% reported spending less time writing code; the authors
+      name the shift 'supervisory engineering work' (Vella and Blincoe, 2026).
+    source: arxiv-vella-blincoe
   pitfalls:
   - text: Cutting review time by reviewing less.
     balance: unreviewed-merges
