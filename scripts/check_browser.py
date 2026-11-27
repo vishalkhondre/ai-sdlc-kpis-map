@@ -25,6 +25,11 @@ with sync_playwright() as p:
     pg.goto((SITE / "index.html").as_uri())
     link = pg.locator("a.maplink").first
     if link.count():
+        # Let the figure finish its fade-up first: hovering mid-transition moves the node out from
+        # under the pointer, which fires mouseleave and hides the tooltip.
+        link.scroll_into_view_if_needed()
+        pg.wait_for_function("document.querySelector('figure.diagram').classList.contains('in')")
+        pg.wait_for_timeout(700)
         link.hover()
         pg.wait_for_timeout(200)
         check(pg.locator(".tip.on").count() == 1, "map hover shows one tooltip")
