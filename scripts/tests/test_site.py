@@ -73,9 +73,17 @@ class SiteTests(unittest.TestCase):
                 if target.endswith(".svg"):
                     self.assertTrue((self.out / target).exists(), f"{name}: {h}")
                     continue
+                if target.endswith("/"):  # example dashboard (D-018)
+                    self.assertTrue((self.out / target / "index.html").exists(), f"{name}: {h}")
+                    continue
                 self.assertIn(target, parsed, f"{name}: broken link {h}")
                 if frag:
                     self.assertIn(frag, parsed[target].ids, f"{name}: missing anchor {h}")
+
+    def test_example_dashboard_is_marked_as_sample_data(self):  # D-018, GR-2.3
+        html = (self.out / "dashboard" / "index.html").read_text()
+        self.assertIn("Sample data, not real benchmarks", html)
+        self.assertNotRegex(html.lower(), r"orgsignals|signalsai")
 
     def test_only_pages_that_exist_are_linked_on_map(self):  # GR-3.2
         html = (self.out / "index.html").read_text()

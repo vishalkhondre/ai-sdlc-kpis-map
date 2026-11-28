@@ -116,3 +116,15 @@ them ("yes add those"). Escaped defect rate goes under quality / stability, as c
 with the Faros AI and Jellyfish bug figures. Agent cost per accepted task goes under AI in the loop / agents,
 defined from Sonar's cost per accepted change and Ganglani's effective cost per success. The map now has
 49 metrics.
+
+## D-018 Example dashboard on its own link (28 Nov 2026)
+
+**Decision.** The repository serves an example dashboard at
+https://vishalkhondre.github.io/ai-sdlc-kpis-map/dashboard/ (source `site/dashboard/index.html`, one
+self-contained page copied as is by the generator). Vishal said "same repo with its own link" and asked for the
+link in the top navigation (28 Nov 2026), so every page's top tabs end with "Dashboard". It shows how the 49 metrics could look in use.
+ChatGPT built it; Claude and Gemini reviewed it, and version 2 fixed the review findings. All numbers are
+made up and every view says "Sample data, not real benchmarks". Metric text is copied word for word from
+`content/metrics/`.
+**Why.** He wants people to be able to picture the metrics in a dashboard, on its own page rather than inside the map.
+**Note.** The dashboard's metric text is a copy. If a metric's definition changes, edit the dashboard too.
