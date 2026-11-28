@@ -32,6 +32,8 @@ D-005). Vishal accepted the content and guesses on
 
 ## Session log
 
+- **2026-11-28** Added the example dashboard on its own link, `dashboard/`, not linked from the map (D-018).
+
 - **2026-11-27** Published: PR #1 merged, Deploy to GitHub Pages run on `main`, live site checked.
 
 - **2026-11-27** Full build: content model, generator rewrite, research batches 1–2, reviews and fixes.

@@ -799,6 +799,10 @@ def main(argv=None) -> int:
     for f in ASSETS.iterdir():
         shutil.copy2(f, out / "assets" / f.name)
     shutil.copy2(ROOT / "site" / "favicon.svg", out / "favicon.svg")
+    # Example dashboard at dashboard/: one self-contained page with made-up sample data, served on its
+    # own link and deliberately not linked from the map (D-018).
+    (out / "dashboard").mkdir()
+    shutil.copy2(ROOT / "site" / "dashboard" / "index.html", out / "dashboard" / "index.html")
     cited = {s for m in metrics.values() for s in page_sources(m)} | {
         s for p in pages.values() for s in p.get("sources") or []}
     n_refs = len(cited)
