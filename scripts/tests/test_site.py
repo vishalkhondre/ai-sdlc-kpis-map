@@ -73,6 +73,9 @@ class SiteTests(unittest.TestCase):
                 if target.endswith(".svg"):
                     self.assertTrue((self.out / target).exists(), f"{name}: {h}")
                     continue
+                if target.endswith("/"):  # example dashboard (D-018)
+                    self.assertTrue((self.out / target / "index.html").exists(), f"{name}: {h}")
+                    continue
                 self.assertIn(target, parsed, f"{name}: broken link {h}")
                 if frag:
                     self.assertIn(frag, parsed[target].ids, f"{name}: missing anchor {h}")

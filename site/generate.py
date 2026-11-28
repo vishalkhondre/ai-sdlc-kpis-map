@@ -414,7 +414,8 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '&family=JetBrains+Mono:wght@400;500;600&display=swap">')
 
 TABS = [("Map", "index.html#map"), ("Metrics", "index.html#catalogue"), ("Frameworks", "frameworks.html"),
-        ("Glossary", "glossary.html"), ("Sources", "sources.html")]
+        ("Glossary", "glossary.html"), ("Sources", "sources.html"),
+        ("Dashboard", "dashboard/")]
 
 
 def head(title: str, desc: str) -> str:
@@ -800,7 +801,7 @@ def main(argv=None) -> int:
         shutil.copy2(f, out / "assets" / f.name)
     shutil.copy2(ROOT / "site" / "favicon.svg", out / "favicon.svg")
     # Example dashboard at dashboard/: one self-contained page with made-up sample data, served on its
-    # own link and deliberately not linked from the map (D-018).
+    # own link and linked from the top tabs (D-018).
     (out / "dashboard").mkdir()
     shutil.copy2(ROOT / "site" / "dashboard" / "index.html", out / "dashboard" / "index.html")
     cited = {s for m in metrics.values() for s in page_sources(m)} | {
